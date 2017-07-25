@@ -1,0 +1,1 @@
+GIT com arquivos e scripts de configuração da minha instalação do Slackware Linux

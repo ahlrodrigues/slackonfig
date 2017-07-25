@@ -1,0 +1,15 @@
+wine 
+vlc
+npapi-vlc
+libreoffice-5*
+libreoffice-dict-pt-BR
+libreoffice-kde-integration 
+libreoffice-l10n-pt_BR
+libreoffice-sdkdoc
+openjre
+freerdp
+flashplayer-plugin
+chromium-5
+chromium-pepperflash-plugin
+chromium-widevine-plugin
+dropbox

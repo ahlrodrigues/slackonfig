@@ -1,0 +1,20 @@
+<?
+function uptime() {
+  $ut = strtok(exec("cat /proc/uptime"), ".");
+  $d = sprintf("%2d", ($ut/(3600*24)));
+  $h = sprintf("%2d", (($ut%(3600*24))/3600));
+  $m = sprintf("%2d", ($ut%(3600*24)%3600)/60);
+  $s = sprintf("%2d", ($ut%(3600*24)%3600)%60 );
+  
+  print "Servidor ligado há: ".$d." dia(s), ".$h." hora(s), ".$m." minuto(s), ".$s." segundo(s)";
+}
+?>
+
+<pre>
+<b>Tempo Ligado (Uptime):</b>
+<?php uptime(); ?>
+<br><br>
+<b>Informações do Sistema:</b>
+<?php system("uname -a"); ?>
+
+</pre>
