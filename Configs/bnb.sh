@@ -45,7 +45,7 @@ echo
 echo
 echo
 
-if [ -e "$arquivos2" ]; then
+if [ "$arquivos2" != "" ]; then
 echo $arquivos2
 echo
 echo
