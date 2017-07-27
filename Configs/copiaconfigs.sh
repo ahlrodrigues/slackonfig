@@ -251,6 +251,7 @@ echo
 echo -e "\e[ \t\e[1;35;40m Configurando local pt-BR \e[0m"
 echo
 sed -i "s/^/#/g" /etc/profile.d/lang.sh
+
 echo "#export Português Brasileiro" >> /etc/profile.d/lang.sh
 echo "export LINGUAS=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
 echo "export LANGUAGE=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
