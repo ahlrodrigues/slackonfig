@@ -125,7 +125,18 @@ echo
 wget -e robots=0 -A .txz -r -nd http://www.slakfinder.org/slackpkg+/pkg/
 installpkg slackpkg+*
 rm slackpkg+*
-cp mirrors /etc/slackpkg/
+
+echo
+echo
+echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg mirrors \e[0m"
+echo
+sed -i "s|^file://path/to/some/diretory|file://mnt/sda3/Slackware/slackware64-current/|g" /etc/slackpkg/mirrors
+sleep 3
+
+echo
+echo
+echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkgplus \e[0m"
+echo
 cp slackpkgplus.conf /etc/slackpkg/
 sleep 3
 
