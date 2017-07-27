@@ -113,9 +113,9 @@ sleep 3
 
 echo
 echo
-echo -e "\e[ \t\e[1;35;40m inittab => Configuracao de init 4 \e[0m"
+echo -e "\e[ \t\e[1;35;40m Habilitando o init 4 \e[0m"
 echo
-cp inittab /etc/
+sed -i "s/id:3/id:4/g" /etc/inittab
 sleep 3
 
 echo
@@ -239,7 +239,16 @@ echo
 echo
 echo -e "\e[ \t\e[1;35;40m Configurando local pt-BR \e[0m"
 echo
-cp lang.* /etc/profile.d/
+sed -i "s/^/#/g" /etc/profile.d/lang.sh
+echo "#export Português Brasileiro" >> /etc/profile.d/lang.sh
+echo "export LINGUAS=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
+echo "export LANGUAGE=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
+echo "export LANG=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
+echo "export LC_ALL=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
+echo "export LESSCHARSET=latin1" >> /etc/profile.d/lang.sh
+
+sed -i "s/^/#/g" /etc/profile.d/lang.csh
+cat /etc/profile.d/lang.sh | grep ^export | sed -e "s/export/setenv/g" -e "s/\=/\ /g" >> /etc/profile.d/lang.csh
 sleep 3
 
 # Comando para comentar todas as linhas de um arquivo
