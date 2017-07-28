@@ -4,19 +4,20 @@ ping -q -c5 google.com > /dev/null
  
 if [ $? -eq 0 ]
 then
-echo
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
-echo
-echo
-echo
+  
+  echo
+  echo
+  echo
+  echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
+  echo
+  echo
+  echo
 
-echo -e "\e[ \t\e[1;35;40m Dando permissao de execucao para todos os arquivos... \e[0m"
-echo 
-chmod +x *.sh
-echo
-echo
+    echo -e "\e[ \t\e[1;35;40m Dando permissao de execucao para todos os arquivos... \e[0m"
+    echo 
+    chmod +x *.sh
+    echo
+    echo
 
 
 echo
@@ -76,23 +77,39 @@ echo
 echo
 echo -e "\e[ \t\e[1;35;40m ntp.conf => Configuracoes do NTP \e[0m"
 echo
-cp ntp.conf /etc/
+sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
+chmod +x /etc/rc.d/rc.ntpd
 /etc/rc.d/rc.ntpd restart
 sleep 3
 
 echo
 echo
-echo -e "\e[ \t\e[1;35;40m ntp.conf => Configuracoes do NTP \e[0m"
+echo -e "\e[ \t\e[1;35;40m Configuracoes do CUPS \e[0m"
 echo
-cp ntp.conf /etc/
+chmod +x /etc/rc.d/rc.cups
 /etc/rc.d/rc.cups restart
 sleep 3
 
 echo
 echo
-echo -e "\e[ \t\e[1;35;40m rc.local_shutdown => Configurações de shutdown \e[0m"
+echo -e "\e[ \t\e[1;35;40m Configuracoes do Samba \e[0m"
 echo
-cp rc.local_shutdown /etc/rc.d/
+sed -i "s/MYGROUP/WORKGROUP/g" /etc/samba/smb.conf-sample
+mv /etc/samba/smb.conf-sample /etc/samba/smb.conf
+chmod +x /etc/rc.d/rc.samba
+/etc/rc.d/rc.samba restart
+sleep 3
+
+echo
+echo
+echo -e "\e[ \t\e[1;35;40m Configurações de rc.local_shutdown \e[0m"
+echo
+touch /etc/rc.d/rc.local_shutdown
+#echo "#!/bin/sh" >> /etc/rc.d/rc.local_shutdown
+echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
+echo "cd /var/tmp && rm -rf * 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
+echo "/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;" >> /etc/rc.d/rc.local_shutdown
+chmod +x /etc/rc.d/rc.local_shutdown
 sleep 3
 
 echo
@@ -252,7 +269,8 @@ echo
 echo
 echo -e "\e[ \t\e[1;35;40m Configurando local pt-BR \e[0m"
 echo
-sed -i "s/^/#/g" /etc/profile.d/lang.sh
+
+sed -i "s/^#*/#/" /etc/profile.d/lang.sh
 
 echo "#export Português Brasileiro" >> /etc/profile.d/lang.sh
 echo "export LINGUAS=pt_BR.UTF-8" >> /etc/profile.d/lang.sh

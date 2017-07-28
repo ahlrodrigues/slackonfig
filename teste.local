@@ -1,0 +1,2 @@
+cd /tmp && rm -rf -- *[!ahlr]* 2>/dev/null
+\#\!/bin/sh

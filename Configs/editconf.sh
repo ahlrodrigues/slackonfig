@@ -25,4 +25,16 @@ sed -i "/End of/i\export Português Brasileiro\n" lang.sh
 
 
 
-sed -i "s/MYGROUP/workgroup/g" /etc/samba/smb.conf-sample (Como renomear arquivo?)
+sed -i "s/MYGROUP/WORKGROUP/g" /etc/samba/smb.conf-sample (Como renomear arquivo?)
+
+
+
+
+echo "if [ -x /etc/rc.d/rc.teamviewerd ]; then" >> /etc/rc.d/rc.local
+echo       "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
+echo "fi" >> /etc/rc.d/rc.local
+
+
+
+
+touch /etc/rc.d/rc.local_shutdown
