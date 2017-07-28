@@ -5,34 +5,28 @@ ping -q -c5 google.com > /dev/null
 if [ $? -eq 0 ]
 then
   
-  echo
-  echo
-  echo
-  echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
-  echo
-  echo
-  echo
-
-    echo -e "\e[ \t\e[1;35;40m Dando permissao de execucao para todos os arquivos... \e[0m"
-    echo 
-    chmod +x *.sh
-    echo
-    echo
+echo
+echo
+echo
+echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
+echo
+echo
+echo
 
 
-echo
-echo -e "\e[ \t\e[1;33;40m Copiando todos os scripts para as devidas pastas e executando processos de Configuracoes \e[0m"
-echo                                                                                       
+echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
 echo
 echo
 echo
+
 echo -e "\e[ \t\e[1;35;40m bnb.sh => Busca arquivos de retorno da BNB \e[0m"
-echo
 cp bnb.sh /usr/local/bin/
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
+
 echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
 echo
 cp cleanret.sh /etc/cron.daily/
@@ -105,7 +99,7 @@ echo
 echo -e "\e[ \t\e[1;35;40m Configurações de rc.local_shutdown \e[0m"
 echo
 touch /etc/rc.d/rc.local_shutdown
-#echo "#!/bin/sh" >> /etc/rc.d/rc.local_shutdown
+echo "#!"$SHELL >> /etc/rc.d/rc.local_shutdown
 echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
 echo "cd /var/tmp && rm -rf * 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
 echo "/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;" >> /etc/rc.d/rc.local_shutdown
@@ -219,9 +213,8 @@ sleep 3
 
 echo
 echo
-#echo -e "\e[ \t\e[1;35;40m boinc.sh => link para inicialização do BOIC \e[0m"
-#echo
-#cp boinc.sh /usr/local/bin/
+echo -e "\e[ \t\e[1;35;40m boinc.sh => link para inicialização do BOIC \e[0m"
+ln -s /mnt/sda3/BOINC/boinc /usr/local/bin/boinc
 sleep 3
 
 echo
