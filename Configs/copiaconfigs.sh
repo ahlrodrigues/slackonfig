@@ -99,7 +99,9 @@ echo
 echo
 echo -e "\e[ \t\e[1;35;40m rc.local => Configurações do rc.local \e[0m"
 echo
-cp rc.local /etc/rc.d/
+echo "if [ -x /etc/rc.d/rc.teamviewerd ]; then" >> /etc/rc.d/rc.local
+echo       "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
+echo "fi" >> /etc/rc.d/rc.local
 sleep 3
 
 echo

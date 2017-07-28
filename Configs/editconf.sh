@@ -21,3 +21,8 @@ sed -i "s|^file://mnt/sda3/Slackware/slackware64-current/|file://path/to/some/di
 
 
 sed -i "/End of/i\export Português Brasileiro\n" lang.sh
+
+
+
+
+sed -i "s/MYGROUP/workgroup/g" /etc/samba/smb.conf-sample (Como renomear arquivo?)
