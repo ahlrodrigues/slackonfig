@@ -1,8 +1,0 @@
-#!/bin/sh
-#
-cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null
-
-cd /var/tmp && rm -rf * 2>/dev/null
-
-/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;
-

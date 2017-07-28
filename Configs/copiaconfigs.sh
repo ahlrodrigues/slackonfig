@@ -6,9 +6,6 @@ ping -q -c5 google.com > /dev/null
  
 if [ $? -eq 0 ]; then
   
-echo
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
 echo
 echo
@@ -26,7 +23,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
+echo -e "\e[ \t\e[1;35;40m Mover os arquivos de retorno da caixa \e[0m"
 touch /etc/cron.daily/cleanret.sh
 echo "#!"$SHELL >> /etc/cron.daily/cleanret.sh
 echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
@@ -47,7 +44,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
+echo -e "\e[ \t\e[1;35;40m Mover os arquivos de retorno do bnb \e[0m"
 touch /etc/cron.daily/cleansai.sh
 echo "#Movendo arquivos de retorno do BNB" >> /etc/cron.daily/cleansai.sh
 echo "pasta_origem=/home/ahlr/.wine/drive_c/skyline/inbox" >> /etc/cron.daily/cleansai.sh
@@ -68,34 +65,34 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m ntp.conf => Configuracoes do NTP \e[0m"
+echo -e "\e[ \t\e[1;35;40m Configuracoes do NTP \e[0m"
 sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
 chmod +x /etc/rc.d/rc.ntpd
 /etc/rc.d/rc.ntpd restart
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m Configuracoes do CUPS \e[0m"
-echo
 chmod +x /etc/rc.d/rc.cups
 /etc/rc.d/rc.cups restart
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m Configuracoes do Samba \e[0m"
-echo
 sed -i "s/MYGROUP/WORKGROUP/g" /etc/samba/smb.conf-sample
 mv /etc/samba/smb.conf-sample /etc/samba/smb.conf
 chmod +x /etc/rc.d/rc.samba
 /etc/rc.d/rc.samba restart
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m Configurações de rc.local_shutdown \e[0m"
-echo
+echo -e "\e[ \t\e[1;35;40m Configuracoes de rc.local_shutdown \e[0m"
 touch /etc/rc.d/rc.local_shutdown
 echo "#!"$SHELL >> /etc/rc.d/rc.local_shutdown
 echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
@@ -107,59 +104,59 @@ echo "find /tmp -type d -empty -mtime +37 -exec /bin/rmdir {} \;" >> /etc/rc.d/r
 echo "find /tmp -type f -mtime +37 -exec rm -rf {} \; " >> /etc/rc.d/rc.local_shutdown
 chmod +x /etc/rc.d/rc.local_shutdown
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m rc.local => Configurações do rc.local \e[0m"
-echo
+echo -e "\e[ \t\e[1;35;40m Configurações do rc.local \e[0m"
 echo "if [ -x /etc/rc.d/rc.teamviewerd ]; then" >> /etc/rc.d/rc.local
 echo       "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
 echo "fi" >> /etc/rc.d/rc.local
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m mirror-slackware => Administracao dos mirros locais \e[0m"
-echo
 cp mirror-slackware32-current.sh /usr/local/bin/
 cp mirror-slackware64-current.sh /usr/local/bin/
 #cp mirror-slackware-live.sh /usr/local/bin/
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m Habilitando o init 4 \e[0m"
-echo
 sed -i "s/id:3/id:4/g" /etc/inittab
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg e slackpkgplus \e[0m"
-echo
 wget -e robots=0 -A .txz -r -nd http://www.slakfinder.org/slackpkg+/pkg/
 installpkg slackpkg+*
 rm slackpkg+*
-
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg mirrors \e[0m"
-echo
 sed -i "s|^file://path/to/some/diretory|file://mnt/sda3/Slackware/slackware64-current/|g" /etc/slackpkg/mirrors
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkgplus \e[0m"
-echo
-cp slackpkgplus.conf /etc/slackpkg/
+sed -i "s|^# Slackware|# Slackware x86_64|g" /etc/slackpkg/slackpkgplus.conf
+sed -i "/REPOPLUS=(/ c\REPOPLUS=( slackpkgplus restricted alienbob multilib )" /etc/slackpkg/slackpkgplus.conf
+sed -i "/# Slackware/ c\MIRRORPLUS[\'alienbob\']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" /etc/slackpkg/slackpkgplus.conf
+sed -i "/# Slackware/ a\MIRRORPLUS['alienbob\']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" /etc/slackpkg/slackpkgplus.conf
+sed -i "/# Slackware/ a\MIRRORPLUS[\'restricted\']=http://taper.alienbase.nl/mirrors/people/alien/restricted_sbrepos/current/x86_64/" /etc/slackpkg/slackpkgplus.conf
+sed -i "/# Slackware/ a\MIRRORPLUS[\'multilib\']=http://taper.alienbase.nl/mirrors/people/alien/multilib/current/" /etc/slackpkg/slackpkgplus.conf
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m slackpkg => Aplicacao do layer multilib \e[0m"
-echo
-
 slackpkg update gpg
 slackpkg update
 slackpkg upgrade multilib
@@ -176,17 +173,17 @@ echo
 echo
 echo -e "\e[ \t\e[1;35;40m Instalacao do Dropbox \e[0m"
 echo
-konsole -e dropbox start -i
-konsole -e dropbox autostart y
+dropbox start -i
+dropbox autostart y
 sleep 3
 
 echo
 echo
 echo -e "\e[ \t\e[1;35;40m Instalacao do Skyline \e[0m"
 echo
-konsole -e wine /home/ahlr/Dropbox/NET4YOU/NET4YOU/Packages/Skyline.exe
+wine /home/ahlr/Dropbox/NET4YOU/NET4YOU/Packages/Skyline.exe
 cp wtcm.ini /home/ahlr/.wine/drive_c/skyline/
-konsole -e wine /home/ahlr/.wine/drive_c/skyline/skyline.exe
+wine /home/ahlr/.wine/drive_c/skyline/skyline.exe
 
 sleep 3
 
@@ -194,7 +191,7 @@ echo
 echo
 echo -e "\e[ \t\e[1;35;40m instalacao do driver da impressora \e[0m"
 echo
-konsole -e ./linux-brprinter-installer-2.1.1-1
+./linux-brprinter-installer-2.1.1-1
 sleep 3
 
 
@@ -246,8 +243,8 @@ sleep 3
 
 echo
 echo
-echo -e "\e[ \t\e[1;35;40m Cria pasta para os arquivos da CEF e dá permissão de execucao \e[0m"
 echo
+echo -e "\e[ \t\e[1;35;40m Cria pasta para os arquivos da CEF e dá permissão de execucao \e[0m"
 mkdir -p /opt/caixa/Recebidos
 chmod -R 777 /opt/caixa
 sleep 3
@@ -259,25 +256,23 @@ echo
 mkdir -p /home/ahlr/.wine/drive_c/skyline/recebidos
 chown ahlr -R /home/ahlr/.wine/
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m Configurando local pt-BR \e[0m"
 echo
-
 sed -i "s/^#*/#/" /etc/profile.d/lang.sh
-
-echo "#export Português Brasileiro" >> /etc/profile.d/lang.sh
+echo "#Local Português Brasileiro" >> /etc/profile.d/lang.sh
 echo "export LINGUAS=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
 echo "export LANGUAGE=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
 echo "export LANG=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
 echo "export LC_ALL=pt_BR.UTF-8" >> /etc/profile.d/lang.sh
 echo "export LESSCHARSET=latin1" >> /etc/profile.d/lang.sh
-
 sed -i "s/^/#/g" /etc/profile.d/lang.csh
 cat /etc/profile.d/lang.sh | grep ^export | sed -e "s/export/setenv/g" -e "s/\=/\ /g" >> /etc/profile.d/lang.csh
 sleep 3
-
+echo
 echo
 echo
 
