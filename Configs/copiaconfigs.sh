@@ -1,9 +1,10 @@
 #!/bin/bash
 
+if [ 'whoami' == 'root' ]; then
+
 ping -q -c5 google.com > /dev/null
  
-if [ $? -eq 0 ]
-then
+if [ $? -eq 0 ]; then
   
 echo
 echo
@@ -12,7 +13,6 @@ echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
 echo
 echo
 echo
-
 
 echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
 echo
@@ -26,51 +26,49 @@ echo
 echo
 echo
 
-
 echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
-echo
-cp cleanret.sh /etc/cron.daily/
+touch /etc/cron.daily/cleanret.sh
+echo "#!"$SHELL >> /etc/cron.daily/cleanret.sh
+echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
+echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleanret.sh
+echo "pasta_destino=/opt/caixa/Recebidos" >> /etc/cron.daily/cleanret.sh
+echo "cd $pasta_origem && mv *.ret $pasta_destino" >> /etc/cron.daily/cleanret.sh
+chmod +x /etc/cron.daily/cleanret.sh
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m configsbackup.sh => Mover os arquivos de backup das configuracoes \e[0m"
 echo
 cp configsbackup.sh /etc/cron.hourly/
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
-echo
-cp cleansai.sh /etc/cron.daily/
+touch /etc/cron.daily/cleansai.sh
+echo "#Movendo arquivos de retorno do BNB" >> /etc/cron.daily/cleansai.sh
+echo "pasta_origem=/home/ahlr/.wine/drive_c/skyline/inbox" >> /etc/cron.daily/cleansai.sh
+echo "pasta_destino=/home/ahlr/.wine/drive_c/skyline/recebidos" >> /etc/cron.daily/cleansai.sh
+echo "cd $pasta_origem && mv *.SAI $pasta_destino" >> /etc/cron.daily/cleansai.sh
+chmod +x /etc/cron.daily/cleansai.sh
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m cleantmp.sh => Limpa a pasta /tmp \e[0m"
-echo
-cp cleantmp.sh /etc/cron.daily/
-sleep 3
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m cleanstale.sh => Limpa a pasta /tmp \e[0m"
-echo
-cp cleanstale.sh /etc/cron.daily/
-sleep 3
-
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m cleancache.sh => Limpa o cache \e[0m"
-echo
-cp cleancache.sh /etc/cron.daily/
+touch /etc/cron.daily/cleancache.sh
+echo "echo 3 > /proc/sys/vm/drop_caches" >> /etc/cron.daily/cleancache.sh
+chmod +x /etc/cron.daily/cleancache.sh
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
 echo -e "\e[ \t\e[1;35;40m ntp.conf => Configuracoes do NTP \e[0m"
-echo
 sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
 chmod +x /etc/rc.d/rc.ntpd
 /etc/rc.d/rc.ntpd restart
@@ -103,6 +101,10 @@ echo "#!"$SHELL >> /etc/rc.d/rc.local_shutdown
 echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
 echo "cd /var/tmp && rm -rf * 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
 echo "/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;" >> /etc/rc.d/rc.local_shutdown
+echo "find /tmp/lost+found -exec /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
+echo "find /tmp -type s -exec  /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
+echo "find /tmp -type d -empty -mtime +37 -exec /bin/rmdir {} \;" >> /etc/rc.d/rc.local_shutdown
+echo "find /tmp -type f -mtime +37 -exec rm -rf {} \; " >> /etc/rc.d/rc.local_shutdown
 chmod +x /etc/rc.d/rc.local_shutdown
 sleep 3
 
@@ -333,6 +335,10 @@ echo
 echo
 else
 echo -e "\e[ \t\e[1;31;40m Voce nao esta Conectado! \e[0m"
-echo
-exit
+
+fi
+
+else
+    echo -e "\e[ \t\e[1;31;40m Logue-se como ROOT! \e[0m"
+
 fi
