@@ -263,10 +263,6 @@ sed -i "s/^/#/g" /etc/profile.d/lang.csh
 cat /etc/profile.d/lang.sh | grep ^export | sed -e "s/export/setenv/g" -e "s/\=/\ /g" >> /etc/profile.d/lang.csh
 sleep 3
 
-# Comando para comentar todas as linhas de um arquivo
-#cat /etc/profile.d/lang.sh | sed -i '/#/!s/^/\#/' /etc/profile.d/lang.sh >> /etc/profile.d/lang.sh
-
-
 echo
 echo
 
