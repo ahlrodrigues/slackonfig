@@ -1,17 +1,36 @@
 #!/bin/bash
 
+
+
+
+# --------- Teste se está logado como root
+
+
 if [ 'whoami' == 'root' ]; then
+
+
+# --------- Teste se está conectado na internet
+
 
 ping -q -c5 google.com > /dev/null
  
 if [ $? -eq 0 ]; then
+
+
+# --------- Teste se está logado como root
   
 echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
+sleep 3
 echo
 echo
 echo
 
+
+# --------- Inicio das Configurações
+
+
 echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
+sleep 3
 echo
 echo
 echo
@@ -23,7 +42,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Mover os arquivos de retorno da caixa \e[0m"
+echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
 touch /etc/cron.daily/cleanret.sh
 echo "#!"$SHELL >> /etc/cron.daily/cleanret.sh
 echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
@@ -37,15 +56,17 @@ echo
 echo
 
 echo -e "\e[ \t\e[1;35;40m configsbackup.sh => Mover os arquivos de backup das configuracoes \e[0m"
-echo
-cp configsbackup.sh /etc/cron.hourly/
+touch /etc/cron.hourly/configsbackup.sh
+echo "#!"$SHELL >> /etc/cron.hourly/configsbackup.sh
+echo "rsync -azhv /mnt/sda3/Scripts/ /home/ahlr/Dropbox/TONICO/Scripts/" >> /etc/cron.hourly/configsbackup.sh
 sleep 3
 echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Mover os arquivos de retorno do bnb \e[0m"
+echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
 touch /etc/cron.daily/cleansai.sh
+echo "#!"$SHELL >> /etc/cron.daily/cleansai.sh
 echo "#Movendo arquivos de retorno do BNB" >> /etc/cron.daily/cleansai.sh
 echo "pasta_origem=/home/ahlr/.wine/drive_c/skyline/inbox" >> /etc/cron.daily/cleansai.sh
 echo "pasta_destino=/home/ahlr/.wine/drive_c/skyline/recebidos" >> /etc/cron.daily/cleansai.sh
@@ -58,6 +79,7 @@ echo
 
 echo -e "\e[ \t\e[1;35;40m cleancache.sh => Limpa o cache \e[0m"
 touch /etc/cron.daily/cleancache.sh
+echo "#!"$SHELL >> /etc/cron.daily/cleancache.sh
 echo "echo 3 > /proc/sys/vm/drop_caches" >> /etc/cron.daily/cleancache.sh
 chmod +x /etc/cron.daily/cleancache.sh
 sleep 3
@@ -110,7 +132,7 @@ echo
 
 echo -e "\e[ \t\e[1;35;40m Configurações do rc.local \e[0m"
 echo "if [ -x /etc/rc.d/rc.teamviewerd ]; then" >> /etc/rc.d/rc.local
-echo       "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
+echo "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
 echo "fi" >> /etc/rc.d/rc.local
 sleep 3
 echo
@@ -133,18 +155,78 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg e slackpkgplus \e[0m"
-wget -e robots=0 -A .txz -r -nd http://www.slakfinder.org/slackpkg+/pkg/
-installpkg slackpkg+*
-rm slackpkg+*
-echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg mirrors \e[0m"
-sed -i "s|^file://path/to/some/diretory|file://mnt/sda3/Slackware/slackware64-current/|g" /etc/slackpkg/mirrors
+echo -e "\e[ \t\e[1;35;40m rc.4 => Inicialzando networkmanager \e[0m"
+chmod +x /etc/rc.d/rc.networkmanager
+/etc/rc.d/rc.networkmanager start
 sleep 3
 echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkgplus \e[0m"
+echo -e "\e[ \t\e[1;35;40m data.sh => Script de calculo data \e[0m"
+touch /usr/local/bin/data.sh
+echo "#!"$SHELL >> /usr/local/bin/data.sh
+echo "# Converte o formato 'dd/mm/AAAA' para 'AAAAmmdd' que e o aceito pela" >> /usr/local/bin/data.sh
+echo "# opcao '-d' do comando date" >> /usr/local/bin/data.sh
+echo "data_inicial=`echo "$1" | sed 's:\(..\)/\(..\)/\(....\):\3\2\1:'`" >> /usr/local/bin/data.sh
+echo "data_final=`echo "$2" | sed 's:\(..\)/\(..\)/\(....\):\3\2\1:'`" >> /usr/local/bin/data.sh
+echo "valor_mensalidade="$3"" >> /usr/local/bin/data.sh
+echo "# Converte a data para o formato timestamp que e mais preciso" >> /usr/local/bin/data.sh
+echo "data_inicial=`date -d "$data_inicial" "+%s"`" >> /usr/local/bin/data.sh
+echo "data_final=`date -d "$data_final" "+%s"`" >> /usr/local/bin/data.sh
+echo "dias_corridos=$((($data_final - $data_inicial) / 86400))" >> /usr/local/bin/data.sh
+echo "# Calculo do valor proporcional" >> /usr/local/bin/data.sh
+echo "echo "scale = 4; $valor_mensalidade / 30 * $dias_corridos" | bc" >> /usr/local/bin/data.sh
+echo "exit 1" >> /usr/local/bin/data.sh
+chmod +x /usr/local/bin/data.sh
+sleep 3
+echo
+echo
+echo
+
+echo -e "\e[ \t\e[1;35;40m thunderbirdbackup.sh => Backup e Restauracao do Thunderbird \e[0m"
+touch /etc/cron.daily/thunderbirdbackup.sh
+echo "#!"$SHELL >> /etc/cron.daily/thunderbirdbackup.sh
+echo "rsync -azhv /home/ahlr/.thunderbird/ /mnt/sda3/Thunderbird/" >> /etc/cron.daily/thunderbirdbackup.sh
+mkdir /home/ahlr/.thunderbird
+chown -R ahlr /home/ahlr/.thunderbird/
+ls -s /mnt/sda3/Thunderbird/profile.ini /home/ahlr/.thunderbird/
+sleep 3
+echo
+echo
+echo
+
+echo -e "\e[ \t\e[1;35;40m rc.4 => Configuracao do init com KDE \e[0m"
+cp rc.4 /etc/rc.d/
+sleep 3
+echo
+echo
+echo
+
+echo -e "\e[ \t\e[1;35;40m boinc.sh => link para inicialização do BOIC \e[0m"
+ln -s /mnt/sda3/BOINC/boinc /usr/local/bin/boinc
+sleep 3
+echo
+echo
+echo
+
+echo -e "\e[ \t\e[1;35;40m Cria pasta para os arquivos da CEF e dá permissão de execucao \e[0m"
+mkdir -p /opt/caixa/Recebidos
+chmod -R 777 /opt/caixa
+sleep 3
+echo
+echo
+echo
+
+
+# --------- Instalação de Packages --------- 
+
+echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg e slackpkgplus \e[0m"
+wget -e robots=0 -A .txz -r -nd http://www.slakfinder.org/slackpkg+/pkg/
+installpkg slackpkg+*
+rm slackpkg+*
+echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg e slackpkgplus \e[0m"
+sed -i "s|^file://path/to/some/diretory|file://mnt/sda3/Slackware/slackware64-current/|g" /etc/slackpkg/mirrors
 sed -i "s|^# Slackware|# Slackware x86_64|g" /etc/slackpkg/slackpkgplus.conf
 sed -i "/REPOPLUS=(/ c\REPOPLUS=( slackpkgplus restricted alienbob multilib )" /etc/slackpkg/slackpkgplus.conf
 sed -i "/# Slackware/ c\MIRRORPLUS[\'alienbob\']=http://taper.alienbase.nl/mirrors/people/alien/sbrepos/current/x86_64/" /etc/slackpkg/slackpkgplus.conf
@@ -173,92 +255,33 @@ echo
 echo
 echo -e "\e[ \t\e[1;35;40m Instalacao do Dropbox \e[0m"
 echo
-dropbox start -i
-dropbox autostart y
+#dropbox start -i (executar com outro usuario)
+#dropbox autostart y
 sleep 3
+echo
+echo
+echo
 
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m Instalacao do Skyline \e[0m"
-echo
-wine /home/ahlr/Dropbox/NET4YOU/NET4YOU/Packages/Skyline.exe
-cp wtcm.ini /home/ahlr/.wine/drive_c/skyline/
+echo -e "\e[ \t\e[1;35;40m Instalacao e configurando o Skyline \e[0m"
+wine /home/ahlr/Dropbox/NET4YOU/NET4YOU/Packages/Skyline.exe 
+sed -i "s|^# Slackware|# Slackware x86_64|g" >> /home/ahlr/.wine/drive_c/skyline/wtcm.ini
+
 wine /home/ahlr/.wine/drive_c/skyline/skyline.exe
-
-sleep 3
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m instalacao do driver da impressora \e[0m"
-echo
-./linux-brprinter-installer-2.1.1-1
-sleep 3
-
-
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m rc.4 => Configuracao do init com KDE \e[0m"
-echo
-cp rc.4 /etc/rc.d/
-sleep 3
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m rc.4 => Inicialzando networkmanager \e[0m"
-echo
-chmod +x /etc/rc.d/rc.networkmanager
-sleep 3
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m boinc.sh => link para inicialização do BOIC \e[0m"
-ln -s /mnt/sda3/BOINC/boinc /usr/local/bin/boinc
-sleep 3
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m data.sh => Script de calculo data \e[0m"
-echo
-cp data.sh /usr/local/bin/
-chmod -R 777 /usr/local/bin/data.sh
-sleep 3
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m thunderbirdbackup.sh => Backup do Thunderbird \e[0m"
-echo
-cp thunderbirdbackup.sh /etc/cron.daily/
-sleep 3
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m profiles.ini=>  Restauracao das Configuracoes do thunderbird \e[0m"
-echo
-mkdir /home/ahlr/.thunderbird
-chown -R ahlr /home/ahlr/.thunderbird/
-cp /mnt/sda3/Thunderbird/profile.ini /home/ahlr/.thunderbird/
-
-sleep 3
-
-echo
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m Cria pasta para os arquivos da CEF e dá permissão de execucao \e[0m"
-mkdir -p /opt/caixa/Recebidos
-chmod -R 777 /opt/caixa
-sleep 3
-
-echo
-echo
-echo -e "\e[ \t\e[1;35;40m Cria pasta para os arquivos do BNB e dá permissão de execucao \e[0m"
-echo
 mkdir -p /home/ahlr/.wine/drive_c/skyline/recebidos
 chown ahlr -R /home/ahlr/.wine/
 sleep 3
 echo
 echo
 echo
+
+echo -e "\e[ \t\e[1;35;40m instalacao do driver da impressora \e[0m"
+echo
+./linux-brprinter-installer-2.1.1-1
+sleep 3
+echo
+echo
+echo
+
 
 echo -e "\e[ \t\e[1;35;40m Configurando local pt-BR \e[0m"
 echo
