@@ -238,12 +238,19 @@ echo
 echo
 echo
 
+echo -e "\e[ \t\e[1;35;40m slackpkg blacklist=> Configuracao do blacklist \e[0m"
+sed -i "/_SBo/ a\[0-9]+alien/" /etc/slackpkg/blacklist
+sed -i "/_SBo/ a\[0-9]+compat32" /etc/slackpkg/blacklist
+sleep 3
+echo
+echo
+echo
+
 echo -e "\e[ \t\e[1;35;40m slackpkg => Aplicacao do layer multilib \e[0m"
 slackpkg update gpg
 slackpkg update
 slackpkg upgrade multilib
 slackpkg install multilib
-cp blacklist /etc/slackpkg
 rm uninstaller_*
 rm brscan*
 rm cupswr*
