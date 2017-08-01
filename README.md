@@ -9,7 +9,8 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
 
 ----------
 
-**Scripts**
+**Scripts:**
+
 Neste diretório, constam alguns scripts para configurações básicas que normalmente realizamos a cada instalação/reinstalação:
  
 - Cria script de inicialização do *Skyline* administrador dos arquivos de remessa (.REM) e retorno (.RET) do BNB;
@@ -32,14 +33,14 @@ Neste diretório, constam alguns scripts para configurações básicas que norma
 
 **GNU General Public License:**
 
-Estes scripts/programas são softwares livres; você pode redistribui-los e/ou modifica-los dentro dos termos da GNU General Public License (Licença Pública Geral GNU)  como publicada pela Fundação do Software Livre (FSF):
+Estes scripts/programas são softwares livres; você pode redistribui-los e/ou modifica-los dentro dos termos da GNU [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License) (Licença Pública Geral GNU)
 
-Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-https://pt.wikipedia.org/wiki/GNU_General_Public_License
+Fundação do Software Livre (FSF): Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 ----------
 
-**Cuidado**
+**Cuidado:**
+
 Os scripts deste diretório estão disponíveis na esperança que possam ser útilis, mas SEM NENHUMA GARANTIA de funcionamento; sem nenhuma garantia implícita de ADEQUAÇÃO a qualquer MERCADO, APLICAÇÃO EM PARTICULAR ou SUPORTE TÉCNICO.
 
 ----------
