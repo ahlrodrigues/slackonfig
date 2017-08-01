@@ -227,7 +227,11 @@ echo
 echo
 
 echo -e "\e[ \t\e[1;35;40m boinc.sh => link para inicialização do BOIC \e[0m"
-ln -s /mnt/sda3/BOINC/boinc /usr/local/bin/boinc
+touch /usr/local/bin/boinc.sh
+echo "#!"$SHELL >> /usr/local/bin/boinc.sh
+echo "cd /mnt/sda3/BOINC/" >> /usr/local/bin/boinc.sh
+echo "./boinc" >> /usr/local/bin/boinc.sh
+chmod +x /usr/local/bin/boinc.sh
 sleep 3
 echo
 echo
