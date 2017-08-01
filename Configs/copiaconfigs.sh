@@ -119,7 +119,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Configuracoes do CUPS \e[0m"
+echo -e "\e[ \t\e[1;35;40m Inicializando do CUPS \e[0m"
 chmod +x /etc/rc.d/rc.cups
 /etc/rc.d/rc.cups restart
 sleep 3
