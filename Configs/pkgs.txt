@@ -1,4 +1,4 @@
-# Lista de pacotes a serem instalados pelo comando slackpkg install
+# Lista de pacotes para serem instalados automaticamente pelo comando slackpkg install
 
 wine 
 vlc
