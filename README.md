@@ -30,11 +30,12 @@ Neste diretório, constam alguns scripts para configurações básicas que norma
 
 ----------
 
->**GNU General Public License:**
->Estes scripts/programas são softwares livres; você pode redistribui-los e/ou modifica-los dentro dos termos da GNU General Public License (Licença Pública Geral GNU)  como publicada pela Fundação do Software Livre (FSF):
->
->https://pt.wikipedia.org/wiki/GNU_General_Public_License
->Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+**GNU General Public License:**
+
+Estes scripts/programas são softwares livres; você pode redistribui-los e/ou modifica-los dentro dos termos da GNU General Public License (Licença Pública Geral GNU)  como publicada pela Fundação do Software Livre (FSF):
+
+Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+https://pt.wikipedia.org/wiki/GNU_General_Public_License
 
 ----------
 
