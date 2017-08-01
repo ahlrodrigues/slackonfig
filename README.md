@@ -8,8 +8,9 @@ E-mail: ahlr_2000@yahoo.com
 Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grato!
 
 ----------
-####**Scripts**
- Neste diretório, constam alguns scripts para configurações básicas que normalmente realizamos a cada instalação/reinstalação:
+
+**Scripts**
+Neste diretório, constam alguns scripts para configurações básicas que normalmente realizamos a cada instalação/reinstalação:
  
 - Cria script de inicialização do *Skyline* administrador dos arquivos de remessa (.REM) e retorno (.RET) do BNB;
 - Move arquivos de remessa (.REM) do BNB para a pasta de recebidos;
@@ -26,6 +27,7 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
 - Inicializa o servidor de rede *Networkmanager*;
 - Cria script de calculo data;
 - Cria script de backups e restauracao do *Thunderbird*;
+
 ----------
 
 >**GNU General Public License:**
@@ -35,7 +37,8 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
 >Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 ----------
-####**Cuidado**
+
+**Cuidado**
 Os scripts deste diretório estão disponíveis na esperança que possam ser útilis, mas SEM NENHUMA GARANTIA de funcionamento; sem nenhuma garantia implícita de ADEQUAÇÃO a qualquer MERCADO, APLICAÇÃO EM PARTICULAR ou SUPORTE TÉCNICO.
 
 ----------
