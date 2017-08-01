@@ -7,8 +7,7 @@
 #
 # Este programa é um software livre; você pode redistribui-lo e/ou
 # modifica-lo dentro dos termos da GNU General Public License (Licença Pública Geral GNU)
-# como publicada pela Fundação do Software Livre (FSF); na versão 2, 3 da
-# Licença, ou qualquer versão mais nova.
+# como publicada pela Fundação do Software Livre (FSF)
 #
 # GNU General Public License
 # https://pt.wikipedia.org/wiki/GNU_General_Public_License
