@@ -1,4 +1,28 @@
 #!/bin/bash
+#
+# Autor= Antonio Henrique (Fela)
+# Bugs, Agradecimentos, Críticas "construtivas"
+# Mande me um e-mail. Ficarei Grato!
+# e-mail: ahlr_2000@yahoo.com
+#
+# Este programa é um software livre; você pode redistribui-lo e/ou
+# modifica-lo dentro dos termos da GNU General Public License (Licença Pública Geral GNU)
+# como publicada pela Fundação do Software Livre (FSF); na versão 2, 3 da
+# Licença, ou qualquer versão mais nova.
+#
+# GNU General Public License
+# https://pt.wikipedia.org/wiki/GNU_General_Public_License
+# Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+#
+# Este programa é distribuído na esperança que possa ser útil,
+# mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a
+# qualquer MERCADO, APLICAÇÃO EM PARTICULAR ou SUPORTE TÉCNICO.
+#
+#
+# Script: Criação e edição de arquivos de configuração do Slackware-current_x86_64 GNU/Linux
+#
+# Last update: 01/08/2017
+#
 
 
 
