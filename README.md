@@ -9,6 +9,12 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
 
 ----------
 
+**Cuidado:**
+
+Os scripts deste diretório estão disponíveis na esperança que possam ser útilis, mas SEM NENHUMA GARANTIA DE FUNCIONAMENTO; SEM NENHUMA GARANTIA DE ADEQUAÇÃO A QUALQUER MERCADO, SEM NENHUMA GARANTIA APLICAÇÃO EM PARTICULAR ou SUPORTE TÉCNICO.
+
+----------
+
 **Scripts:**
 
 Neste diretório, constam alguns scripts para configurações básicas que normalmente realizamos a cada instalação/reinstalação:
@@ -34,9 +40,9 @@ Neste diretório, constam alguns scripts para configurações básicas que norma
 - Cria o arquivo de inicialização do *BOIC*;
 - Configuração do *Slackpkg*;
 - Instalação e configuração do *Slackpkg+*;
-- Aplicação do layer para o Slackware Multilib;
+- Aplicação do layer para o *Slackware Multilib*;
 - Instalação do *Dropbox*;
-- Instalação da impressora Brother-DCP7065;
+- Instalação da impressora *Brother-DCP7065*;
 
 
 
@@ -49,10 +55,3 @@ Estes scripts/programas são softwares livres; você pode redistribui-los e/ou m
 Fundação do Software Livre (FSF): Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 ----------
-
-**Cuidado:**
-
-Os scripts deste diretório estão disponíveis na esperança que possam ser útilis, mas SEM NENHUMA GARANTIA de funcionamento; sem nenhuma garantia implícita de ADEQUAÇÃO a qualquer MERCADO, APLICAÇÃO EM PARTICULAR ou SUPORTE TÉCNICO.
-
-----------
- 
