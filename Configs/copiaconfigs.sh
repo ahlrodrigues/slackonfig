@@ -226,7 +226,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m boinc.sh => link para inicialização do BOIC \e[0m"
+echo -e "\e[ \t\e[1;35;40m boinc.sh => Arquivo de inicialização do BOIC \e[0m"
 touch /usr/local/bin/boinc.sh
 echo "#!"$SHELL >> /usr/local/bin/boinc.sh
 echo "cd /mnt/sda3/BOINC/" >> /usr/local/bin/boinc.sh
