@@ -30,7 +30,7 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 - Inicializa o servidor de impressão *CUPS*;
 - Configura o grupo de trabalho e inicializa o servidor de compartilhamento de arquivos *Samba*;
 - Cria script que limpa as pastas /tmp do sistema ao realizar shutdown;
-- Acrescenta "deamon" do *TeamViewer* a cada inicialização do sistema;
+- Acrescenta inicialização do "deamon" do *TeamViewer* a cada boot do sistema;
 - Copia os scripts de administração dos mirros locais do *Slackware-current_x86_64* e *Slackware-current_x86* para a pasta /usr/local/bin/;
 - Habilita o "init:4" para inicialização do *KDM*;
 - Inicializa o servidor de rede *Networkmanager*;
@@ -43,7 +43,9 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 - Aplicação do layer para transformar *Slackware* => *Slackware Multilib*;
 - Instalação do *Dropbox*;
 - Instalação do driver da impressora *Brother-DCP7065*;
-
+- Configura o locale pt-BR nos arquivos *lang.sh* e *lang.csh*;
+- Compilando e Instalando pacotes: *TeamViewer*, *Bogofilter*,
+- Instalando lista de pacotes do arquivo *pkgs.txt*
 
 
 ----------

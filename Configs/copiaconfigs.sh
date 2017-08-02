@@ -282,6 +282,12 @@ rm uninstaller_*
 rm brscan*
 rm cupswr*
 rm dcp7065*
+sleep 3
+
+echo
+echo
+echo -e "\e[ \t\e[1;35;40m Instalacao lista de pacotes \e[0m"
+echo
 slackpkg install $(cat /mnt/sda3/Scripts/configs/pkgs.txt)
 sleep 3
 
