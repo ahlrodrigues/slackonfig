@@ -31,7 +31,7 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 - Configura o grupo de trabalho e inicializa o servidor de compartilhamento de arquivos *Samba*;
 - Cria script que limpa as pastas /tmp do sistema ao realizar shutdown;
 - Acrescenta inicialização do "deamon" do *TeamViewer* a cada boot do sistema;
-- Copia os scripts de administração dos mirros locais do *Slackware-current*, versões *x86_64* e *x86* para a pasta /usr/local/bin/;
+- Copia os scripts de administração dos mirros locais do *Slackware-current*, *x86_64* e *x86*, para a pasta /usr/local/bin/;
 - Habilita o "init:4" para inicialização do *KDM*;
 - Inicializa o servidor de rede *Networkmanager*;
 - Cria script de calculo data;
