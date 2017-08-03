@@ -24,23 +24,14 @@
 #
 
 
-
-
 # --------- Teste se está logado como root
-
-
 if [ 'whoami' == 'root' ]; then
 
 
 # --------- Teste se está conectado na internet
-
-
 ping -q -c5 google.com > /dev/null
  
 if [ $? -eq 0 ]; then
-
-
-# --------- Teste se está logado como root
   
 echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
 sleep 3
@@ -50,8 +41,6 @@ echo
 
 
 # --------- Inicio das Configurações
-
-
 echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
 sleep 3
 echo
