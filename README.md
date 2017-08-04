@@ -49,7 +49,7 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 - Instalação do driver da impressora *Brother-DCP7065*;
 - Configura o locale pt-BR nos arquivos *lang.sh* e *lang.csh*;
 - Compilando e Instalando pacotes: *TeamViewer*, *Bogofilter*,
-- Instalando lista de pacotes do arquivo *pkgs.txt*
+- Instalando lista de pacotes do arquivo *pkgs.txt*;
 
 
 ----------
