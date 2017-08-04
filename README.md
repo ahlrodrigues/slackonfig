@@ -2,20 +2,24 @@
 =================================================
 
 **Autor:** Antonio Henrique (Fela)
+==========
 
 **E-mail:** ahlr_2000@yahoo.com
+===========
 
 Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grato!
 
 ----------
 
 **Nota:**
+=========
 
 Os scripts deste diretório estão disponíveis na esperança que possam ser úteis, mas SEM NENHUMA GARANTIA DE FUNCIONAMENTO, SEM NENHUMA GARANTIA DE ADEQUAÇÃO A QUALQUER MERCADO, SEM NENHUMA GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM SUPORTE TÉCNICO.
 
 ----------
 
 **Scripts:**
+============
 
 Neste diretório, constam alguns scripts para configurações básicas, que normalmente realizamos a cada instalação/reinstalação:
  
@@ -51,6 +55,7 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 ----------
 
 **GNU General Public License:**
+===============================
 
 Estes scripts/programas são softwares livres, você pode redistribui-los e/ou modifica-los dentro dos termos da GNU - [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License) (Licença Pública Geral GNU)
 
