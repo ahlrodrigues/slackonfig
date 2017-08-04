@@ -2,10 +2,9 @@
 =================================================
 
 **Autor:** Antonio Henrique (Fela)
-==========
 
 **E-mail:** ahlr_2000@yahoo.com
-===========
+
 
 Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grato!
 
@@ -14,11 +13,11 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
 **Nota:**
 =========
 
-Os scripts deste diretório estão disponíveis na esperança que possam ser úteis, mas SEM NENHUMA GARANTIA DE FUNCIONAMENTO, SEM NENHUMA GARANTIA DE ADEQUAÇÃO A QUALQUER MERCADO, SEM NENHUMA GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM SUPORTE TÉCNICO.
+>> Os scripts deste diretório estão disponíveis na esperança que possam ser úteis, mas SEM NENHUMA GARANTIA DE FUNCIONAMENTO, SEM NENHUMA GARANTIA DE ADEQUAÇÃO A QUALQUER MERCADO, SEM NENHUMA GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM SUPORTE TÉCNICO.
 
 ----------
 
-**Scripts:**
+**Scripts e Funções:**
 ============
 
 Neste diretório, constam alguns scripts para configurações básicas, que normalmente realizamos a cada instalação/reinstalação:
