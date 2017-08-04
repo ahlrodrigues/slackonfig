@@ -15,3 +15,5 @@ chromium-5*
 chromium-pepperflash-plugin
 chromium-widevine-plugin
 dropbox
+
+
