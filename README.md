@@ -1,5 +1,6 @@
-**Scripts para configuração do Slackware-current_x86_64**
-=================================================
+**SLACKONFIG** - o Scripts para configuração do Slackware GNU/Linux
+--------------
+
 
 **Autor:** Antonio Henrique (Fela)
 
@@ -50,6 +51,9 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 - Compilando e Instalando pacotes: *TeamViewer*, *Bogofilter*,
 - Instalando lista de pacotes do arquivo *pkgs.txt*;
 
+
+**Future:**
+-----------
 
 
 
