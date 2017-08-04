@@ -2,6 +2,7 @@
 --------------
 
 
+
 **Autor:** Antonio Henrique (Fela)
 
 **E-mail:** ahlr_2000@yahoo.com
@@ -52,8 +53,11 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 - Instalando lista de pacotes do arquivo *pkgs.txt*;
 
 
+
 **Future:**
 -----------
+
+- Documentação em cada script;
 
 
 
@@ -63,4 +67,3 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 Estes scripts/programas são softwares livres, você pode redistribui-los e/ou modifica-los dentro dos termos da GNU - [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License) (Licença Pública Geral GNU)
 
 Fundação do Software Livre (FSF): Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-
