@@ -24,9 +24,9 @@ Os scripts deste diretório estão disponíveis na esperança que possam ser út
 Neste diretório, constam alguns scripts para configurações básicas, que normalmente realizamos a cada instalação/reinstalação:
  
 - Instalação do *Skyline* administrador dos arquivos de remessa (.REM) e de  retorno (.SAI) do BNB;
-- *bnb.sh* => Cria script de inicialização do *Skyline*; 
-- cleanret.sh => Cria script que move arquivos de retorno (.SAI) do BNB para a pasta de /home/ahlr/.wine/drive_c/skyline/recebidos;
-- configsbackup.sh => Cria script que realiza backups incrementais da pasta /mnt/sda3/Scripts para o *Dropbox*;
+- **bnb.sh** => Cria script de inicialização do *Skyline*; 
+- **cleanret.sh** => Cria script que move arquivos de retorno (.SAI) do BNB para a pasta de /home/ahlr/.wine/drive_c/skyline/recebidos;
+- **configsbackup.sh** => Cria script que realiza backups incrementais da pasta /mnt/sda3/Scripts para o *Dropbox*;
 - Cria script que move arquivos de retorno (.RET) da CEF para a pasta de /opt/caixa/Recebidos;
 - Cria a pasta "/opt/caixa/Recebidos";
 - Cria script que limpa o cache diariamente;
