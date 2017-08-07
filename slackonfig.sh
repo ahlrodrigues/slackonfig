@@ -120,6 +120,11 @@ echo -e "\e[ \t\e[1;35;40m mirror-slackware => Administracao dos mirros locais \
 cp mirror-slackware32-current.sh /usr/local/bin/
 cp mirror-slackware64-current.sh /usr/local/bin/
 #cp mirror-slackware-live.sh /usr/local/bin/
+
+
+#00 8 * * * /usr/local/bin/mirror-slackware64-current.sh /etc/cron.daily 1> /dev/null
+
+
 sleep 3
 
 echo -e "\e[ \t\e[1;35;40m Habilitando o init 4 \e[0m"
