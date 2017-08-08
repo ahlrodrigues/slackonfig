@@ -54,7 +54,7 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 
 
 
-**Future:**
+**Feature:**
 -----------
 
 - Documentação em cada script;
