@@ -6,19 +6,11 @@
 # Bugs, Agradecimentos, Críticas "construtivas"
 # Mande me um e-mail. Ficarei Grato!
 #
-#
-# Este programa é um software livre; você pode redistribui-lo e/ou
-# modifica-lo dentro dos termos da GNU General Public License (Licença Pública Geral GNU)
-# como publicada pela Fundação do Software Livre (FSF)
-#
-# GNU General Public License
-# https://pt.wikipedia.org/wiki/GNU_General_Public_License
-# Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-#
-# Este programa é distribuído na esperança que possa ser útil,
-# mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a
-# qualquer MERCADO, APLICAÇÃO EM PARTICULAR ou SUPORTE TÉCNICO.
-#
+# Os scripts deste diretório estão disponíveis na esperança que possam ser úteis, 
+# mas SEM NENHUMA GARANTIA DE FUNCIONAMENTO, SEM NENHUMA GARANTIA DE ADEQUAÇÃO A 
+# QUALQUER MERCADO, SEM NENHUMA GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM
+# SUPORTE TÉCNICO.
+
 ##############################################################################################
 # Script: Criação e edição de arquivos de configuração do Slackware GNU/Linux                #
 #                                                                                            #
@@ -46,15 +38,14 @@ echo -e "\e[ \t\e[1;35;40m bnb.sh => Busca arquivos de retorno da BNB \e[0m"
 cp bnb.sh /usr/local/bin/
 sleep 3
 
-echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
-touch /etc/cron.daily/cleanret.sh
-echo "#!"$SHELL >> /etc/cron.daily/cleanret.sh
-echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
-echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleanret.sh
-echo "pasta_destino=/opt/caixa/Recebidos" >> /etc/cron.daily/cleanret.sh
-echo "cd $pasta_origem && mv *.ret $pasta_destino" >> /etc/cron.daily/cleanret.sh
-chmod +x /etc/cron.daily/cleanret.sh
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
+	echo "#!"$SHELL >> /etc/cron.daily/cleanret.sh
+	echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
+	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleanret.sh
+	echo "pasta_destino=/opt/caixa/Recebidos" >> /etc/cron.daily/cleanret.sh
+	echo "cd \$pasta_origem && mv *.ret \$pasta_destino" >> /etc/cron.daily/cleanret.sh
+	chmod +x /etc/cron.daily/cleanret.sh
+    sleep 3
 
 echo -e "\e[ \t\e[1;35;40m configsbackup.sh => Mover os arquivos de backup das configuracoes \e[0m"
 touch /etc/cron.hourly/configsbackup.sh
