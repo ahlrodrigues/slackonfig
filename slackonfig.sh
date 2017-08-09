@@ -43,7 +43,7 @@ cp bnb.sh /usr/local/bin/
 sleep 3
 
 	echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
-	echo "#!"$SHELL >> /etc/cron.daily/cleanret.sh
+	echo "#!"$SHELL > /etc/cron.daily/cleanret.sh
 	echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
 	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleanret.sh
 	echo "pasta_destino=/opt/caixa/Recebidos" >> /etc/cron.daily/cleanret.sh
