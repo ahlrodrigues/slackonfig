@@ -34,6 +34,9 @@ echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
 sleep 3
 echo
 
+# --------- Baixando arquivos auxiliares no diretório /tmp
+wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Configs/minilicense.txt
+
 # --------- Inicio das Configurações
 echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
 sleep 3
@@ -44,6 +47,7 @@ sleep 3
 
 	echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
 	echo "#!"$SHELL > /etc/cron.daily/cleanret.sh
+	cat /tmp/minilicense.txt >> /etc/cron.daily/cleanret.sh
 	echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
 	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleanret.sh
 	echo "pasta_destino=/opt/caixa/Recebidos" >> /etc/cron.daily/cleanret.sh
@@ -53,6 +57,7 @@ sleep 3
     
     	echo -e "\e[ \t\e[1;35;40m mvrejsgr.sh => Mover os arquivos de rejeitados e francesinha do BNB \e[0m"
 	echo "#!"$SHELL > /etc/cron.daily/mvrejsgr.sh
+	cat /tmp/minilicense.txt >> /etc/cron.daily/mvrejsgr.sh
 	echo "#Mover os arquivos de rejeitados e francesinha do BNB" >> /etc/cron.daily/mvrejsgr.sh
 	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/mvrejsgr.sh
 	echo "pasta_destino=/home/ahlr/Dropbox/NET4YOU/NET4YOU/Bancos/BNB/Arquivos" >> /etc/cron.daily/mvrejsgr.sh
