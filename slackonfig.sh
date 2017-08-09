@@ -46,6 +46,18 @@ sleep 3
 	echo "cd \$pasta_origem && mv *.ret \$pasta_destino" >> /etc/cron.daily/cleanret.sh
 	chmod +x /etc/cron.daily/cleanret.sh
     sleep 3
+    
+    	echo -e "\e[ \t\e[1;35;40m mvrejsgr.sh => Mover os arquivos de rejeitados e francesinha do BNB \e[0m"
+	echo "#!"$SHELL > /etc/cron.daily/mvrejsgr.sh
+	echo "#Mover os arquivos de rejeitados e francesinha do BNB" >> /etc/cron.daily/mvrejsgr.sh
+	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/mvrejsgr.sh
+	echo "pasta_destino=/home/ahlr/Dropbox/NET4YOU/NET4YOU/Bancos/BNB/Arquivos" >> /etc/cron.daily/mvrejsgr.sh
+	echo "mv \$pasta_origem/rel*.pdf  \$pasta_origem/Rejeitados-\`"date +%d_%m"\`.pdf" >> /etc/cron.daily/mvrejsgr.sh
+	echo "mv \$pasta_origem/srg*.pdf  \$pasta_origem/Francesinha-\`"date +%d_%m"\`.pdf" >> /etc/cron.daily/mvrejsgr.sh
+	echo "mv \$pasta_origem/Francesinha*.pdf \$pasta_destino" >> /etc/cron.daily/mvrejsgr.sh
+	echo "mv \$pasta_origem/Rejeitados*.pdf \$pasta_destino" >> /etc/cron.daily/mvrejsgr.sh
+	chmod +x /etc/cron.daily/mvrejsgr.sh
+    sleep 3
 
 echo -e "\e[ \t\e[1;35;40m configsbackup.sh => Mover os arquivos de backup das configuracoes \e[0m"
 touch /etc/cron.hourly/configsbackup.sh
