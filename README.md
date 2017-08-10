@@ -28,15 +28,14 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 - **bnb.sh** => Cria script de inicialização do *Skyline*; 
 - **cleansai.sh** => Cria script que move arquivos de retorno (.SAI) do BNB para a pasta de /home/ahlr/.wine/drive_c/skyline/recebidos;
 - **mvrejsgr.sh** => Mover os arquivos de rejeitados e francesinha do BNB para /home/ahlr/Dropbox/NET4YOU/NET4YOU/Bancos/BNB/Arquivos;
-- **configsbackup.sh** => Cria script que realiza backups incrementais da pasta /mnt/sda3/Scripts para o *Dropbox*;
+- **backupprojetos.sh** => Cria script que realiza backups incrementais da pasta /mnt/sda3/Projetos para o *Dropbox*;
 - **cleansici.sh** => Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI;
 - **cleanret.sh** => Cria script que move arquivos de retorno (.RET) da CEF para a pasta de /opt/caixa/Recebidos;
-- Cria a pasta "/opt/caixa/Recebidos";
-- Cria script que limpa o cache diariamente;
+- **cleancache.sh** => Cria script que limpa o cache diariamente;
+- **rc.local\_shutdown** => Cria script que limpa as pastas /tmp do sistema ao realizar shutdown;
 - Configura a data e hora do sistema acrescentando o *pool.ntp.org*  no arquivo /etc/ntp.conf;
 - Inicializa o servidor de impressão *CUPS*;
 - Configura o grupo de trabalho e inicializa o servidor de compartilhamento de arquivos *Samba*;
-- Cria script que limpa as pastas /tmp do sistema ao realizar shutdown;
 - Acrescenta inicialização do "deamon" do *TeamViewer* a cada boot do sistema;
 - Copia os scripts de administração dos mirros locais do *Slackware-current*, *x86_64* e *x86*, para a pasta /usr/local/bin/;
 - Habilita o "init:4" para inicialização do *KDM*;
@@ -53,6 +52,7 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
 - Configura o locale pt-BR nos arquivos *lang.sh* e *lang.csh*;
 - Compilando e Instalando pacotes: *TeamViewer*, *Bogofilter*,
 - Instalando lista de pacotes do arquivo *pkgs.txt: *;
+- Cria a pasta */opt/caixa/Recebidos*;
 
 
 

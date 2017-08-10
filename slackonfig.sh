@@ -80,11 +80,10 @@ sleep 3
 	chmod +x /etc/cron.daily/cleansici.sh
     sleep 3
     
-echo -e "\e[ \t\e[1;35;40m configsbackup.sh => Mover os arquivos de backup das configuracoes \e[0m"
-touch /etc/cron.hourly/configsbackup.sh
-echo "#!"$SHELL >> /etc/cron.hourly/configsbackup.sh
-echo "rsync -azhv /mnt/sda3/Scripts/ /home/ahlr/Dropbox/TONICO/Scripts/" >> /etc/cron.hourly/configsbackup.sh
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m backupprojetos.sh => Mover os arquivos de backup das configuracoes \e[0m"
+	echo "#!"$SHELL >> /etc/cron.hourly/backupprojetos.sh
+	echo "rsync -azhv /mnt/sda3/Projetos/ /home/ahlr/Dropbox/TONICO/Projetos/" >> /etc/cron.hourly/backupprojetos.sh
+    sleep 3
 
 	echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
 	echo "#!"$SHELL >> /etc/cron.daily/cleansai.sh
@@ -101,36 +100,35 @@ sleep 3
 	chmod +x /etc/cron.daily/cleancache.sh
     sleep 3
 
-echo -e "\e[ \t\e[1;35;40m Configuracoes do NTP \e[0m"
-sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
-chmod +x /etc/rc.d/rc.ntpd
-/etc/rc.d/rc.ntpd restart
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m Configuracoes do NTP \e[0m"
+	sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
+	chmod +x /etc/rc.d/rc.ntpd
+	/etc/rc.d/rc.ntpd restart
+    sleep 3
 
-echo -e "\e[ \t\e[1;35;40m Inicializando do CUPS \e[0m"
-chmod +x /etc/rc.d/rc.cups
-/etc/rc.d/rc.cups restart
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m Inicializando do CUPS \e[0m"
+	chmod +x /etc/rc.d/rc.cups
+	/etc/rc.d/rc.cups restart
+    sleep 3
 
-echo -e "\e[ \t\e[1;35;40m Configuracoes do Samba \e[0m"
-sed -i "s/MYGROUP/WORKGROUP/g" /etc/samba/smb.conf-sample
-mv /etc/samba/smb.conf-sample /etc/samba/smb.conf
-chmod +x /etc/rc.d/rc.samba
-/etc/rc.d/rc.samba restart
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m Configuracoes do Samba \e[0m"
+	sed -i "s/MYGROUP/WORKGROUP/g" /etc/samba/smb.conf-sample
+	mv /etc/samba/smb.conf-sample /etc/samba/smb.conf
+	chmod +x /etc/rc.d/rc.samba
+	/etc/rc.d/rc.samba restart
+    sleep 3
 
-echo -e "\e[ \t\e[1;35;40m Configuracoes de rc.local_shutdown \e[0m"
-touch /etc/rc.d/rc.local_shutdown
-echo "#!"$SHELL >> /etc/rc.d/rc.local_shutdown
-echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
-echo "cd /var/tmp && rm -rf * 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
-echo "/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;" >> /etc/rc.d/rc.local_shutdown
-echo "find /tmp/lost+found -exec /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
-echo "find /tmp -type s -exec  /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
-echo "find /tmp -type d -empty -mtime +37 -exec /bin/rmdir {} \;" >> /etc/rc.d/rc.local_shutdown
-echo "find /tmp -type f -mtime +37 -exec rm -rf {} \; " >> /etc/rc.d/rc.local_shutdown
-chmod +x /etc/rc.d/rc.local_shutdown
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m Configuracoes de rc.local_shutdown \e[0m"
+	echo "#!"$SHELL >> /etc/rc.d/rc.local_shutdown
+	echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
+	echo "cd /var/tmp && rm -rf * 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
+	echo "/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;" >> /etc/rc.d/rc.local_shutdown
+	echo "find /tmp/lost+found -exec /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
+	echo "find /tmp -type s -exec  /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
+	echo "find /tmp -type d -empty -mtime +37 -exec /bin/rmdir {} \;" >> /etc/rc.d/rc.local_shutdown
+	echo "find /tmp -type f -mtime +37 -exec rm -rf {} \; " >> /etc/rc.d/rc.local_shutdown
+	chmod +x /etc/rc.d/rc.local_shutdown
+    sleep 3
 
 echo -e "\e[ \t\e[1;35;40m Configurações do rc.local \e[0m"
 echo "if [ -x /etc/rc.d/rc.teamviewerd ]; then" >> /etc/rc.d/rc.local
@@ -157,9 +155,9 @@ sleep 3
 
 sleep 3
 
-echo -e "\e[ \t\e[1;35;40m Habilitando o init 4 \e[0m"
-sed -i "s/id:3/id:4/g" /etc/inittab
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m Habilitando o init 4 \e[0m"
+	sed -i "s/id:3/id:4/g" /etc/inittab
+    sleep 3
 
 echo -e "\e[ \t\e[1;35;40m rc.4 => Inicialzando networkmanager \e[0m"
 chmod +x /etc/rc.d/rc.networkmanager
