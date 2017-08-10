@@ -26,11 +26,11 @@ Neste diretório, constam alguns scripts para configurações básicas, que norm
  
 - Instalação do *Skyline* administrador dos arquivos de remessa (.REM) e de  retorno (.SAI) do BNB;
 - **bnb.sh** => Cria script de inicialização do *Skyline*; 
-- **cleanret.sh** => Cria script que move arquivos de retorno (.SAI) do BNB para a pasta de /home/ahlr/.wine/drive_c/skyline/recebidos;
+- **cleansai.sh** => Cria script que move arquivos de retorno (.SAI) do BNB para a pasta de /home/ahlr/.wine/drive_c/skyline/recebidos;
 - **mvrejsgr.sh** => Mover os arquivos de rejeitados e francesinha do BNB para /home/ahlr/Dropbox/NET4YOU/NET4YOU/Bancos/BNB/Arquivos;
 - **configsbackup.sh** => Cria script que realiza backups incrementais da pasta /mnt/sda3/Scripts para o *Dropbox*;
 - **cleansici.sh** => Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI;
-- Cria script que move arquivos de retorno (.RET) da CEF para a pasta de /opt/caixa/Recebidos;
+- **cleanret.sh** => Cria script que move arquivos de retorno (.RET) da CEF para a pasta de /opt/caixa/Recebidos;
 - Cria a pasta "/opt/caixa/Recebidos";
 - Cria script que limpa o cache diariamente;
 - Configura a data e hora do sistema acrescentando o *pool.ntp.org*  no arquivo /etc/ntp.conf;

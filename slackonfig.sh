@@ -86,15 +86,14 @@ echo "#!"$SHELL >> /etc/cron.hourly/configsbackup.sh
 echo "rsync -azhv /mnt/sda3/Scripts/ /home/ahlr/Dropbox/TONICO/Scripts/" >> /etc/cron.hourly/configsbackup.sh
 sleep 3
 
-echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
-touch /etc/cron.daily/cleansai.sh
-echo "#!"$SHELL >> /etc/cron.daily/cleansai.sh
-echo "#Movendo arquivos de retorno do BNB" >> /etc/cron.daily/cleansai.sh
-echo "pasta_origem=/home/ahlr/.wine/drive_c/skyline/inbox" >> /etc/cron.daily/cleansai.sh
-echo "pasta_destino=/home/ahlr/.wine/drive_c/skyline/recebidos" >> /etc/cron.daily/cleansai.sh
-echo "cd $pasta_origem && mv *.SAI $pasta_destino" >> /etc/cron.daily/cleansai.sh
-chmod +x /etc/cron.daily/cleansai.sh
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
+	echo "#!"$SHELL >> /etc/cron.daily/cleansai.sh
+	echo "#Movendo arquivos de retorno do BNB" >> /etc/cron.daily/cleansai.sh
+	echo "pasta_origem=/home/ahlr/.wine/drive_c/skyline/inbox" >> /etc/cron.daily/cleansai.sh
+	echo "pasta_destino=/home/ahlr/.wine/drive_c/skyline/recebidos" >> /etc/cron.daily/cleansai.sh
+	echo "cd \$pasta_origem && mv *.SAI \$pasta_destino" >> /etc/cron.daily/cleansai.sh
+	chmod +x /etc/cron.daily/cleansai.sh
+   sleep 3
 
 echo -e "\e[ \t\e[1;35;40m cleancache.sh => Limpa o cache \e[0m"
 touch /etc/cron.daily/cleancache.sh
