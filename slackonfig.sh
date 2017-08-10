@@ -36,6 +36,7 @@ echo
 
 # --------- Baixando arquivos auxiliares no diretório /tmp
 wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Configs/minilicense.txt
+wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Configs/pkgs.txt
 
 # --------- Inicio das Configurações
 echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
@@ -62,12 +63,23 @@ sleep 3
 	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/mvrejsgr.sh
 	echo "pasta_destino=/home/ahlr/Dropbox/NET4YOU/NET4YOU/Bancos/BNB/Arquivos" >> /etc/cron.daily/mvrejsgr.sh
 	echo "mv \$pasta_origem/rel*.pdf  \$pasta_origem/Rejeitados-\`"date -d \"-1 day\" +\"%d_%m\""\`.pdf" >> /etc/cron.daily/mvrejsgr.sh
-	echo "mv \$pasta_origem/srg*.pdf  \$pasta_origem/Francesinha-\`"date -d \"-1 day\" +\"%d_%m\""\`.pdf" >> /etc/cron.daily/mvrejsgr.sh
+	echo "mv \$pasta_origem/sgr*.pdf  \$pasta_origem/Francesinha-\`"date -d \"-1 day\" +\"%d_%m\""\`.pdf" >> /etc/cron.daily/mvrejsgr.sh
 	echo "mv \$pasta_origem/Francesinha*.pdf \$pasta_destino" >> /etc/cron.daily/mvrejsgr.sh
 	echo "mv \$pasta_origem/Rejeitados*.pdf \$pasta_destino" >> /etc/cron.daily/mvrejsgr.sh
 	chmod +x /etc/cron.daily/mvrejsgr.sh
     sleep 3
-
+    
+        echo -e "\e[ \t\e[1;35;40m cleansici.sh => Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI \e[0m"
+	echo "#!"$SHELL > /etc/cron.daily//cleansici.sh
+	wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Docs/minilicense.txt
+	cat /tmp/minilicense.txt >> /etc/cron.daily/cleansici.sh
+	echo "#Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI" >> /etc/cron.daily/cleansici.sh
+	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleansici.sh
+	echo "pasta_destino=/home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI" >> /etc/cron.daily/cleansici.sh
+	echo "mv \$pasta_origem/sici*.xml \$pasta_destino 2> /dev/null" >> /etc/cron.daily/cleansici.sh
+	chmod +x /etc/cron.daily/cleansici.sh
+    sleep 3
+    
 echo -e "\e[ \t\e[1;35;40m configsbackup.sh => Mover os arquivos de backup das configuracoes \e[0m"
 touch /etc/cron.hourly/configsbackup.sh
 echo "#!"$SHELL >> /etc/cron.hourly/configsbackup.sh
@@ -226,7 +238,6 @@ rm dcp7065*
 sleep 3
 
 echo -e "\e[ \t\e[1;35;40m Instalacao lista de pacotes \e[0m"
-wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Configs/pkgs.txt
 slackpkg install $(cat /tmp/pkgs.txt)
 
 sleep 3
