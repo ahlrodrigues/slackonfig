@@ -140,11 +140,19 @@ echo "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
 echo "fi" >> /etc/rc.d/rc.local
 sleep 3
 
-echo -e "\e[ \t\e[1;35;40m mirror-slackware => Administracao dos mirros locais \e[0m"
-cp mirror-slackware32-current.sh /usr/local/bin/
-cp mirror-slackware64-current.sh /usr/local/bin/
-#cp mirror-slackware-live.sh /usr/local/bin/
-
+	echo -e "\e[ \t\e[1;35;40m mirror-slackware => Administracao dos mirros locais \e[0m"
+	wget -cP /usr/local/bin http://www.slackware.com/~alien/tools/mirror-slackware-current.sh
+	sed -i "s|BUILDER:-\"Eric Hameleers <alien@slackware.com>\"|BUILDER:-\"Fela  <ahlr_2000@yahoo.com>\"|g" /usr/local/bin/mirror-slackware-current.sh
+	sed -i "s|/home/ftp/pub/Linux/Slackware|/mnt/sda3/Slackware|g" /usr/local/bin/mirror-slackware-current.sh
+	sed -i "s|VERBOSE:-\"-q\"|VERBOSE:-\"-v --progress\"|g" /usr/local/bin/mirror-slackware-current.sh
+	sed -i "s|ISO:-\"CDROM\"}|ISO:-\"DVD\"}|g" /usr/local/bin/mirror-slackware-current.sh
+	sed -i "s|EXCLUDES:-\"--exclude pasture\"|EXCLUDES:-\"--exclude pasture --exclude source\"|g" /usr/local/bin/mirror-slackware-current.sh
+	sed -i "s|DVD_EXCLUDES:-\"-x ./testing  -x ./source -x ./extra/source\"|DVD_EXCLUDES:-\"-x ./source -x ./extra/source\"|g" /usr/local/bin/mirror-slackware-current.sh
+	cp mirror-slackware-current.sh mirror-slackware32-current.sh
+	sed -i "s|ARCH:-\"x86\"|ARCH:-\"x86_64\"|g" /usr/local/bin/mirror-slackware-current.sh
+	mv mirror-slackware-current.sh mirror-slackware64-current.sh /usr/local/bin/
+	#cp mirror-slackware-live.sh /usr/local/bin/
+    sleep 3
 
 #00 8 * * * /usr/local/bin/mirror-slackware64-current.sh /etc/cron.daily 1> /dev/null
 
