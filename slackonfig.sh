@@ -95,12 +95,11 @@ sleep 3
 	chmod +x /etc/cron.daily/cleansai.sh
    sleep 3
 
-echo -e "\e[ \t\e[1;35;40m cleancache.sh => Limpa o cache \e[0m"
-touch /etc/cron.daily/cleancache.sh
-echo "#!"$SHELL >> /etc/cron.daily/cleancache.sh
-echo "echo 3 > /proc/sys/vm/drop_caches" >> /etc/cron.daily/cleancache.sh
-chmod +x /etc/cron.daily/cleancache.sh
-sleep 3
+	echo -e "\e[ \t\e[1;35;40m cleancache.sh => Limpa o cache \e[0m"
+	echo "#!"$SHELL >> /etc/cron.daily/cleancache.sh
+	echo "echo 3 > /proc/sys/vm/drop_caches" >> /etc/cron.daily/cleancache.sh
+	chmod +x /etc/cron.daily/cleancache.sh
+    sleep 3
 
 echo -e "\e[ \t\e[1;35;40m Configuracoes do NTP \e[0m"
 sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
