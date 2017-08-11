@@ -1,0 +1,8 @@
+#!/bin/bash
+cd /tmp && rm -rf -- *[!ahlr]* 2>/dev/null
+cd /var/tmp && rm -rf * 2>/dev/null
+/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;
+find /tmp/lost+found -exec /bin/touch {} \;
+find /tmp -type s -exec  /bin/touch {} \;
+find /tmp -type d -empty -mtime +37 -exec /bin/rmdir {} \;
+find /tmp -type f -mtime +37 -exec rm -rf {} \; 
