@@ -1,5 +1,6 @@
 
-<div style="text-align:center"><img src ="https://github.com/ahlrodrigues/slackonfig/blob/master/Imgs/Slackware1.png" /></div>
+![Slackware](https://github.com/ahlrodrigues/slackonfig/blob/master/Imgs/Slackware1.png)
+
 
 
 
