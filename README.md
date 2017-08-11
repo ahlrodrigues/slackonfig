@@ -87,10 +87,9 @@ Estes scripts/programas são softwares livres, você pode redistribuí-los e/ou 
 termos da Licença Pública Geral GNU
 ```
 > [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License)
+>
+>Fundação do Software Livre (FSF) Inc.** 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
-```
-**Fundação do Software Livre (FSF) Inc.** 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-```
 
 **Copyright**
 -------------
