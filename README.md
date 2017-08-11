@@ -29,7 +29,7 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
 ----------------------
 
   Neste diretório, constam alguns scripts para configurações básicas, que normalmente realizamos a cada instalação/reinstalação do O.S. Slackware GNU/Linux:
- 
+
   - Instalação do *Skyline* administrador dos arquivos de remessa (.REM) e de  retorno (.SAI) do BNB;
   - **bnb.sh** => Cria script de inicialização do *Skyline*; 
   - **cleansai.sh** => Cria script que move arquivos de retorno (.SAI) do BNB para a pasta de /home/ahlr/.wine/drive_c/skyline/recebidos;
@@ -63,13 +63,13 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
 
 
 Usage:
-----------
+------
   Baixe o **SLACKONFIG** e rode-o como root para realizar todas as funções programadas por padrão ou escolha no diretório **/Configs** o script que mais lhe agradar.
 
 
 
-**Feature:**
------------
+Feature:
+--------
 
   - Documentação em cada script;
 
@@ -78,12 +78,12 @@ Usage:
 **GNU General Public License:**
 -------------------------------
 
-  Estes scripts/programas são softwares livres, você pode redistribui-los e/ou modifica-los dentro dos termos da GNU - [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License) (Licença Pública Geral GNU)
+  > Estes scripts/programas são softwares livres, você pode redistribui-los e/ou modifica-los dentro dos termos da GNU - [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License) (Licença Pública Geral GNU)
 
-  Fundação do Software Livre (FSF): Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+  > Fundação do Software Livre (FSF): Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 
 **Copyright**
 -------------
 
-  Copyright (c) 2017 - See LICENSE for details.
+  Copyright&copy; 2017 - See LICENSE for details.
