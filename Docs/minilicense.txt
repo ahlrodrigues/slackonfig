@@ -2,11 +2,11 @@
 # Autor= Antonio Henrique (Fela)                                                   #
 # e-mail: ahlr_2000@yahoo.com                                                      #
 #                                                                                  #
-# Bugs, Agradecimentos, Críticas "construtivas"                                    #
-# Mande me um e-mail. Ficarei Grato!                                               #
+# Bugs, Agradecimentos, Críticas "construtivas"!                                   #
+# Mande me um e-mail, que ficarei muito grato!                                     #
 #                                                                                  #
-# Os scripts deste diretório estão disponíveis na esperança que possam ser úteis,  #
+# Este scripts é disponibilizado na esperança que possa ser útil,                  #
 # mas SEM NENHUMA GARANTIA DE FUNCIONAMENTO, SEM NENHUMA GARANTIA DE ADEQUAÇÃO A   #
-# QUALQUER MERCADO, SEM NENHUMA GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM       #
+# QUALQUER SISTEMA, SEM NENHUMA GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM       #
 # SUPORTE TÉCNICO.                                                                 #
 ####################################################################################
