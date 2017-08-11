@@ -27,7 +27,7 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
 
 **Scripts e Funções:**
 ----------------------
-
+```
   Neste diretório, constam alguns scripts para configurações básicas, que normalmente realizamos a cada instalação/reinstalação do O.S. Slackware GNU/Linux:
 
   - Instalação do *Skyline* administrador dos arquivos de remessa (.REM) e de  retorno (.SAI) do BNB;
@@ -59,21 +59,21 @@ Bugs, Agradecimentos, Críticas "construtivas", mande me um e-mail, ficarei Grat
   - Compilando e Instalando pacotes: *TeamViewer*, *Bogofilter*,
   - Instalando lista de pacotes do arquivo *pkgs.txt: *;
   - Cria a pasta */opt/caixa/Recebidos*;
-
+```
 
 
 Usage:
 ------
 ```
   Baixe o **SLACKONFIG** e rode-o como root para realizar todas as funções programadas por padrão ou escolha no diretório **/Configs** o script que mais lhe agradar.
-´´´
+```
 
 
 Feature:
 --------
-
+```
   - Documentação em cada script;
-
+```
 
 
 **GNU General Public License:**
