@@ -1,3 +1,8 @@
+
+![Slackware](slackonfig/Imgs/Slackware1.png )
+
+
+
 **SLACKONFIG** - o Scripts para configuração do Slackware GNU/Linux
 --------------
 
