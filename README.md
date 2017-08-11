@@ -66,7 +66,7 @@ Usage:
 ------
 ```
   Baixe o **SLACKONFIG** e rode-o como root para realizar todas as funções programadas por padrão ou escolha no diretório **/Configs** o script que mais lhe agradar.
-´´
+´´´
 
 
 Feature:
