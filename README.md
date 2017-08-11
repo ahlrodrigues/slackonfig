@@ -84,7 +84,7 @@ Feature:
 -------------------------------
 ```
 Estes scripts/programas são softwares livres, você pode redistribui-los e/ou modifica-los dentro dos
-termos da GNU - [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License)
+termos da GNU - ![General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License)
 (Licença Pública Geral GNU)
 
 Fundação do Software Livre (FSF): Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
