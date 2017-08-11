@@ -84,7 +84,7 @@ Feature:
 -------------------------------
 ```
 Estes scripts/programas são softwares livres, você pode redistribuí-los e/ou modifica-los dentro dos
-termos da Licença Pública Geral GNU
+termos da Licença Pública Geral GNU:
 ```
 > [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License)
 >
@@ -94,5 +94,5 @@ termos da Licença Pública Geral GNU
 **Copyright**
 -------------
 ```
-Copyright\&copy; 2017 - See LICENSE for details.
+Copyright 2017 - Veja o arquivo LICENSE para mais detalhes.
 ```
