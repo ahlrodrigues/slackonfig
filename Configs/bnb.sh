@@ -46,6 +46,7 @@ echo
 echo
 
 if [ "$arquivos2" != "" ]; then
+cd /home/ahlr/.wine/drive_c/skyline/inbox/
 echo $arquivos2
 echo
 echo
