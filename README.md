@@ -68,7 +68,7 @@ normalmente realizamos a cada instalação/reinstalação do O.S. Slackware GNU/
 Usage:
 ------
 ```
-Baixe o **SLACKONFIG** e rode-o como root para realizar todas as funções programadas por padrão
+Baixe o *SLACKONFIG* e rode-o como root para realizar todas as funções programadas por padrão
 ou escolha no diretório **/Configs** o script que mais lhe agradar.
 ```
 
@@ -89,10 +89,3 @@ termos da Licença Pública Geral GNU:
 > [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License)
 >
 >Fundação do Software Livre (FSF) Inc.** 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-
-
-**Copyright**
--------------
-```
-Copyright 2017 - Veja o arquivo LICENSE para mais detalhes.
-```
