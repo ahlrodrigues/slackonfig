@@ -26,48 +26,69 @@
 if [ 'whoami' == 'root' ]; then
 
 # --------- Teste se está conectado na internet
-ping -q -c5 google.com > /dev/null
+  ping -q -c5 google.com > /dev/null
  
-if [ $? -eq 0 ]; then
-  
-echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
-sleep 3
-echo
+    if [ $? -eq 0 ]; then
+    echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
+    sleep 3
+    
 
 # --------- Baixando arquivos auxiliares no diretório /tmp
 wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Configs/minilicense.txt
 wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Configs/pkgs.txt
 
 # --------- Inicio das Configurações
-echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
-sleep 3
+# Troque yes por no para desativar a função de determinado script.
+# Veja as funcões de cada script na página inicial do projeto slackonfig: https://github.com/ahlrodrigues/slackonfig
+#
+bnb=no
+numLock=no
+cleanret=no
+mvrejsgr=no
 
+
+
+# --------- não mexer após este ponto
+      echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
+      sleep 3
+ 
+if [ $bnb == yes ]; then
 echo -e "\e[ \t\e[1;35;40m bnb.sh => Busca arquivos de retorno da BNB \e[0m"
 cp bnb.sh /usr/local/bin/
 sleep 3
+fi
+	if [ $numLock == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m Ativando o NumLock \e[0m"
+	  sed -i "s/#NumLock=Off/NumLock=On/" /etc/kde/kdm/kdmrc
+	  sleep 3
+	fi
 
-	echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
-	echo "#!"$SHELL > /etc/cron.daily/cleanret.sh
-	cat /tmp/minilicense.txt >> /etc/cron.daily/cleanret.sh
-	echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
-	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleanret.sh
-	echo "pasta_destino=/opt/caixa/Recebidos" >> /etc/cron.daily/cleanret.sh
-	echo "cd \$pasta_origem && mv *.ret \$pasta_destino" >> /etc/cron.daily/cleanret.sh
-	chmod +x /etc/cron.daily/cleanret.sh
-    sleep 3
+	if [ $cleanret == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
+	  echo "#!"$SHELL > /etc/cron.daily/cleanret.sh
+	  cat /tmp/minilicense.txt >> /etc/cron.daily/cleanret.sh
+	  echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
+	  echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleanret.sh
+	  echo "pasta_destino=/opt/caixa/Recebidos" >> /etc/cron.daily/cleanret.sh
+	  echo "cd \$pasta_origem && mv *.ret \$pasta_destino" >> /etc/cron.daily/cleanret.sh
+	  chmod +x /etc/cron.daily/cleanret.sh
+	  sleep 3
+	fi
     
-    	echo -e "\e[ \t\e[1;35;40m mvrejsgr.sh => Mover os arquivos de rejeitados e francesinha do BNB \e[0m"
-	echo "#!"$SHELL > /etc/cron.daily/mvrejsgr.sh
-	cat /tmp/minilicense.txt >> /etc/cron.daily/mvrejsgr.sh
-	echo "#Mover os arquivos de rejeitados e francesinha do BNB" >> /etc/cron.daily/mvrejsgr.sh
-	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/mvrejsgr.sh
-	echo "pasta_destino=/home/ahlr/Dropbox/NET4YOU/NET4YOU/Bancos/BNB/Arquivos" >> /etc/cron.daily/mvrejsgr.sh
-	echo "mv \$pasta_origem/rel*.pdf  \$pasta_origem/Rejeitados-\`"date -d \"-1 day\" +\"%d_%m\""\`.pdf" >> /etc/cron.daily/mvrejsgr.sh
-	echo "mv \$pasta_origem/sgr*.pdf  \$pasta_origem/Francesinha-\`"date -d \"-1 day\" +\"%d_%m\""\`.pdf" >> /etc/cron.daily/mvrejsgr.sh
-	echo "mv \$pasta_origem/Francesinha*.pdf \$pasta_destino" >> /etc/cron.daily/mvrejsgr.sh
-	echo "mv \$pasta_origem/Rejeitados*.pdf \$pasta_destino" >> /etc/cron.daily/mvrejsgr.sh
-	chmod +x /etc/cron.daily/mvrejsgr.sh
-    sleep 3
+	if [ $mvrejsgr == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m mvrejsgr.sh => Mover os arquivos de rejeitados e francesinha do BNB \e[0m"
+	  echo "#!"$SHELL > /etc/cron.daily/mvrejsgr.sh
+	  cat /tmp/minilicense.txt >> /etc/cron.daily/mvrejsgr.sh
+	  echo "#Mover os arquivos de rejeitados e francesinha do BNB" >> /etc/cron.daily/mvrejsgr.sh
+	  echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/mvrejsgr.sh
+	  echo "pasta_destino=/home/ahlr/Dropbox/NET4YOU/NET4YOU/Bancos/BNB/Arquivos" >> /etc/cron.daily/mvrejsgr.sh
+	  echo "mv \$pasta_origem/rel*.pdf  \$pasta_origem/Rejeitados-\`"date -d \"-1 day\" +\"%d_%m\""\`.pdf 2> /dev/null" >> /etc/cron.daily/mvrejsgr.sh
+	  echo "mv \$pasta_origem/sgr*.pdf  \$pasta_origem/Francesinha-\`"date -d \"-1 day\" +\"%d_%m\""\`.pdf 2> /dev/null" >> /etc/cron.daily/mvrejsgr.sh
+	  echo "mv \$pasta_origem/Francesinha*.pdf \$pasta_destino 2> /dev/null" >> /etc/cron.daily/mvrejsgr.sh
+	  echo "mv \$pasta_origem/Rejeitados*.pdf \$pasta_destino 2> /dev/null" >> /etc/cron.daily/mvrejsgr.sh
+	  chmod +x /etc/cron.daily/mvrejsgr.sh
+	  sleep 3
+	fi
     
         echo -e "\e[ \t\e[1;35;40m cleansici.sh => Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI \e[0m"
 	echo "#!"$SHELL > /etc/cron.daily//cleansici.sh

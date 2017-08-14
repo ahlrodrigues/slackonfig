@@ -20,6 +20,7 @@ echo
 echo $arquivos1
 echo
 echo
+
 echo
 echo -e "\e[ \t\e[1;35;40m Arquivo *.REM encontrado! \e[0m"
 echo
@@ -28,7 +29,7 @@ echo
 echo
 echo
 echo
-
+if [ "$arquivos1" = "" ]; then
 mv /home/ahlr/Downloads/$arquivos1 /home/ahlr/.wine/drive_c/skyline/outbox
 wine /home/ahlr/.wine/drive_c/SKYLINE/skyline.exe /se=bnb123 2> /dev/null
 
@@ -47,11 +48,12 @@ echo
 
 if [ "$arquivos2" != "" ]; then
 cd /home/ahlr/.wine/drive_c/skyline/inbox/
+
 echo $arquivos2
 echo
 echo
 echo
-
+cat /home/ahlr/.wine/drive_c/skyline/SESSION.LOG | grep -i "recebido"
 echo -e "\e[ \t\e[1;32;40m Arquivo *.SAI recebido! \e[0m"
 echo
 echo
@@ -70,4 +72,4 @@ echo
 exit 1
 fi
 fi
-
+fi

@@ -34,6 +34,7 @@ Neste diretório, constam alguns scripts para configurações básicas, que
 normalmente realizamos a cada instalação/reinstalação do O.S. Slackware GNU/Linux:
 
 - Instalação do *Skyline* administrador dos arquivos de remessa (.REM) e de  retorno (.SAI) do BNB;
+- **numlockon.sh** => Ativando o NumLock na inicialização;
 - **bnb.sh** => Cria script de inicialização do *Skyline*; 
 - **cleansai.sh** => Cria script que move arquivos de retorno (.SAI) do BNB;
 - **mvrejsgr.sh** => Mover os arquivos de rejeitados e francesinha do BNB;
@@ -89,10 +90,3 @@ termos da Licença Pública Geral GNU:
 > [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License)
 >
 >Fundação do Software Livre (FSF) Inc.** 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-
-
-**Copyright**
--------------
-```
-Copyright 2017 - Veja o arquivo LICENSE para mais detalhes.
-```
