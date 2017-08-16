@@ -38,15 +38,25 @@ wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/C
 wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Configs/pkgs.txt
 
 # --------- Inicio das Configurações
-# Troque yes por no para desativar a função de determinado script.
+# Troque as variábeis abaixo para "yes" para ativar as funções deste script.
 # Veja as funcões de cada script na página inicial do projeto slackonfig: https://github.com/ahlrodrigues/slackonfig
 #
 bnb=no
 numLock=no
 cleanret=no
 mvrejsgr=no
-
-
+cleansici=no
+backupprojetos=no
+cleansai=no
+cleancache=no
+cups=no
+samba=no
+shutdown=no
+local=no
+teamviewerd=no
+plex=no
+mirrors=no
+inittab=no
 
 # --------- não mexer após este ponto
       echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
@@ -89,96 +99,123 @@ fi
 	  chmod +x /etc/cron.daily/mvrejsgr.sh
 	  sleep 3
 	fi
-    
-        echo -e "\e[ \t\e[1;35;40m cleansici.sh => Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI \e[0m"
-	echo "#!"$SHELL > /etc/cron.daily//cleansici.sh
-	wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Docs/minilicense.txt
-	cat /tmp/minilicense.txt >> /etc/cron.daily/cleansici.sh
-	echo "#Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI" >> /etc/cron.daily/cleansici.sh
-	echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleansici.sh
-	echo "pasta_destino=/home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI" >> /etc/cron.daily/cleansici.sh
-	echo "mv \$pasta_origem/sici*.xml \$pasta_destino 2> /dev/null" >> /etc/cron.daily/cleansici.sh
-	chmod +x /etc/cron.daily/cleansici.sh
-    sleep 3
-    
-	echo -e "\e[ \t\e[1;35;40m backupprojetos.sh => Mover os arquivos de backup das configuracoes \e[0m"
-	echo "#!"$SHELL >> /etc/cron.hourly/backupprojetos.sh
-	echo "rsync -azhv /mnt/sda3/Projetos/ /home/ahlr/Dropbox/TONICO/Projetos/" >> /etc/cron.hourly/backupprojetos.sh
-    sleep 3
+	
+	if [ $cleansici == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m cleansici.sh => Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI \e[0m"
+	  echo "#!"$SHELL > /etc/cron.daily//cleansici.sh
+	  wget -cP /tmp https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/Docs/minilicense.txt
+	  cat /tmp/minilicense.txt >> /etc/cron.daily/cleansici.sh
+	  echo "#Mover os arquivos declaração do SICI para a pasta /home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI" >> /etc/cron.daily/cleansici.sh
+	  echo "pasta_origem=/home/ahlr/Downloads" >> /etc/cron.daily/cleansici.sh
+	  echo "pasta_destino=/home/ahlr/Dropbox/NET4YOU/NET4YOU/SCM/SICI" >> /etc/cron.daily/cleansici.sh
+	  echo "mv \$pasta_origem/sici*.xml \$pasta_destino 2> /dev/null" >> /etc/cron.daily/cleansici.sh
+	  chmod +x /etc/cron.daily/cleansici.sh
+	  sleep 3
+	fi
+	
+	if [ $backupprojetos == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m backupprojetos.sh => Mover os arquivos de backup das configuracoes \e[0m"
+	  echo "#!"$SHELL >> /etc/cron.hourly/backupprojetos.sh
+	  echo "rsync -azhv /mnt/sda3/Projetos/ /home/ahlr/Dropbox/TONICO/Projetos/" >> /etc/cron.hourly/backupprojetos.sh
+    	  sleep 3
+	fi
 
-	echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
-	echo "#!"$SHELL >> /etc/cron.daily/cleansai.sh
-	echo "#Movendo arquivos de retorno do BNB" >> /etc/cron.daily/cleansai.sh
-	echo "pasta_origem=/home/ahlr/.wine/drive_c/skyline/inbox" >> /etc/cron.daily/cleansai.sh
-	echo "pasta_destino=/home/ahlr/.wine/drive_c/skyline/recebidos" >> /etc/cron.daily/cleansai.sh
-	echo "cd \$pasta_origem && mv *.SAI \$pasta_destino" >> /etc/cron.daily/cleansai.sh
-	chmod +x /etc/cron.daily/cleansai.sh
-   sleep 3
+	if [ $cleansai == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
+	  echo "#!"$SHELL >> /etc/cron.daily/cleansai.sh
+	  echo "#Movendo arquivos de retorno do BNB" >> /etc/cron.daily/cleansai.sh
+	  echo "pasta_origem=/home/ahlr/.wine/drive_c/skyline/inbox" >> /etc/cron.daily/cleansai.sh
+	  echo "pasta_destino=/home/ahlr/.wine/drive_c/skyline/recebidos" >> /etc/cron.daily/cleansai.sh
+	  echo "cd \$pasta_origem && mv *.SAI \$pasta_destino" >> /etc/cron.daily/cleansai.sh
+	  chmod +x /etc/cron.daily/cleansai.sh
+	  sleep 3
+	fi
 
-	echo -e "\e[ \t\e[1;35;40m cleancache.sh => Limpa o cache \e[0m"
-	echo "#!"$SHELL >> /etc/cron.daily/cleancache.sh
-	echo "echo 3 > /proc/sys/vm/drop_caches" >> /etc/cron.daily/cleancache.sh
-	chmod +x /etc/cron.daily/cleancache.sh
-    sleep 3
+	if [ $cleancache == yes ]; then	
+	  echo -e "\e[ \t\e[1;35;40m cleancache.sh => Limpa o cache \e[0m"
+	  echo "#!"$SHELL >> /etc/cron.daily/cleancache.sh
+	  echo "echo 3 > /proc/sys/vm/drop_caches" >> /etc/cron.daily/cleancache.sh
+	  chmod +x /etc/cron.daily/cleancache.sh
+    	  sleep 3
+	fi
 
-	echo -e "\e[ \t\e[1;35;40m Configuracoes do NTP \e[0m"
-	sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
-	chmod +x /etc/rc.d/rc.ntpd
-	/etc/rc.d/rc.ntpd restart
-    sleep 3
+	if [ $cleancache == yes ]; then	
+	  echo -e "\e[ \t\e[1;35;40m Configuracoes do NTP \e[0m"
+	  sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
+	  chmod +x /etc/rc.d/rc.ntpd
+	  /etc/rc.d/rc.ntpd restart
+	  sleep 3
+	fi
 
-	echo -e "\e[ \t\e[1;35;40m Inicializando do CUPS \e[0m"
-	chmod +x /etc/rc.d/rc.cups
-	/etc/rc.d/rc.cups restart
-    sleep 3
+	if [ $cups == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m Inicializando do CUPS \e[0m"
+	  chmod +x /etc/rc.d/rc.cups
+	  /etc/rc.d/rc.cups restart
+    	  sleep 3
+	fi
 
-	echo -e "\e[ \t\e[1;35;40m Configuracoes do Samba \e[0m"
-	sed -i "s/MYGROUP/WORKGROUP/g" /etc/samba/smb.conf-sample
-	mv /etc/samba/smb.conf-sample /etc/samba/smb.conf
-	chmod +x /etc/rc.d/rc.samba
-	/etc/rc.d/rc.samba restart
-    sleep 3
+	if [ $samba == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m Configuracoes do Samba \e[0m"
+	  sed -i "s/MYGROUP/WORKGROUP/g" /etc/samba/smb.conf-sample
+	  mv /etc/samba/smb.conf-sample /etc/samba/smb.conf
+	  chmod +x /etc/rc.d/rc.samba
+	  /etc/rc.d/rc.samba restart
+    	  sleep 3
+	fi
 
-	echo -e "\e[ \t\e[1;35;40m Configuracoes de rc.local_shutdown \e[0m"
-	echo "#!"$SHELL >> /etc/rc.d/rc.local_shutdown
-	echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
-	echo "cd /var/tmp && rm -rf * 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
-	echo "/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;" >> /etc/rc.d/rc.local_shutdown
-	echo "find /tmp/lost+found -exec /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
-	echo "find /tmp -type s -exec  /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
-	echo "find /tmp -type d -empty -mtime +37 -exec /bin/rmdir {} \;" >> /etc/rc.d/rc.local_shutdown
-	echo "find /tmp -type f -mtime +37 -exec rm -rf {} \; " >> /etc/rc.d/rc.local_shutdown
-	chmod +x /etc/rc.d/rc.local_shutdown
-    sleep 3
+	if [ $shutdown == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m Configuracoes de rc.local_shutdown \e[0m"
+	  echo "#!"$SHELL >> /etc/rc.d/rc.local_shutdown
+	  echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
+	  echo "cd /var/tmp && rm -rf * 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
+	  echo "/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;" >> /etc/rc.d/rc.local_shutdown
+	  echo "find /tmp/lost+found -exec /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
+	  echo "find /tmp -type s -exec  /bin/touch {} \;" >> /etc/rc.d/rc.local_shutdown
+	  echo "find /tmp -type d -empty -mtime +37 -exec /bin/rmdir {} \;" >> /etc/rc.d/rc.local_shutdown
+	  echo "find /tmp -type f -mtime +37 -exec rm -rf {} \; " >> /etc/rc.d/rc.local_shutdown
+	  chmod +x /etc/rc.d/rc.local_shutdown
+    	  sleep 3
+	fi
 
-echo -e "\e[ \t\e[1;35;40m Configurações do rc.local \e[0m"
-echo "if [ -x /etc/rc.d/rc.teamviewerd ]; then" >> /etc/rc.d/rc.local
-echo "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
-echo "fi" >> /etc/rc.d/rc.local
-sleep 3
+	if [ $teamviewerd == yes ]; then	
+	  echo -e "\e[ \t\e[1;35;40m Configurações do rc.local \e[0m"
+	  echo "if [ -x /etc/rc.d/rc.teamviewerd ]; then" >> /etc/rc.d/rc.local
+	  echo "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
+	  echo "fi" >> /etc/rc.d/rc.local
+    	  sleep 3
+	fi
 
-	echo -e "\e[ \t\e[1;35;40m mirror-slackware => Administracao dos mirros locais \e[0m"
-	wget -cP /usr/local/bin http://www.slackware.com/~alien/tools/mirror-slackware-current.sh
-	sed -i "s|BUILDER:-\"Eric Hameleers <alien@slackware.com>\"|BUILDER:-\"Fela  <ahlr_2000@yahoo.com>\"|g" /usr/local/bin/mirror-slackware-current.sh
-	sed -i "s|/home/ftp/pub/Linux/Slackware|/mnt/sda3/Slackware|g" /usr/local/bin/mirror-slackware-current.sh
-	sed -i "s|VERBOSE:-\"-q\"|VERBOSE:-\"-v --progress\"|g" /usr/local/bin/mirror-slackware-current.sh
-	sed -i "s|ISO:-\"CDROM\"}|ISO:-\"DVD\"}|g" /usr/local/bin/mirror-slackware-current.sh
-	sed -i "s|EXCLUDES:-\"--exclude pasture\"|EXCLUDES:-\"--exclude pasture --exclude source\"|g" /usr/local/bin/mirror-slackware-current.sh
-	sed -i "s|DVD_EXCLUDES:-\"-x ./testing  -x ./source -x ./extra/source\"|DVD_EXCLUDES:-\"-x ./source -x ./extra/source\"|g" /usr/local/bin/mirror-slackware-current.sh
-	cp mirror-slackware-current.sh mirror-slackware32-current.sh
-	sed -i "s|ARCH:-\"x86\"|ARCH:-\"x86_64\"|g" /usr/local/bin/mirror-slackware-current.sh
-	mv mirror-slackware-current.sh mirror-slackware64-current.sh /usr/local/bin/
-	#cp mirror-slackware-live.sh /usr/local/bin/
-    sleep 3
+	if [ $plex == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m Configurações do rc.local \e[0m"
+	  echo "if [ -x /etc/rc.d/rc.plexmediaserver ]; then" >> /etc/rc.d/rc.local
+	  echo "/etc/rc.d/rc.plexmediaserver start" >> /etc/rc.d/rc.local
+	  echo "fi" >> /etc/rc.d/rc.local
+    	  sleep 3
+	fi
 
-#00 8 * * * /usr/local/bin/mirror-slackware64-current.sh /etc/cron.daily 1> /dev/null
+	if [ $mirrors == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m mirror-slackware => Administracao dos mirros locais \e[0m"
+	  wget -cP /usr/local/bin http://www.slackware.com/~alien/tools/mirror-slackware-current.sh
+	  sed -i "s|BUILDER:-\"Eric Hameleers <alien@slackware.com>\"|BUILDER:-\"Fela  <ahlr_2000@yahoo.com>\"|g" /usr/local/bin/mirror-slackware-current.sh
+	  sed -i "s|/home/ftp/pub/Linux/Slackware|/mnt/sda3/Slackware|g" /usr/local/bin/mirror-slackware-current.sh
+	  sed -i "s|VERBOSE:-\"-q\"|VERBOSE:-\"-v --progress\"|g" /usr/local/bin/mirror-slackware-current.sh
+	  sed -i "s|ISO:-\"CDROM\"}|ISO:-\"DVD\"}|g" /usr/local/bin/mirror-slackware-current.sh
+	  sed -i "s|EXCLUDES:-\"--exclude pasture\"|EXCLUDES:-\"--exclude pasture --exclude source\"|g" /usr/local/bin/mirror-slackware-current.sh
+	  sed -i "s|DVD_EXCLUDES:-\"-x ./testing  -x ./source -x ./extra/source\"|DVD_EXCLUDES:-\"-x ./source -x ./extra/source\"|g" /usr/local/bin/mirror-slackware-current.sh
+	  cp mirror-slackware-current.sh mirror-slackware32-current.sh
+	  sed -i "s|ARCH:-\"x86\"|ARCH:-\"x86_64\"|g" /usr/local/bin/mirror-slackware-current.sh
+	  mv mirror-slackware-current.sh mirror-slackware64-current.sh /usr/local/bin/
+	  #cp mirror-slackware-live.sh /usr/local/bin/
+    	  sleep 3
+	fi
 
+###################00 8 * * * /usr/local/bin/mirror-slackware64-current.sh /etc/cron.daily 1> /dev/null
 
-sleep 3
-
-	echo -e "\e[ \t\e[1;35;40m Habilitando o init 4 \e[0m"
-	sed -i "s/id:3/id:4/g" /etc/inittab
-    sleep 3
+	if [ $inittab == yes ]; then
+	  echo -e "\e[ \t\e[1;35;40m Habilitando o init 4 \e[0m"
+	  sed -i "s/id:3/id:4/g" /etc/inittab
+    	  sleep 3
+	fi
 
 echo -e "\e[ \t\e[1;35;40m rc.4 => Inicialzando networkmanager \e[0m"
 chmod +x /etc/rc.d/rc.networkmanager
@@ -313,6 +350,8 @@ cd teamviewer
 installpkg /tmp/teamviewer-*.tgz
 rm teamviewer*
 sleep 3
+
+###########-Instalação do PLEX
 
 #echo
 #echo
