@@ -42,7 +42,7 @@ normalmente realizamos a cada instalação/reinstalação do O.S. Slackware GNU/
 - cleansici.sh => Mover os arquivos declaração do SICI;
 - cleanret.sh => Cria script que move arquivos de retorno (.RET) da CEF;
 - cleancache.sh => Cria script que limpa o cache diariamente;
-- rc.local\_shutdown => Cria script que limpa as pastas /tmp do sistema ao realizar shutdown;
+- rc.local_shutdown => Cria script que limpa as pastas /tmp do sistema ao realizar shutdown;
 - Configura a data e hora do sistema acrescentando o pool.ntp.org  no arquivo /etc/ntp.conf;
 - Inicializa o servidor de impressão CUPS;
 - Configura o grupo de trabalho e inicializa o servidor de compartilhamento de arquivos Samba;
