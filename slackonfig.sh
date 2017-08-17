@@ -545,7 +545,7 @@ fi
 	
 	echo "Deseja rodar o script novamente? [yes/no] "
 	read RESPOSTA2
-	test "$RESPOSTA2" = "n" && echo && echo && echo "OK Até mais!" && exit
+	test "$RESPOSTA2" = "no" && echo && echo && echo "OK Até mais!" && exit
 	./slackonfig.sh
       fi
 
