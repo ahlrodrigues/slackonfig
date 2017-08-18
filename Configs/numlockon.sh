@@ -11,5 +11,5 @@
 # QUALQUER MERCADO, SEM NENHUMA GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM       #
 # SUPORTE TÉCNICO.                                                                 #
 ####################################################################################
-#Ativando o NumLock \e[0m"
+#Ativando o NumLock \e$NC"
 sed -i "s/#NumLock=Off/NumLock=On/" /etc/kde/kdm/kdmrc

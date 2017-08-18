@@ -33,7 +33,7 @@ ping -q -c5 google.com > /dev/null
  
 if [ $? -eq 0 ]; then
   
-echo -e "\e[ \t\e[1;35;40m Conectado! \e[0m"
+echo -e "\e[ \t$CYAN Conectado! \e$NC"
 sleep 3
 echo
 echo
@@ -41,20 +41,20 @@ echo
 
 
 # --------- Inicio das Configurações
-echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e[0m"
+echo -e "\e[ \t\e[1;33;40m Criando todos os arquivos de configuração nas devidas pastas e executando processos de Configuracoes \e$NC"
 sleep 3
 echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m bnb.sh => Busca arquivos de retorno da BNB \e[0m"
+echo -e "\e[ \t$CYAN bnb.sh => Busca arquivos de retorno da BNB \e$NC"
 cp bnb.sh /usr/local/bin/
 sleep 3
 echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m cleanret.sh => Mover os arquivos de retorno da caixa \e[0m"
+echo -e "\e[ \t$CYAN cleanret.sh => Mover os arquivos de retorno da caixa \e$NC"
 touch /etc/cron.daily/cleanret.sh
 echo "#!"$SHELL >> /etc/cron.daily/cleanret.sh
 echo "#Move arquivos de retorno da CAIXA" >> /etc/cron.daily/cleanret.sh
@@ -67,7 +67,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m configsbackup.sh => Mover os arquivos de backup das configuracoes \e[0m"
+echo -e "\e[ \t$CYAN configsbackup.sh => Mover os arquivos de backup das configuracoes \e$NC"
 touch /etc/cron.hourly/configsbackup.sh
 echo "#!"$SHELL >> /etc/cron.hourly/configsbackup.sh
 echo "rsync -azhv /mnt/sda3/Scripts/ /home/ahlr/Dropbox/TONICO/Scripts/" >> /etc/cron.hourly/configsbackup.sh
@@ -76,7 +76,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m cleansai.sh => Mover os arquivos de retorno do bnb \e[0m"
+echo -e "\e[ \t$CYAN cleansai.sh => Mover os arquivos de retorno do bnb \e$NC"
 touch /etc/cron.daily/cleansai.sh
 echo "#!"$SHELL >> /etc/cron.daily/cleansai.sh
 echo "#Movendo arquivos de retorno do BNB" >> /etc/cron.daily/cleansai.sh
@@ -89,7 +89,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m cleancache.sh => Limpa o cache \e[0m"
+echo -e "\e[ \t$CYAN cleancache.sh => Limpa o cache \e$NC"
 touch /etc/cron.daily/cleancache.sh
 echo "#!"$SHELL >> /etc/cron.daily/cleancache.sh
 echo "echo 3 > /proc/sys/vm/drop_caches" >> /etc/cron.daily/cleancache.sh
@@ -99,7 +99,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Configuracoes do NTP \e[0m"
+echo -e "\e[ \t$CYAN Configuracoes do NTP \e$NC"
 sed -i "s/pool.ntp.org/pool.ntp.br/g" /etc/ntp.conf
 chmod +x /etc/rc.d/rc.ntpd
 /etc/rc.d/rc.ntpd restart
@@ -108,7 +108,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Inicializando do CUPS \e[0m"
+echo -e "\e[ \t$CYAN Inicializando do CUPS \e$NC"
 chmod +x /etc/rc.d/rc.cups
 /etc/rc.d/rc.cups restart
 sleep 3
@@ -116,7 +116,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Configuracoes do Samba \e[0m"
+echo -e "\e[ \t$CYAN Configuracoes do Samba \e$NC"
 sed -i "s/MYGROUP/WORKGROUP/g" /etc/samba/smb.conf-sample
 mv /etc/samba/smb.conf-sample /etc/samba/smb.conf
 chmod +x /etc/rc.d/rc.samba
@@ -126,7 +126,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Configuracoes de rc.local_shutdown \e[0m"
+echo -e "\e[ \t$CYAN Configuracoes de rc.local_shutdown \e$NC"
 touch /etc/rc.d/rc.local_shutdown
 echo "#!"$SHELL >> /etc/rc.d/rc.local_shutdown
 echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> /etc/rc.d/rc.local_shutdown
@@ -142,7 +142,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Configurações do rc.local \e[0m"
+echo -e "\e[ \t$CYAN Configurações do rc.local \e$NC"
 echo "if [ -x /etc/rc.d/rc.teamviewerd ]; then" >> /etc/rc.d/rc.local
 echo "/etc/rc.d/rc.teamviewerd start" >> /etc/rc.d/rc.local
 echo "fi" >> /etc/rc.d/rc.local
@@ -151,7 +151,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m mirror-slackware => Administracao dos mirros locais \e[0m"
+echo -e "\e[ \t$CYAN mirror-slackware => Administracao dos mirros locais \e$NC"
 cp mirror-slackware32-current.sh /usr/local/bin/
 cp mirror-slackware64-current.sh /usr/local/bin/
 #cp mirror-slackware-live.sh /usr/local/bin/
@@ -160,14 +160,14 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Habilitando o init 4 \e[0m"
+echo -e "\e[ \t$CYAN Habilitando o init 4 \e$NC"
 sed -i "s/id:3/id:4/g" /etc/inittab
 sleep 3
 echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m rc.4 => Inicialzando networkmanager \e[0m"
+echo -e "\e[ \t$CYAN rc.4 => Inicialzando networkmanager \e$NC"
 chmod +x /etc/rc.d/rc.networkmanager
 /etc/rc.d/rc.networkmanager start
 sleep 3
@@ -175,7 +175,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m data.sh => Script de calculo data \e[0m"
+echo -e "\e[ \t$CYAN data.sh => Script de calculo data \e$NC"
 touch /usr/local/bin/data.sh
 echo "#!"$SHELL >> /usr/local/bin/data.sh
 echo "# Converte o formato 'dd/mm/AAAA' para 'AAAAmmdd' que e o aceito pela" >> /usr/local/bin/data.sh
@@ -196,7 +196,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m thunderbirdbackup.sh => Backup e Restauracao do Thunderbird \e[0m"
+echo -e "\e[ \t$CYAN thunderbirdbackup.sh => Backup e Restauracao do Thunderbird \e$NC"
 touch /etc/cron.daily/thunderbirdbackup.sh
 echo "#!"$SHELL >> /etc/cron.daily/thunderbirdbackup.sh
 echo "rsync -azhv /home/ahlr/.thunderbird/ /mnt/sda3/Thunderbird/" >> /etc/cron.daily/thunderbirdbackup.sh
@@ -208,14 +208,14 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m rc.4 => Configuracao do init com KDE \e[0m"
+echo -e "\e[ \t$CYAN rc.4 => Configuracao do init com KDE \e$NC"
 cp rc.4 /etc/rc.d/
 sleep 3
 echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m boinc.sh => Arquivo de inicialização do BOIC \e[0m"
+echo -e "\e[ \t$CYAN boinc.sh => Arquivo de inicialização do BOIC \e$NC"
 touch /usr/local/bin/boinc.sh
 echo "#!"$SHELL >> /usr/local/bin/boinc.sh
 echo "cd /mnt/sda3/BOINC/" >> /usr/local/bin/boinc.sh
@@ -226,7 +226,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Cria pasta para os arquivos da CEF e dá permissão de execucao \e[0m"
+echo -e "\e[ \t$CYAN Cria pasta para os arquivos da CEF e dá permissão de execucao \e$NC"
 mkdir -p /opt/caixa/Recebidos
 chmod -R 777 /opt/caixa
 sleep 3
@@ -237,11 +237,11 @@ echo
 
 # --------- Instalação de Packages --------- 
 
-echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg e slackpkgplus \e[0m"
-wget -e robots=0 -A .txz -r -nd http://www.slakfinder.org/slackpkg+/pkg/
+echo -e "\e[ \t$CYAN slackpkg => Configuracao do slackpkg e slackpkgplus \e$NC"
+wget -q -e robots=0 -A .txz -r -nd http://www.slakfinder.org/slackpkg+/pkg/
 installpkg slackpkg+*
 rm slackpkg+*
-echo -e "\e[ \t\e[1;35;40m slackpkg => Configuracao do slackpkg e slackpkgplus \e[0m"
+echo -e "\e[ \t$CYAN slackpkg => Configuracao do slackpkg e slackpkgplus \e$NC"
 sed -i "s|^file://path/to/some/diretory|file://mnt/sda3/Slackware/slackware64-current/|g" /etc/slackpkg/mirrors
 sed -i "s|^# Slackware|# Slackware x86_64|g" /etc/slackpkg/slackpkgplus.conf
 sed -i "/REPOPLUS=(/ c\REPOPLUS=( slackpkgplus restricted alienbob multilib )" /etc/slackpkg/slackpkgplus.conf
@@ -254,7 +254,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m slackpkg blacklist=> Configuracao do blacklist \e[0m"
+echo -e "\e[ \t$CYAN slackpkg blacklist=> Configuracao do blacklist \e$NC"
 sed -i "/_SBo/ a\[0-9]+alien/" /etc/slackpkg/blacklist
 sed -i "/_SBo/ a\[0-9]+compat32" /etc/slackpkg/blacklist
 sleep 3
@@ -262,7 +262,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m slackpkg => Aplicacao do layer multilib \e[0m"
+echo -e "\e[ \t$CYAN slackpkg => Aplicacao do layer multilib \e$NC"
 slackpkg update gpg
 slackpkg update
 slackpkg upgrade multilib
@@ -275,14 +275,14 @@ sleep 3
 
 echo
 echo
-echo -e "\e[ \t\e[1;35;40m Instalacao lista de pacotes \e[0m"
+echo -e "\e[ \t$CYAN Instalacao lista de pacotes \e$NC"
 echo
 slackpkg install $(cat /mnt/sda3/Scripts/configs/pkgs.txt)
 sleep 3
 
 echo
 echo
-echo -e "\e[ \t\e[1;35;40m Instalacao do Dropbox \e[0m"
+echo -e "\e[ \t$CYAN Instalacao do Dropbox \e$NC"
 echo
 #dropbox start -i (executar com outro usuario)
 #dropbox autostart y
@@ -291,7 +291,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m Instalacao e configurando o Skyline \e[0m"
+echo -e "\e[ \t$CYAN Instalacao e configurando o Skyline \e$NC"
 wine /home/ahlr/Dropbox/NET4YOU/NET4YOU/Packages/Skyline.exe 
 sed -i "s|^# Slackware|# Slackware x86_64|g" >> /home/ahlr/.wine/drive_c/skyline/wtcm.ini
 
@@ -303,7 +303,7 @@ echo
 echo
 echo
 
-echo -e "\e[ \t\e[1;35;40m instalacao do driver da impressora \e[0m"
+echo -e "\e[ \t$CYAN instalacao do driver da impressora \e$NC"
 echo
 ./linux-brprinter-installer-2.1.1-1
 sleep 3
@@ -312,7 +312,7 @@ echo
 echo
 
 
-echo -e "\e[ \t\e[1;35;40m Configurando local pt-BR \e[0m"
+echo -e "\e[ \t$CYAN Configurando local pt-BR \e$NC"
 echo
 sed -i "s/^#*/#/" /etc/profile.d/lang.sh
 echo "#Local Português Brasileiro" >> /etc/profile.d/lang.sh
@@ -337,8 +337,8 @@ sleep 3
 echo
 echo
 echo "Instalando TeamViewer"
-wget -e robots=0 -r -nd https://download.teamviewer.com/download/teamviewer_i386.deb
-wget -e robots=0 -r -nd http://slackbuilds.org/slackbuilds/14.2/network/teamviewer.tar.gz
+wget -q -e robots=0 -r -nd https://download.teamviewer.com/download/teamviewer_i386.deb
+wget -q -e robots=0 -r -nd http://slackbuilds.org/slackbuilds/14.2/network/teamviewer.tar.gz
 tar zvxf teamviewer.tar.gz
 mv teamviewer_i386.deb teamviewer/
 cd teamviewer
@@ -351,8 +351,8 @@ sleep 3
 #echo
 #echo
 #echo "Instalando Spotify"
-#wget -e robots=0 -A _amd64.deb -r -nd http://repository.spotify.com/pool/non-free/s/spotify-client/
-#wget -e robots=0 -A .tar.gz -r -nd http://slackbuilds.org/slackbuilds/14.2/multimedia/spotify.tar.gz
+#wget -q -e robots=0 -A _amd64.deb -r -nd http://repository.spotify.com/pool/non-free/s/spotify-client/
+#wget -q -e robots=0 -A .tar.gz -r -nd http://slackbuilds.org/slackbuilds/14.2/multimedia/spotify.tar.gz
 #tar zvxf
 #sleep 3
 
@@ -361,8 +361,8 @@ sleep 3
 echo
 echo
 echo "Instalando Bogofilter"
-wget -e robots=0 -r -nd http://downloads.sourceforge.net/bogofilter/bogofilter-1.2.4.tar.bz2
-wget -e robots=0 -r -nd http://slackbuilds.org/slackbuilds/14.2/system/bogofilter.tar.gz
+wget -q -e robots=0 -r -nd http://downloads.sourceforge.net/bogofilter/bogofilter-1.2.4.tar.bz2
+wget -q -e robots=0 -r -nd http://slackbuilds.org/slackbuilds/14.2/system/bogofilter.tar.gz
 tar zvxf bogofilter.tar.gz
 mv bogofilter-1.2.4.tar.bz2 bogofilter/
 cd bogofilter
@@ -375,17 +375,17 @@ echo
 echo
 echo
 echo
-echo -e "\e[ \t\e[1;35;40m Pacotes instalado e Configurações copiadas!! \e[0m"
+echo -e "\e[ \t$CYAN Pacotes instalado e Configurações copiadas!! \e$NC"
 echo
 echo
 echo
 echo
 else
-echo -e "\e[ \t\e[1;31;40m Voce nao esta Conectado! \e[0m"
+echo -e "\e[ \t\e[1;31;40m Voce nao esta Conectado! \e$NC"
 
 fi
 
 else
-    echo -e "\e[ \t\e[1;31;40m Logue-se como ROOT! \e[0m"
+    echo -e "\e[ \t\e[1;31;40m Logue-se como ROOT! \e$NC"
 
 fi
