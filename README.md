@@ -6,8 +6,8 @@
 
 
 
-**SLACKONFIG** - um scripts para configuração do Slackware GNU/Linux
---------------
+**SLACKONFIG** - um scripts para configuração do Slackware GNU/Linux e instalação de algumas
+--------------   firulas.
 
 
 ```
