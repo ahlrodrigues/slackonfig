@@ -1,0 +1,58 @@
+##########################################
+#                                        #      
+# ------------ REFERÊNCIAS ------------- #            
+#                                        #      
+##########################################
+
+
+# --------- comenta determinada linhas --------- #
+sed -i '/PKGS_PRIORITY=( multilib ktown )/s/^/#/g' /etc/slackpkg/slackpkgplus.conf
+
+# --------- descomenta determinada linhas --------- #
+sed -i '/PKGS_PRIORITY=( multilib )/s/^#//g' /etc/slackpkg/slackpkgplus.conf 
+
+# --------- comenta todas as linhas --------- #
+sed -i "s/^#*/#/" /etc/profile.d/lang.sh 
+
+# --------- acrescente linha após determinado argumento/linhas --------- #
+sed -i '/[0-9]+/ a Oi. Sou novo aqui' 
+
+# --------- substitui parte de uma linhas --------- #
+sed -i "s/LocalZone=.*/LocalZone=America\/Fortaleza/g" /home/ahlr/.config/ktimezonedrc 
+
+# --------- Discard the output --------- #
+$rcd/rc.ntpd restart > /dev/null 
+
+# --------- Condicional E --------- #
+if [ cobranca == yes ] && [ skyline == yes ]; then 
+
+# --------- Condicional OU --------- #
+if [ cobranca == yes ] || [ skyline == yes ]; then 
+
+# --------- Rodando todos os script de uma pasta --------- #
+for sh in /home/ahlr/Downloads/*.sh ; do
+source "$sh"
+echo "Este é o $sh"
+done
+
+# --------- Accrescenta linha ao final do arquivo --------- #
+echo -e "$GREEN Inseria as alterações para o arquivo ChangeLog.txt?"
+
+# --------- Contar o número de linhas --------- #
+wc -l plex.log | awk '{ print $1 }'
+
+# --------- Accrescenta linha no início do arquivo --------- #
+sed -i "1s/^/TEXTO\n/" $dropbox/TONICO/Projetos/slackonfig/ChangeLog.txt
+
+#Cria variáveis globais
+export src="/home/ahlr/Dropbox/TONICO/Projetos/slackonfig/source/"
+
+# --------- Apagar arquivos por data --------- #
+find -mtime +60 -type f -exec rm {} \;
+
+# --------- Montando ma rede --------- #
+echo "mount -t cifs //192.168.1.210/dropbox/NET4YOU/ /home/ahlr/NASBOX/ -o username=antonio,password=tossbagscotland,iocharset=utf8,sec=ntlm,nofail,vers=1.0" >> /etc/rc.d/rc.local
+echo "//192.168.1.51/Volume_1/Transmission/ /mnt/box1/ cifs vers=1.0,credentials=/etc/samba/.smbpasswd02,users,uid=ahlr,gid=users,iocharset=utf8,sec=ntlm,nofail 0 0" >> /etc/fstab
+
+# --------- Mudar de codificação --------- #
+cat clarice.s01e01.1080p.web.h264-ggez.srt|iconv -f iso8859-1 -t UTF-8 -o clarice.s01e01.1080p.web.h264-ggez.srt2

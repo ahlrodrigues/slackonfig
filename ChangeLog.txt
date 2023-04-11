@@ -1,0 +1,62 @@
+
+
+*----------------------- qua 23 fev 2022 19:43:05 -03 -----------------------*
+
+- updates and upgrades
+
+*----------------------- qui 05 jul 2018 21:16:48 -03 -----------------------*
+
+- várias correções
+- remove cobrancabnb
+- limpeza geral
+*----------------------- qua 04 jul 2018 21:33:30 -03 -----------------------*
+
+- correção no multilib
+- correção no mlocal
+- correção no pkg
+*----------------------- ter 03 jul 2018 22:00:55 -03 -----------------------*
+
+localerc - Configura o idioma do plasma;
+updatemirrors - Cria um atalho para atualização dos mirrors;
+mmultilib - Cria o script rsync para o multilib;
+*----------------------- qua 27 jun 2018 21:06:10 -03 -----------------------*
+
+variables - cria variáveis globais;
+- correção de IF "";
+*----------------------- sex 22 jun 2018 21:30:05 -03 -----------------------*
+
+skackonfig.2.6.sh relesed!;
+*----------------------- qui 21 jun 2018 23:48:07 -03 -----------------------*
+
+wallpaper - configura o papel de parede padrão;
+localerc - configura o locale do plasma;
+*----------------------- qua 20 jun 2018 20:26:40 -03 -----------------------*
+
+dochangelog - escreve no arquivo ChangeLog.txt dos projetos;
+*----------------------- ter jun 19 22:26:49 -03 2018 -----------------------*
+
+- implementando variável $slackonfig para aplicar funções padrão;
+*----------------------- ter jun 19 20:28:11 -03 2018 -----------------------*
+
+PKGS.txt - atualizações da lista
+- correções no pkgs
+- atualização do .gitignore
+*----------------------- ter jun 19 15:55:35 -03 2018 -----------------------*
+
+doteamviewerpkg - ciação e inclusão;
+- criação da variável $downloads;
+- nomeando as variável $nomet e $nomep;
+*----------------------- sáb jun 16 12:05:23 -03 2018 -----------------------*
+
+doplexpkg - correções;
+- substituição de if por case nas perguntas;
+*----------------------- sex jun 15 15:27:19 -03 2018 -----------------------*
+
+- correção de sintax;
+*----------------------- qui jun 14 21:10:14 -03 2018 -----------------------*
+
+brother - movida a instalação do driver da impressora para a sessão de configurações;
+konsole - correção do caminho do Shell-profile para plasma5;
+gpg - removido script de configuração do gpg-agent, julgamos obsoleto;
+*----------------------------------------------------------------------------*
+
