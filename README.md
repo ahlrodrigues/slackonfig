@@ -27,9 +27,9 @@ Telegram: @Antonio_Henrique_Fela
 **Nota:**
 ----------
 ```
-Os scripts deste diretório estão disponíveis na esperança que possam ser úteis, mas SEM NENHUMA GARANTIA
-DE FUNCIONAMENTO, SEM NENHUMA GARANTIA DE ADEQUAÇÃO A QUALQUER MERCADO, SEM NENHUMA GARANTIA DE APLICAÇÃO
-EM PARTICULAR e NENHUM SUPORTE TÉCNICO.
+Os scripts deste diretório estão disponíveis na esperança que possam ser úteis, mas SEM NENHUMA
+GARANTIA DE FUNCIONAMENTO, SEM NENHUMA GARANTIA DE ADEQUAÇÃO A QUALQUER MERCADO, SEM NENHUMA
+GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM SUPORTE TÉCNICO.
 ```
 
 
@@ -95,17 +95,6 @@ Usage:
 ------
 ```
 Baixe o SLACKONFIG, habilite a função desejada e rode-o como root.
-```
-
-
-Feature:
---------
-```
-- Instalação do Skyline administrador dos arquivos de remessa (.REM) e de  retorno (.SAI) do BNB;
-- Cria o arquivo de inicialização do BOIC;
-- Configuração do Slackpkg;
-- Aplicação do layer para transformar Slackware => Slackware Multilib;
-- Instalação do Dropbox;
 ```
 
 
