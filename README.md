@@ -6,21 +6,22 @@
 
 
 
-**SLACKONFIG** - um scripts para configuração do Slackware GNU/Linux e instalação de algumas firulas.
+**SLACKONFIG** - um scripts para configuração do Slackware GNU/Linux e instalação de algumas "firulas".
 --------------
 
 
-```
-Autor: Antonio Henrique (Fela)
-```
-E-mail: ahlr_2000@yahoo.com
 
-Telegram: @Antonio_Henrique_Fela
+>Autor: Antonio Henrique (Fela)
+
+>E-mail: ahlr_2000@yahoo.com
+
+>Telegram: @Antonio_Henrique_Fela
 
 [Grupo Slackshowbr no Telegram](https://t.me/slackshowbr)
 
 
->Bugs, Agradecimentos, Críticas construtivas", mande um e-mail, ficarei Grato!
+
+>Bugs, Agradecimentos, Críticas "construtivas", mande um e-mail, ficarei Grato!
 
 
 
