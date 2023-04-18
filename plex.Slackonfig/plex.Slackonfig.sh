@@ -76,13 +76,13 @@ permix="chmod +x"
 permi0="chmod 770"
 permi7="chmod 777"
 rcplex=`ls $rcl | awk '/plexmediaserver/ { print $0 }'`
-#newpkg=$(ls /home/ahlr/Downloads/plexmediaserver* | cut -d '_' -f2)
-newpkg=$(ls /tmp/plexmediaserver*)
-#oldpkg=$(ls /var/log/packages/plexmediaserver* | cut -d '-' -f2)
+newpkg=$(ls /tmp/plexmediaserver*.t?z)
 oldpkg=$(ls /var/lib/pkgtools/packages/plexmediaserver*)
 pkgold=$(ls /var/log/packages/plexmediaserver*)
 pkgnew=$(ls /tmp/plexmediaserver*)
 
+#oldpkg=$(ls /var/log/packages/plexmediaserver* | cut -d '-' -f2)
+#newpkg=$(ls /home/ahlr/Downloads/plexmediaserver* | cut -d '_' -f2)
 #oldversao=$(ls /var/log/packages/plexmediaserver* | cut -d '-' -f3 | cut -d '-' -f1)
 #newversao=$(ls /home/ahlr/Downloads/plexmediaserver* | cut -d '-' -f2 $nomep*| cut -d '_' -f1)
 
@@ -135,7 +135,7 @@ echo
 
 
     if [ -e $pkgold ]; then
-    upgradepkg $oldpkg%$newpkg
+    upgradepkg '$oldpkg'%'$newpkg'
 
     $rcd/rc.plexmediaserver restart
 
@@ -185,7 +185,7 @@ else
 fi
 
 # Remove source packages/ #
-#rm -fr $downloads/$nomep*
+rm -fr $downloads/$nomep*
 
 #if [ -e $pkgnew ]; then
 #    rm /tmp/$pkgnew

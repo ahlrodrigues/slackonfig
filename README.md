@@ -17,7 +17,7 @@
 
 >Telegram: @Antonio_Henrique_Fela
 
-[Grupo Slackshowbr no Telegram](https://t.me/slackshowbr)
+>[Grupo Slackshowbr no Telegram](https://t.me/slackshowbr)
 
 
 
