@@ -89,7 +89,7 @@ pkgnew=$(ls /tmp/plexmediaserver*)
 clear
 
 #Baixa o script slackbuild
-    wget -q  -nv -e robots=0 -r -nd -cP /home/ahlr/Downloads/ https://slackbuilds.org/slackbuilds/14.2/multimedia/plexmediaserver.tar.gz
+wget -q  -nv -e robots=0 -r -nd -cP /home/ahlr/Downloads/ https://slackbuilds.org/slackbuilds/14.2/multimedia/plexmediaserver.tar.gz
 
 #Entra na pasta Downloads
 cd $downloads
@@ -135,7 +135,7 @@ echo
 
 
     if [ -e $pkgold ]; then
-    upgradepkg '$oldpkg'%'$newpkg'
+    upgradepkg "$oldpkg"%"$newpkg"
 
     $rcd/rc.plexmediaserver restart
 
