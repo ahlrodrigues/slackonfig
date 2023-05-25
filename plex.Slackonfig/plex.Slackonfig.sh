@@ -134,7 +134,7 @@ echo
     Y|y)
 
 
-    if [ -e $pkgold ]; then
+    if [ -f $oldpkg ]; then
     upgradepkg "$oldpkg"%"$newpkg"
 
     $rcd/rc.plexmediaserver restart

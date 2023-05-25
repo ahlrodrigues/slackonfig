@@ -10,4 +10,4 @@ echo $newpkg
 
 
 upgradepkg "$oldpkg"%"$newpkg"
-up
+
