@@ -74,7 +74,7 @@ echo
 dias=90
 
 clear
-cd /home/hd1/downloads
+cd TEST
 
 # Exit if the directory isn't found.
 if (($?>0)); then
@@ -83,9 +83,8 @@ if (($?>0)); then
 fi
 
 #Seleciona os arquivos que não estão no greenlist
-
-for i in *;do
-    if ! grep "$i" greenlist.txt; then
+for i in *; do
+    if ! grep -qxFe "$i" greenlist.txt; then
         echo "$i"
         #Apaga os arquivos mais velhos que $dias não constantes no greenlist
         #find "$i" -mtime +$dias -type f -delete

@@ -134,7 +134,7 @@ echo
     Y|y)
 
 
-    if [ -f $oldpkg ]; then
+    if [ -f "$oldpkg" ]; then
     upgradepkg "$oldpkg"%"$newpkg"
 
     $rcd/rc.plexmediaserver restart
@@ -187,6 +187,7 @@ fi
 # Remove source packages/ #
 rm -fr $downloads/$nomep*
 
-#if [ -e $pkgnew ]; then
-#    rm /tmp/$pkgnew
-#fi
+# Remove new package/ #
+if [ -e $pkgnew ]; then
+    rm /tmp/$pkgnew
+fi

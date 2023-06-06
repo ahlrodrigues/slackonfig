@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# $Id: mirror-slackware-current.sh,v 1.93 2018/06/16 10:02:33 root Exp root $
+# $Id: mirror-slackware-current.sh,v 1.99 2023/05/31 19:02:29 root Exp root $
 #
 # Mirror Slackware-current to our local machine
 #
@@ -16,10 +16,10 @@
 # - If no changes, then no further actions are needed (abort script)
 # - If ChangeLog.txt has changed since our last mirror, do the following:
 # - Mirror the slackware release tree
-# - Create a set of 4 CDROM ISO images
-#   or a bootable mini ISO containing just the kernel and the installer,
+# - Create a bootable mini ISO containing just the kernel and the installer,
 #   or a single bootable DVD from the current tree,
 #   (guidelines are in the ./isolinux/README.TXT)
+#   All ISOs are hybrid: they can be copied to USB stick using 'dd' or 'cp'.
 #   CDROM ISO images must be at most 737.280.000 bytes (703 MB)
 #   in order to fit on a 80min CD medium.
 #   A typical DVD max size is 4.706.074.624 bytes (4.38GB better known as 4.7G)
@@ -53,6 +53,7 @@ RSYNC=${RSYNC:-"/usr/bin/rsync"}
 MKISOFS=${MKISOFS:-"/usr/bin/mkisofs"}
 MD5SUM=${MD5SUM:-"/usr/bin/md5sum"}
 ISOHYBRID=${ISOHYBRID:-"/usr/bin/isohybrid"}
+XORRISO=${XORRISO:-"/usr/bin/xorriso"}
 
 # Your name/email:
 BUILDER=${BUILDER:-"AHLR <ahlr_2000@yahoo.com>"}
@@ -62,8 +63,8 @@ BUILDER=${BUILDER:-"AHLR <ahlr_2000@yahoo.com>"}
 # This value can be overruled via the '-l' commandline parameter;
 SLACKROOTDIR=${SLACKROOTDIR:-"/mnt/arquivos/Slackware"}
 
-# What architecture will we be mirroring? The default is 'x86' meaning 32bit.
-# Alternatively you can specify 'x86_64' meaning 64bit or 'arm' meaning ARM.
+# What architecture will we be mirroring? The default is 'x86_64' meaning 64bit.
+# Alternatively you can specify 'x86' meaning 32bit or 'arm' meaning ARM.
 # The value of ARCH determines the name of the slackware directories.
 # This value can be overruled via the '-a' commandline parameter;
 ARCH=${ARCH:-"x86_64"}
@@ -80,8 +81,6 @@ RELEASE=${RELEASE:-"current"}
 # An alternative rsync mirror URI can also be passed to the script with
 # the '-m' option - that URI must *not* have a trailing slash.
 RSYNCURLROOT=${RSYNCURLROOT:-"rsync.osuosl.org::slackware/"}
-#RSYNCURLROOT=${RSYNCURLROOT:-"rsync.slackware.no::slackware/"}
-#RSYNCURLROOT=${RSYNCURLROOT:-"rsync.slackware.pl::slackware/"}
 RSYNCURL=${RSYNCURL:-""}
 
 # If you need to feed rsync's "external" program additional options (such as
@@ -101,14 +100,13 @@ EXTOPTS=${EXTOPTS:-""}
 DEBUG=${DEBUG:-1}
 VERBOSE=${VERBOSE:-"-vP"}
 
-# Set ISO="DVD" if you want a single DVD instead of four CD ISO's.
-# Set ISO="CDROM" if you want four CD ISO's instead of a single DVD.
-# Set ISO="ALL" if you want four CD ISO's as well as a single DVD ISO.
+# Set ISO="DVD" if you want a single DVD instead of four CD ISOs.
+# Set ISO="ALL" if you want a mini CD ISO as well as a single DVD ISO.
 # Set ISO="NONE" if you just want to sync the local mirror but don't need ISOs.
 # Set ISO="MINI" if you want only the mini ISO (network installer).
 #    Note: setting ISO="MINI" will result in a partial sync (no packages)!
 # You can set the ISO variable using the '-o <iso_type>' switch too.
-ISO=${ISO:-"DVD"}
+ISO=${ISO:-"ALL"}
 
 # If you want to skip the rsync stage entirely, and just want to build
 # ISO image(s) from your local tree, then set ISOONLY="yes"
@@ -131,11 +129,6 @@ ONLYDIFF=${ONLYDIFF:-0}
 # running 'mkisofs' - this is useful in case you are short on disk space.
 # Corresponds to the '-p' option.
 PREREMOVE=${PREREMOVE:-0}
-
-# If you want a 'hybrid' ISO image which can be copied directly to a USB stick
-# to create a bootable USB media, set HYBRID to '1'.
-# Corresponds to the '-u' option.
-HYBRID=${HYBRID:-0}
 
 # The value of EXCLUDES is what the script will exclude from the mirroring
 # process; there is no parameter for the script to change this value, but you
@@ -202,12 +195,12 @@ ORIGSCR="http://www.slackware.com/~alien/tools/mirror-slackware-current.sh"
 # Make sure the PID file is removed when we kill the process
 trap 'rm -f $PIDFILE; exit 1' TERM INT
 
-while getopts "a:b:cehfil:m:no:pr:qs:uvwX:" Option
+while getopts "a:b:cehfil:m:no:pr:qs:vwX:" Option
 do
   case $Option in
     h ) cat <<-"EOH"
 	-----------------------------------------------------------------
-	$Id: mirror-slackware-current.sh,v 1.93 2018/06/16 10:02:33 root Exp root $
+	$Id: mirror-slackware-current.sh,v 1.99 2023/05/31 19:02:29 root Exp root $
 	-----------------------------------------------------------------
 	EOH
         echo "Usage:"
@@ -223,8 +216,8 @@ do
         echo ""
         echo "The script's parameters are:"
         echo "  -h            This help."
-        echo "  -a <arch>     Architecture to mirror (defaults to 'x86',"
-        echo "                can be 'x86_64' or 'arm' too)."
+        echo "  -a <arch>     Architecture to mirror (defaults to '$ARCH',"
+        echo "                can be 'x86_64', 'x86' or 'arm')."
         echo "  -b <number>   Limit bandwidth usage to <number> KBytes/sec."
         echo "  -c            Check for newer version of this script."
         echo "  -e            Use 'boot-load-size=32' instead of the value 4."
@@ -246,23 +239,21 @@ do
         echo "                (no trailing slash!)"
         echo "  -n            Only show the changes in the ChangeLog.txt"
         echo "                but don't sync anything and don't generate ISOs."
-        echo "  -o <iso_type> The type of ISO that you want to generate."
+        echo "  -o <iso_type> The type of hybrid ISO that you want to generate."
         echo "                iso_type can be one of:"
-        echo "                CDROM: produce 4 CDROM images (KDE on CD4)"
         echo "                MINI : produce a mini CDROM (netinstall) image"
         echo "                DVD  : produce a single DVD image"
-        echo "                ALL  : produce CDROM and DVD images"
+        echo "                ALL  : produce mini CDROM and DVD images"
         echo "                NONE : produce no images at all (just sync)."
         echo "                The default iso_type is ${ISO}."
-        echo "  -p            Remove old ISO's before building the new ones"
+        echo "  -p            Remove old ISOs before building the new ones"
         echo "                (in case you're suffering from low free space)."
-        echo "  -r <release>  The release ('current' by default); use '-r 12.2'"
-        echo "                if you want to mirror and image slackware 12.2"
+        echo "  -r <release>  The release ('$RELEASE' by default); use '-r 15.0'"
+        echo "                if you want to mirror and image slackware 15.0"
         echo "  -q            Non-verbose output (for cron jobs)."
         echo "  -s            Additional ssh options, in case rsync needs to"
         echo "                login to the remote server using ssh. Example:"
         echo "                -s \"-l alien -o IdentityFile=/home/alien/.ssh/id_rsa\""
-        echo "  -u            Create a hybrid ISO (can be dd-ed to USB stick)."
         echo "  -v            Verbose progress indications."
         echo "  -w            Write a .conf file containing script defaults."
         echo "                It will be created in the script's directory,"
@@ -307,8 +298,6 @@ do
     s ) EXTOPTS="${OPTARG}"
         export RSYNC_RSH="ssh $EXTOPTS"
         ;;
-    u ) HYBRID=1
-        ;;
     v ) echo "Enabling verbose output...."
         DEBUG=1
         VERBOSE="-v --progress"
@@ -348,9 +337,9 @@ shift $(($OPTIND - 1))
 # ---------------------------------------------------------------------------
 
 # Sanity checks - 
-if ! echo "CDROM MINI DVD ALL NONE" | grep -wq $ISO ; then
+if ! echo "MINI DVD ALL NONE" | grep -wq $ISO ; then
   echo "Error! Invalid iso_type '-o ${ISO}' passed as parameter!"
-  echo "Possible values are 'CDROM', 'MINI', 'DVD', 'ALL' or 'NONE'."
+  echo "Possible values are 'MINI', 'DVD', 'ALL' or 'NONE'."
   exit 1
 fi
 
@@ -424,9 +413,9 @@ if [ "$CHECKVER" == "yes" ]; then
     echo "# Checking version of '${ORIGSCR}' ..."
     echo "#"
   fi
-  CVRS=$(cat ${0} | grep '$Id: ' | head -1 | \
+  CVRS=$(cat ${0} | grep 'Id: ' | head -1 | \
     sed -e 's/^.*Id: mirror-slackware-current.sh,v \([0-9.]*\) .*$/\1/')
-  NVRS=$(wget -T 10 -q -O - ${ORIGSCR} | grep '$Id: ' | \
+  NVRS=$(wget -T 10 -q -O - ${ORIGSCR} | grep 'Id: ' | \
     head -1 | \
     sed -e 's/^.*Id: mirror-slackware-current.sh,v \([0-9.]*\) .*$/\1/')
   if [ -z "$CVRS" -o -z "$NVRS" ]; then
@@ -442,6 +431,13 @@ if [ "$CHECKVER" == "yes" ]; then
   elif [ "$CVRS" == "$NVRS" -a $DEBUG -eq 1 ]; then
     echo "# You have the most recent version of this script"
   fi
+fi
+
+if which $XORRISO 1>/dev/null 2>/dev/null ; then
+  # Prefer xorriso over mkisofs:
+  USEXORR=${USEXORR:-"yes"}
+else
+  USEXORR=${USEXORR:-"no"}
 fi
 
 if [ "$ISOONLY" == "no" ]; then
@@ -720,7 +716,7 @@ _EOT_
 
   if [ $MKISOERR -eq 0 ]; then
     # Create a hybrid ISO if requested:
-    if [ $HYBRID -eq 1 -a -x $ISOHYBRID ]; then
+    if [ -x $ISOHYBRID ]; then
       echo "$(date) [$$]: Creating hybrid ISO."
       $ISOHYBRID ${ISOHYBRID_OPTS} ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-mini-install.iso
     fi
@@ -740,327 +736,15 @@ _EOT_
   fi ## end of [ "$ISO" == "MINI" -o  "$ISO" == "ALL" ]
 
 
-  if [ "$ISO" == "CDROM" -o  "$ISO" == "ALL" ]; then
-
-  cat <<_EOT_ > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/readme.mkisofs
-  #
-  # Slackware installation uses 4 CD's.
-  # In 'menu' or 'expert' mode, packages from CD2/CD3 can be selected.
-  # In 'full install' mode, additional CD's will be asked for.
-  #
-  # CD1: bootable INSTALL CD with a, ap, f, l, n, tcl, y
-  # CD2: d, x, xap, xfce
-  # CD3: e, k, t
-  # CD4: kde
-  #
-  # Command used to create the ISO's for CD1, CD2 and CD3:
-  # (see also /isolinux/README.TXT on the CDROM you'll burn from the ISO)
-
-  # CD1
-
-  mkisofs -o ${SLACKRELEASE}-install1.iso \\
-    -R -J -V "Slackware Install" \\
-    -x ./bootdisks \\
-    -x ./extra \\
-    -x ./${PKGMAIN}/d \\
-    -x ./${PKGMAIN}/e \\
-    -x ./${PKGMAIN}/k \\
-    -x ./${PKGMAIN}/kde \\
-    -x ./${PKGMAIN}/kdei \\
-    -x ./${PKGMAIN}/t \\
-    -x ./${PKGMAIN}/x \\
-    -x ./${PKGMAIN}/xap \\
-    -x ./${PKGMAIN}/xfce \\
-    -x ./pasture \\
-    -x ./patches \\
-    -x ./rootdisks \\
-    -x ./source \\
-    -x ./testing \\
-    -x ./usb-and-pxe-installers \\
-    -x ./zipslack \\
-    -hide-rr-moved -hide-joliet-trans-tbl \\
-    -v -d -N -no-emul-boot -boot-load-size ${BOOTLOADSIZE} -boot-info-table \\
-    -sort isolinux/iso.sort \\
-    -b isolinux/isolinux.bin \\
-    -c isolinux/isolinux.boot \\
-    -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \\
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \\
-    -A "Slackware-${RELEASE} Install CD1 - build $DATE" \\
-    ${UEFI_OPTS} \\
-    .
-
-  #CD2
-
-  mkisofs -o ${SLACKRELEASE}-install2.iso \\
-    -R -J -V "Slackware Install2" \\
-    -hide-rr-moved -hide-joliet-trans-tbl \\
-    -v -d -N \\
-    -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \\
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \\
-    -A "Slackware-${RELEASE} Install CD2 - build $DATE" \\
-    -graft-points \\
-    -sort isolinux/iso.sort \\
-    /${PKGMAIN}/d/=./${PKGMAIN}/d \\
-    /${PKGMAIN}/x/=./${PKGMAIN}/x \\
-    /${PKGMAIN}/xap/=./${PKGMAIN}/xap \\
-    /${PKGMAIN}/xap/=./${PKGMAIN}/xfce \\
-    .
-
-  #CD3
-
-  mkisofs -o ${SLACKRELEASE}-install3.iso \\
-    -R -J -V "Slackware Install3" \\
-    -hide-rr-moved -hide-joliet-trans-tbl \\
-    -v -d -N \\
-    -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \\
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \\
-    -A "Slackware-${RELEASE} Install CD3 - build $DATE" \\
-    -graft-points \\
-    -sort isolinux/iso.sort \\
-    /${PKGMAIN}/e/=./${PKGMAIN}/e \\
-    /${PKGMAIN}/k/=./${PKGMAIN}/k \\
-    /${PKGMAIN}/t/=./${PKGMAIN}/t \\
-   .
-
-  #CD4
-
-  mkisofs -o ${SLACKRELEASE}-install4.iso \\
-    -R -J -V "Slackware Install4" \\
-    -hide-rr-moved -hide-joliet-trans-tbl \\
-    -v -d -N \\
-    -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \\
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \\
-    -A "Slackware-${RELEASE} Install CD4 - build $DATE" \\
-    -graft-points \\
-    -sort isolinux/iso.sort \\
-    /${PKGMAIN}/kde/=./${PKGMAIN}/kde \\
-   .
-
-_EOT_
-
-  echo "$(date) [$$]: Creating CDROM ISO images for ${SLACKRELEASE}..."
-
-  if [ $PREREMOVE -eq 1 ]; then
-    # Deleting the previous ISO prior to creating the new ISO
-    # This is good if you're short on free disk space...
-    [ $DEBUG == 1 ] && echo "Deleting old ISO first ..."
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install1.iso
-  fi
-
-  MKISOERR=0
-
-  $MKISOFS -o ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install1.iso \
-    -R -J -V "Slackware Install" \
-    -x ./bootdisks \
-    -x ./extra \
-    -x ./${PKGMAIN}/d \
-    -x ./${PKGMAIN}/e \
-    -x ./${PKGMAIN}/k \
-    -x ./${PKGMAIN}/kde \
-    -x ./${PKGMAIN}/kdei \
-    -x ./${PKGMAIN}/t \
-    -x ./${PKGMAIN}/x \
-    -x ./${PKGMAIN}/xap \
-    -x ./${PKGMAIN}/xfce \
-    -x ./pasture \
-    -x ./patches \
-    -x ./rootdisks \
-    -x ./source \
-    -x ./testing \
-    -x ./usb-and-pxe-installers \
-    -x ./zipslack \
-    -hide-rr-moved -hide-joliet-trans-tbl \
-    -v -d -N -no-emul-boot -boot-load-size ${BOOTLOADSIZE} -boot-info-table \
-    -sort isolinux/iso.sort \
-    -b isolinux/isolinux.bin \
-    -c isolinux/isolinux.boot \
-    -preparer "Slackware-${RELEASE} build for ${ARCH} by ${BUILDER}" \
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \
-    -A "Slackware-${RELEASE} Install CD1 - build $DATE" \
-    ${UEFI_OPTS} \
-    . \
-  > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs1.log 2>&1
-
-  MKISOERR=$?
-
-  if [ $MKISOERR -eq 0 ]; then
-    # Create a hybrid ISO if requested:
-    if [ $HYBRID -eq 1 -a -x $ISOHYBRID ]; then
-      echo "$(date) [$$]: Creating hybrid ISO."
-      $ISOHYBRID ${ISOHYBRID_OPTS} ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install1.iso
-    fi
-  fi
-
-  if [ $PREREMOVE -eq 0 ]; then
-    # Deleting the previous ISO after creating the new ISO
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install1.iso
-  fi
-
-  ### If you want, keep a copy of the previous ISO...
-  #rm -f previous*install1.iso
-  #touch LATEST_ADDITION_TO_CURRENT
-  #mv ${SLACKRELEASE}-install1.iso \
-  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install1.iso 
-  ###
-
-  # Make the new ISO "visible"
-  mv ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install1.iso \
-     ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install1.iso
-
-  echo "$(date) [$$]: First CDROM ISO created (exit code ${MKISOERR}) - three to go ..."
-
-  #
-  # Now the second CD:
-  #
-
-  if [ $PREREMOVE -eq 1 ]; then
-    # Deleting the previous ISO prior to creating the new ISO
-    # This is good if you're short on free disk space...
-    [ $DEBUG == 1 ] && echo "Deleting old ISO first ..."
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install2.iso
-  fi
-
-  $MKISOFS -o ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install2.iso \
-    -R -J -V "Slackware Install2" \
-    -hide-rr-moved -hide-joliet-trans-tbl \
-    -v -d -N  \
-    -preparer "Slackware-${RELEASE} build for ${ARCH} by ${BUILDER}" \
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \
-    -A "Slackware-${RELEASE} Install CD2 - build $DATE" \
-    -graft-points \
-    /${PKGMAIN}/d/=./${PKGMAIN}/d \
-    /${PKGMAIN}/x/=./${PKGMAIN}/x \
-    /${PKGMAIN}/xap/=./${PKGMAIN}/xap \
-    /${PKGMAIN}/xfce/=./${PKGMAIN}/xfce \
-  > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs2.log 2>&1
-  
-  MKISOERR2=$?
-  MKISOERR=$(($MKISOERR + $MKISOERR2))
-
-  if [ $PREREMOVE -eq 0 ]; then
-    # Deleting the previous ISO after creating the new ISO
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install2.iso
-  fi
-
-  ### If you want, keep a copy of the previous ISO...
-  #rm -f previous*install2.iso
-  #touch LATEST_ADDITION_TO_CURRENT
-  #mv ${SLACKRELEASE}-install2.iso \
-  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install2.iso 
-  ###
-
-  # Make the new ISO visible
-  mv ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install2.iso \
-     ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install2.iso
-
-  echo "$(date) [$$]: Second CDROM ISO created (exit code ${MKISOERR2}) - two to go ..."
-
-  #
-  # And the third CD:
-  #
-
-  if [ $PREREMOVE -eq 1 ]; then
-    # Deleting the previous ISO prior to creating the new ISO
-    # This is good if you're short on free disk space...
-    [ $DEBUG == 1 ] && echo "Deleting old ISO first ..."
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install3.iso
-  fi
-
-  $MKISOFS -o ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install3.iso \
-    -R -J -V "Slackware Install3" \
-    -hide-rr-moved -hide-joliet-trans-tbl \
-    -v -d -N  \
-    -preparer "Slackware-${RELEASE} build for ${ARCH} by ${BUILDER}" \
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \
-    -A "Slackware-${RELEASE} Install CD3 - build $DATE" \
-    -graft-points \
-    /${PKGMAIN}/e/=./${PKGMAIN}/e \
-    /${PKGMAIN}/k/=./${PKGMAIN}/k \
-    /${PKGMAIN}/t/=./${PKGMAIN}/t \
-  > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs3.log 2>&1
-  
-  MKISOERR3=$?
-  MKISOERR=$(($MKISOERR + $MKISOERR3))
-
-  if [ $PREREMOVE -eq 0 ]; then
-    # Deleting the previous ISO after creating the new ISO
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install3.iso
-  fi
-
-  ### If you want, keep a copy of the previous ISO...
-  #rm -f previous*install3.iso
-  #touch LATEST_ADDITION_TO_CURRENT
-  #mv ${SLACKRELEASE}-install3.iso \
-  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install3.iso 
-  ###
-
-  # Make the new ISO visible
-  mv ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install3.iso \
-     ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install3.iso
-
-  echo "$(date) [$$]: Third CDROM ISO created (exit code ${MKISOERR3}) - one to go ..."
-
-  #
-  # Finally the fourth CD:
-  #
-
-  if [ $PREREMOVE -eq 1 ]; then
-    # Deleting the previous ISO prior to creating the new ISO
-    # This is good if you're short on free disk space...
-    [ $DEBUG == 1 ] && echo "Deleting old ISO first ..."
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install4.iso
-  fi
-
-  $MKISOFS -o ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install4.iso \
-    -R -J -V "Slackware Install4" \
-    -hide-rr-moved -hide-joliet-trans-tbl \
-    -v -d -N  \
-    -preparer "Slackware-${RELEASE} build for ${ARCH} by ${BUILDER}" \
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \
-    -A "Slackware-${RELEASE} Install CD4 - build $DATE" \
-    -graft-points \
-    /${PKGMAIN}/kde/=./${PKGMAIN}/kde \
-  > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs4.log 2>&1
-  
-  MKISOERR4=$?
-  MKISOERR=$(($MKISOERR + $MKISOERR4))
-
-  if [ $PREREMOVE -eq 0 ]; then
-    # Deleting the previous ISO after creating the new ISO
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install4.iso
-  fi
-
-  ### If you want, keep a copy of the previous ISO...
-  #rm -f previous*install4.iso
-  #touch LATEST_ADDITION_TO_CURRENT
-  #mv ${SLACKRELEASE}-install4.iso \
-  #   previous-$(cat LATEST_ADDITION_TO_CURRENT)-install4.iso 
-  ###
-
-  # Make the new ISO visible
-  mv ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install4.iso \
-     ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install4.iso
-
-  echo "$(date) [$$]: CDROM ISO's created of ${SLACKRELEASE}."
-  echo "$(date) [$$]: The combined exit code for ISO creation is '${MKISOERR}'. A a non-zero number here means: something goofed along the way."
-
-  # Now that we created all CDROM ISO images, let's check for error codes
-  # and show a bit of the error log if warranted: 
-  [ $MKISOERR -ne 0 ] && \
-    tail -10 ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs{1,2,3,4}.log | \
-    sed -e 's/^/! /'
-
-  fi ## end of [ "$ISO" == "CDROM" -o  "$ISO" == "ALL" ]
-
   if [ "$ISO" == "DVD" -o  "$ISO" == "ALL" ]; then
 
   cat <<_EOT_ > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/readme_dvd.mkisofs
   #
   # Slackware installation as DVD. 
   #
-  # Contains: bootable INSTALL DVD (including /extra and /source)
+  # Contains: bootable INSTALL DVD (including /extra)
   #
-  # Command used to create the ISO's for this DVD:
+  # Command used to create the ISOs for this DVD:
   # (see also /isolinux/README.TXT on the DVD you'll burn from the ISO)
 
   # DVD
@@ -1111,7 +795,7 @@ _EOT_
 
   if [ $MKISOERR -eq 0 ]; then
     # Create a hybrid ISO if requested:
-    if [ $HYBRID -eq 1 -a -x $ISOHYBRID ]; then
+    if [ -x $ISOHYBRID ]; then
       echo "$(date) [$$]: Creating hybrid ISO."
       $ISOHYBRID ${ISOHYBRID_OPTS} ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install-dvd.iso
     fi
@@ -1131,114 +815,11 @@ _EOT_
   mv ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-install-dvd.iso \
      ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-install-dvd.iso
 
-
-#####################################33
-
-
-  cat <<_EOT_ > ${SLACKROOTDIR}/MINI}-iso/readme_mini.mkisofs
-  #
-  # Slackware installation "mini" ISO.
-  # This ISO does not contain any packages, and can be used for network
-  # installs.
-  #
-  # Command used to create the ISO:
-  # (see also /isolinux/README.TXT on the CDROM you'll burn from the ISO)
-
-  # Mini ISO
-
-  mkisofs -o ${SLACKRELEASE}-mini-install.iso \\
-    -R -J -V "Slackware Mini Install" \\
-    -x ./bootdisks \\
-    -x ./extra \\
-    -x ./pasture \\
-    -x ./patches \\
-    -x ./rootdisks \\
-    -x ./slackbook \\
-    -x ./${PKGMAIN} \\
-    -x ./source \\
-    -x ./testing \\
-    -x ./usb-and-pxe-installers \\
-    -x ./zipslack \\
-    -v -d -N \\
-    -hide-rr-moved -hide-joliet-trans-tbl \\
-    -no-emul-boot -boot-load-size 4 -boot-info-table \\
-    -sort isolinux/iso.sort \\
-    -b isolinux/isolinux.bin \\
-    -c isolinux/isolinux.boot \\
-    -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \\
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \\
-    -A "Slackware-${RELEASE} for ${ARCH} Mini Install CD - build $DATE" \\
-    ${UEFI_OPTS} \\
-    .
-
-_EOT_
-
-  echo "$(date) [$$]: Creating MINI ISO image for ${SLACKRELEASE}..."
-
-  if [ $PREREMOVE -eq 1 ]; then
-    # Deleting the previous ISO prior to creating the new ISO
-    # This is good if you're short on free disk space...
-    [ $DEBUG == 1 ] && echo "Deleting old ISO first ..."
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}mini-install.iso
-  fi
-
-  MKISOERR=0
-
-  $MKISOFS -o ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-mini-install.iso \
-    -R -J -V "Slackware Mini Install" \
-    -x ./bootdisks \
-    -x ./extra \
-    -x ./pasture \
-    -x ./patches \
-    -x ./rootdisks \
-    -x ./slackbook \
-    -x ./${PKGMAIN} \
-    -x ./source \
-    -x ./testing \
-    -x ./usb-and-pxe-installers \
-    -x ./zipslack \
-    -hide-rr-moved -hide-joliet-trans-tbl \
-    -v -d -N -no-emul-boot -boot-load-size 4 -boot-info-table \
-    -b isolinux/isolinux.bin \
-    -c isolinux/isolinux.boot \
-    -sort isolinux/iso.sort \
-    -preparer "Slackware-${RELEASE} build for $ARCH by ${BUILDER}" \
-    -publisher "The Slackware Linux Project - http://www.slackware.com/" \
-    -A "Slackware-${RELEASE} for ${ARCH} Mini Install CD - build $DATE" \
-    ${UEFI_OPTS} \
-    . \
-  > ${SLACKROOTDIR}/${SLACKRELEASE}-iso/mkisofs_mini.log 2>&1
-
-  MKISOERR=$?
-
-  if [ $MKISOERR -eq 0 ]; then
-    # Create a hybrid ISO if requested:
-    if [ $HYBRID -eq 1 -a -x $ISOHYBRID ]; then
-      echo "$(date) [$$]: Creating hybrid ISO."
-      $ISOHYBRID ${ISOHYBRID_OPTS} ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-mini-install.iso
-    fi
-  fi
-
-  if [ $PREREMOVE -eq 0 ]; then
-    # Deleting the previous ISO after creating the new ISO
-    rm -f ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-mini-install.iso
-  fi
-
-  # Make the new ISO "visible"
-  mv ${SLACKROOTDIR}/${SLACKRELEASE}-iso/.building-slackware-mini-install.iso \
-     ${SLACKROOTDIR}/${SLACKRELEASE}-iso/${SLACKRELEASE}-mini-install.iso
-
-  echo "$(date) [$$]: MINI CDROM ISO created (exit code ${MKISOERR}) ..."
-
-#######################################################33
-
-
-
   fi ## end of [ "$ISO" == "DVD" -o  "$ISO" == "ALL" ]
 
 
   # Compute MD5 checksums for the downloaders
-  echo "$(date) [$$]: Computing MD5 checksums of the ISO's (time consuming)."
+  echo "$(date) [$$]: Computing MD5 checksums of the ISOs (time consuming)."
 
   cd ${SLACKROOTDIR}/${SLACKRELEASE}-iso
   $MD5SUM *install*.iso > MD5SUM
