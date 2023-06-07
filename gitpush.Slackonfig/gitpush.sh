@@ -67,19 +67,22 @@ WHITE='\e[1;37m'
 BWHITE='\e[5;37m'
 NC='\033[0m' # reset/no color
 
-echo -e "$WHITE Entrando no diretório...$NC"
+echo -e "$WHITE Entrando no diretório... $NC"
 cd ~/Dropbox/slackonfig/
+echo
+echo "$WHITEE ~/Dropbox/slackonfig/ $NC"
 sleep 5
 echo
-echo -e "$WHITE Listando arquivos modificados...$NC"
+echo -e "$WHITE Verificando arquivos modificados... $NC"
 git add .
 sleep 5
 echo
-echo -e "$WHITE Comentando o commit: UPDATES AND UPGRADES $NC"
+echo -e "$WHITE Comentando o commit... $NC"
 git commit -m "UPDATES AND UPGRADES"
 sleep 5
 echo
-echo -e "$BWHITE Atualizando repositório...$NC"
+echo -e "$WHITE Atualizando repositório... $NC"
+echo
 git push master
 echo
-echo -e "$BGREEN Repositório Atualizado...$NC"
+echo -e "$BGREEN Repositório Atualizado... $NC"
