@@ -136,16 +136,11 @@ echo
 
     if [ -f "$oldpkg" ]; then
     upgradepkg "$oldpkg"%"$newpkg"
-
     $rcd/rc.plexmediaserver restart
-
     else
-
     installpkg $pkgnew
-
     $permix $rcd/rc.plexmediaserver
     $permi0 $rcd/rc.plexmediaserver
-
     $rcd/rc.plexmediaserver restart
     fi
     ;;

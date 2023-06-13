@@ -67,10 +67,11 @@ WHITE='\e[1;37m'
 BWHITE='\e[5;37m'
 NC='\033[0m' # reset/no color
 
-echo -e "$WHITE Entrando no diretório... $NC"
-cd ~/Dropbox/slackonfig/
 echo
-echo "$WHITEE ~/Dropbox/slackonfig/ $NC"
+echo -e "$WHITE Entrando no diretório... $NC"
+cd /home/ahlr/Dropbox/slackonfig/
+echo
+echo -e "$WHITEE /home/ahlr/Dropbox/slackonfig/ $NC"
 sleep 5
 echo
 echo -e "$WHITE Verificando arquivos modificados... $NC"

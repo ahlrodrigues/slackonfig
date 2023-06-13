@@ -3,9 +3,9 @@
 cd /home/ahlr/Documents/
 
 
-gren="$(cat greenlist.txt)"
-busca="$(find /home/ahlr/Documents/ -mtime +20 -type f)"
-
+gren="$(cat /home/ahlr/Dropbox/slackonfig/plexclean.Slackonfig/greenlist.txt)"
+#busca="$(find /home/ahlr/Dropbox/slackonfig/plexclean.Slackonfig/TEST/ -mtime +1 -type f)"
+busca="$(find /home/ahlr/Dropbox/slackonfig/plexclean.Slackonfig/TEST/)"
 
 # for i in *; do
 #  find . -mtime +20 -type f
@@ -21,12 +21,12 @@ echo "$busca"
 # echo "$a"
 # done
 
-# if ! grep "$i" greenlist.txt; then
-# echo "feito!"
+#if ! [grep "$i" $gren]; then
+#echo "$i"
 # fi
 
-
-
+rel=( diff '$busca' '$gren')
+echo "$rel"
 
 
 

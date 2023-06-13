@@ -9,5 +9,8 @@ echo $oldpkg
 echo $newpkg
 
 
-upgradepkg "$oldpkg"%"$newpkg"
+#upgradepkg "$oldpkg"%"$newpkg"
 
+if ! [ -f "$oldpkg" ]; then
+echo "existe"
+fi

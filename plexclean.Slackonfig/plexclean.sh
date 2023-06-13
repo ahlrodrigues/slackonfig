@@ -74,6 +74,8 @@ echo
 dias=90
 
 clear
+gren="$(cat /home/ahlr/Dropbox/slackonfig/plexclean.Slackonfig/greenlist.txt)"
+
 cd TEST
 
 # Exit if the directory isn't found.
@@ -88,6 +90,8 @@ for i in *; do
         echo "$i"
         #Apaga os arquivos mais velhos que $dias não constantes no greenlist
         #find "$i" -mtime +$dias -type f -delete
+        find "$i" -type f -delete
+
 fi
 done
 
