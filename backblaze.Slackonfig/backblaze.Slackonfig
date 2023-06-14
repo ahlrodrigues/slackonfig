@@ -1,0 +1,189 @@
+#!/bin/bash
+#
+##
+###
+##################################################################################
+#                                                                                #
+# Copyright 2018; Antonio Henrique (Fela); <ahlr_2000@yahoo.com>                 #
+# Todos os direitos reservados.                                                  #
+#                                                                                #
+#                                                                                #
+# Redistribution and use of this script, with or without modification, is        #
+# permitted provided that the following conditions are met:                      #
+#                                                                                #
+# 1. Redistributions of this script must retain the above copyright              #
+#    notice, this list of conditions and the following disclaimer.               #
+#                                                                                #
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED    #
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF          #
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO   #
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,        #
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOTnLIMITED TO,  #
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;   #
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,      #
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR       #
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF        #
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                                    #
+#                                                                                #
+##################################################################################
+#                                                                                #
+# repositry:                                                                     #
+# github.com/ahlrodrigues/slackonfig                                             #
+# bitbucket.org/ahlrodrigues/slackonfig                                          #
+#                                                                                #
+# Bugs, Thanks, "Constructive" reviews!                                          #
+# Send me an email, I'll be very grateful!                                       #
+#                                                                                #
+##################################################################################
+#                                                                                #
+# Estes scripts/programas são softwares livres, você pode redistribuí-los e/ou   #
+# modifica-los dentro dos termos da Licença Pública Geral GNU.                   #
+#                                                                                #
+# GNU General Public License:                                                    #
+# [GPL](https://www.gnu.org/licenses/gpl.txt)                                    #
+# Fundação do Software Livre (FSF) Inc. 51 Franklin St, Fifth Floor,             #
+# Boston, MA 02110-1301 USA                                                      #
+#                                                                                #
+##################################################################################
+###
+##
+#
+# --------- Efeito nas Cores  --------- #
+#0 Normal Characters
+#1 Bold Characters
+#4 Underlined Characters
+#5 Blinking Characters
+#7 Reverse video Characters
+
+# --------- Cores  --------- #
+BLACK='\e[1;30m'
+BBLACK='\e[5;30m'
+RED='\e[1;31m'
+BRED='\e[5;31m' # bink color
+GREEN='\e[1;32m'
+BGREEN='\e[1;32m'
+BROWN='\e[1;33m'
+BBROWN='\e[5;33m'
+BLUE='\e[1;34m'
+BBLUE='\e[5;34m'
+PINK='\e[1;35m'
+BPINK='\e[5;35m'
+CYAN='\e[1;36m'
+BCYAN='\e[5;36m'
+WHITE='\e[1;37m'
+BWHITE='\e[5;37m'
+NC='\033[0m' # reset/no color
+
+crondaily=/etc/cron.daily
+permix="chmod +x"
+permi0="chmod 770"
+minilicense=/tmp/minilicense.txt
+colors=/tmp/colors.txt
+rawdocs=https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/docs
+
+
+# --------- Baixando arquivos auxiliares no diretório /tmp --------- #
+
+    echo
+    echo
+    echo -e "$RED Verificando se é necessários baixar arquivos auxiliare...: $NC"
+    echo
+    echo
+    if [ ! -f "$minilicense" ]; then
+    echo -e "$GREEN Baixando...: $NC $aminilicensetxt"
+    echo
+	echo
+	wget -q  -nv -e robots=0 -r -nd -cP /tmp \
+	$rawdocs/minilicense.txt
+    else
+	echo -e "$RED Arquivo $GREEN minilicense.txt $RED foi encontrado. $NC"
+	sleep 5
+    fi
+
+    if [ ! -f "$colors" ]; then
+    echo -e "$GREEN Baixando...: $NC $acolorstxt"
+    echo
+	echo
+	wget -q  -nv -e robots=0 -r -nd -cP /tmp \
+	$rawdocs/colors.txt
+    else
+	echo -e "$RED Arquivo $GREEN colors.txt $RED foi encontrado. $NC"
+	sleep 5
+
+    fi
+
+clear
+# --------- Teste se está logado como root --------- #
+if [[ $(whoami) == "root" ]]; then
+
+
+
+#Criação do arquivo backblaze_TONICO.sh
+
+    echo "#!"$SHELL > $crondaily/backblaze_TONICO.sh
+    cat $minilicense >> $crondaily/backblaze_TONICO.sh
+    cat $colors >> $crondaily/backblaze_TONICO.sh
+    echo "clear" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "if [[ \$(whoami) == "ahlr" ]]; then" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   echo" >> $crondaily/backblaze_TONICO.sh
+    echo "   echo" >> $crondaily/backblaze_TONICO.sh
+    echo "   echo -e "'"$RED Troque de usuário, o ROOT não pode executar backups $NC"'"" >> $crondaily/backblaze_TONICO.sh
+    echo "   echo" >> $crondaily/backblaze_TONICO.sh
+    echo "   echo" >> $crondaily/backblaze_TONICO.sh
+    echo "   exit 0" >> $crondaily/backblaze_TONICO.sh
+    echo "   else" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   #B2 configuration variables" >> $crondaily/backblaze_TONICO.sh
+    echo "   B2_ACCOUNT="cd0c87d370b7"" >> $crondaily/backblaze_TONICO.sh
+    echo "   B2_KEY="0010db1dde3b5edd54f9890392d42d089c782a4457"" >> $crondaily/backblaze_TONICO.sh
+    echo "   B2_BUCKET="TONICO"" >> $crondaily/backblaze_TONICO.sh
+    echo "   B2_DIR=""" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   # Local directory to backup" >> $crondaily/backblaze_TONICO.sh
+    echo "   LOCAL_DIR="$dropbox/TONICO/"" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   # GPG key (last 8 characters)" >> $crondaily/backblaze_TONICO.sh
+    echo "   ENC_KEY="A2133DA2"" >> $crondaily/backblaze_TONICO.sh
+    echo "   SGN_KEY="A2133DA2"" >> $crondaily/backblaze_TONICO.sh
+    echo "   export PASSPHRASE="xxxxxxxxxxxxxx"" >> $crondaily/backblaze_TONICO.sh
+    echo "   export SIGN_PASSPHRASE="xxxxxxxxxxxxxx"" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   # Remove files older than 90 days" >> $crondaily/backblaze_TONICO.sh
+    echo "   duplicity \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   --sign-key \$SGN_KEY --encrypt-key \$ENC_KEY \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   remove-older-than 90D --force \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   b2://\${B2_ACCOUNT}:\${B2_KEY}@\${B2_BUCKET} > \$log/ backblaze_TONICO.log" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   # Perform the backup, make a full backup if it's been over 30 days" >> $crondaily/backblaze_TONICO.sh
+    echo "   duplicity \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   --sign-key \$SGN_KEY --encrypt-key \$ENC_KEY \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   --full-if-older-than 30D \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   \${LOCAL_DIR} b2://\${B2_ACCOUNT}:\${B2_KEY}@\${B2_BUCKET} >> \$log/ backblaze_TONICO.log" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   # Cleanup failures" >> $crondaily/backblaze_TONICO.sh
+    echo "   duplicity \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   cleanup --force \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   --sign-key $SGN_KEY --encrypt-key $ENC_KEY \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   b2://\${B2_ACCOUNT}:${B2_KEY}@\${B2_BUCKET} >> \$log/ backblaze_TONICO.log" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   # Show collection-status" >> $crondaily/backblaze_TONICO.sh
+    echo "   duplicity collection-status \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   --sign-key \$SGN_KEY --encrypt-key \$ENC_KEY \\" >> $crondaily/backblaze_TONICO.sh
+    echo "   b2://\${B2_ACCOUNT}:\${B2_KEY}@\${B2_BUCKET} >> \$log/ backblaze_TONICO.log" >> $crondaily/backblaze_TONICO.sh
+    echo "" >> $crondaily/backblaze_TONICO.sh
+    echo "   # Unset variables" >> $crondaily/backblaze_TONICO.sh
+    echo "   unset PASSPHRASE" >> $crondaily/backblaze_TONICO.sh
+    echo "   unset SIGN_PASSPHRASE" >> $crondaily/backblaze_TONICO.sh
+    echo "fi" >> $crondaily/backblaze_TONICO.sh
+    $permix $crondaily/backblaze_TONICO.sh
+    $permi0 $crondaily/backblaze_TONICO.sh
+
+  else
+    echo
+    echo
+    echo -e "$RED Logue-se como ROOT! $NC"
+    echo
+    echo
+fi

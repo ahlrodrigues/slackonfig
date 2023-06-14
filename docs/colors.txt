@@ -1,0 +1,25 @@
+# --------- Efeito nas Cores  --------- #
+#0 Normal Characters
+#1 Bold Characters
+#4 Underlined Characters
+#5 Blinking Characters
+#7 Reverse video Characters
+
+# --------- Cores  --------- #
+BLACK='\e[1;30m'
+BBLACK='\e[5;30m'
+RED='\e[1;31m'
+BRED='\e[5;31m' # bink color
+GREEN='\e[1;32m'
+BGREEN='\e[1;32m'
+BROWN='\e[1;33m'
+BBROWN='\e[5;33m'
+BLUE='\e[1;34m'
+BBLUE='\e[5;34m'
+PINK='\e[1;35m'
+BPINK='\e[5;35m'
+CYAN='\e[1;36m'
+BCYAN='\e[5;36m'
+WHITE='\e[1;37m'
+BWHITE='\e[5;37m'
+NC='\033[0m' # reset/no color

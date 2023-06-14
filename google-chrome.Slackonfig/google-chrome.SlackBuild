@@ -121,5 +121,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
 
+upgradepkg --install-new $PKG/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+
 rm google-chrome-?.deb
 
