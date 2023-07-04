@@ -31,6 +31,9 @@
 Os scripts deste diretório estão disponíveis na esperança que possam ser úteis, mas SEM NENHUMA
 GARANTIA DE FUNCIONAMENTO, SEM NENHUMA GARANTIA DE ADEQUAÇÃO A QUALQUER MERCADO, SEM NENHUMA
 GARANTIA DE APLICAÇÃO EM PARTICULAR e NENHUM SUPORTE TÉCNICO.
+
+Ah! alguns scripts podem sumir inesperadamente por ação de forças estranhas
+independente da nossa vontade.
 ```
 
 
@@ -89,6 +92,8 @@ localerctxt= Configura o idioma do plasma;
 variablestxt= Configura as variáveis globais;
 updatemirrorstxt= Cria um atalho para atualização dos mirrors;
 mmultilibtxt= Cria o script rsync para o multilib;
+
+e outras coisinhas mais...
 ```
 
 
