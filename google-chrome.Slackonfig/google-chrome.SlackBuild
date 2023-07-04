@@ -25,11 +25,11 @@
 PKGNAM=google-chrome
 RELEASE=${RELEASE:-stable}    # stable, beta, or unstable
 
-# Wget .deb pkg to directory
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -p /home/ahlr/Dropbox/slackonfig/google-chrome.Slackonfig/
-
 #Enter work directory
 cd /home/ahlr/Dropbox/slackonfig/google-chrome.Slackonfig/
+
+# Wget .deb pkg to directory
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 # Allow $ARCH to be preset before running the script.  This is useful in the
 # case where someone is running a 32-bit chroot environment under an x86_64
@@ -121,7 +121,8 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
 
-upgradepkg --install-new $PKG/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+upgradepkg --install-new /tmp/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
 
-rm google-chrome-?.deb
+#Apaga arquivo deb do Dropbox
+rm /home/ahlr/Dropbox/slackonfig/google-chrome.Slackonfig/google-chrome-*.deb
 

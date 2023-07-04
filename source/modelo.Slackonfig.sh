@@ -5,7 +5,7 @@
 ##################################################################################
 #                                                                                #
 # Copyright 2018; Antonio Henrique (Fela); <ahlr_2000@yahoo.com>                 #
-#                                                                                #
+# Todos os direitos reservados.                                                  #
 #                                                                                #
 #                                                                                #
 # Redistribution and use of this script, with or without modification, is        #
@@ -40,7 +40,7 @@
 # within the terms of the GNU General Public License.                            #
 #                                                                                #
 # GNU General Public License:                                                    #
-# [GPL](https://en.wikipedia.org/wiki/GNU_General_Public_License)                #
+# [GPL](https://pt.wikipedia.org/wiki/GNU_General_Public_License)                #
 # Fundação do Software Livre (FSF) Inc. 51 Franklin St, Fifth Floor,             #
 # Boston, MA 02110-1301 USA                                                      #
 #                                                                                #
@@ -48,6 +48,9 @@
 ###
 ##
 # 
+#
+##
+###
 # --------- Efeito nas Cores  --------- #
 #0 Normal Characters
 #1 Bold Characters
@@ -73,66 +76,26 @@ BCYAN='\e[5;36m'
 WHITE='\e[1;37m'
 BWHITE='\e[5;37m'
 NC='\033[0m' # reset/no color
-#
-##
-###
-# --------- Variáveis --------- #
-rawdocs=https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/docs
-minilicense=/tmp/minilicense.txt
-colors=/tmp/colors.txt
-#name=/etc/rc.d/rc.local_shutdown
-name=/home/ahlr/Documents/rc.local_shutdown
 
-# --------- Baixando arquivos auxiliares no diretório /tmp --------- #
-
-if [ ! -f "$minilicense" ]; then
-	wget -q  -nv -e robots=0 -r -nd -cP /tmp \
-	$rawdocs/minilicense.txt
-fi
-    
-if [ ! -f "$colors" ]; then
-	wget -q  -nv -e robots=0 -r -nd -cP /tmp \
-	$rawdocs/colors.txt
-
-fi
-
-# --------- Checando permissão - INÍCIO --------- #
+# --------- Teste se está logado como root --------- #
 if [[ $(whoami) == "root" ]]; then
 
-# --------- Criando script - CABEÇALHO --------- #
-echo "#!"$SHELL > $name
-cat $minilicense >> $name
-cat $colors >> $name
 
-echo "#" >> $name
-echo "##" >> $name
-echo "###" >> $name
-echo "#####" >> $name
-echo "" >> $name
-# --------- Criando script - INÍCIO --------- #
-
-echo "LOCATION="/home/ahlr/Downloads"" >> $name
-echo 'for FILE in $LOCATION/*; do ' >> $name
-echo '  if [[ $FILE == *.torrent ]]; then ' >> $name
-echo '     rm "$FILE" ' >> $name
-echo "  fi " >> $name
-echo "done " >> $name
-echo "" >> $name
-echo "#####" >> $name
-echo "###" >> $name
-echo "##" >> $name
-echo "#" >> $name
-# --------- Criando script - FIM --------- #
-
-echo
-echo -e "$WHITE $name $GREEN criado com sucesso! $NC"
-echo
-
-# --------- Aviso --------- #
-else
+# Configura a inicialização do sistema em init 4
     echo
     echo
-    echo -e "$BRED Logue-se como ROOT! $NC"
+    echo -e "$PINK Configurando slackpkg $NC"
+    echo
+    sed -i '/file:.*/s/^#//g' /etc/slackpkg/mirrors
+    sed -i 's/file:.*/file:\/\/mnt\/arquivos\/Slackware\/slackware64-current\//g' /etc/slackpkg/mirrors
+    sleep 5
+    echo  -e "$GREEN slackpkg.conf configurado! $NC"
+
+# --------- Fim do teste se está logado como root --------- #
+    else
+    echo
+    echo
+    echo -e "$RED Logue-se como ROOT! $NC"
     echo
     echo
 fi

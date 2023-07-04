@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ ! -d /mnt/sda3/Slackware/pkg64 ]; then
-mkdir /mnt/sda3/Slackware/pkg64
+if [ ! -d /mnt/arquivos/Slackware/pkg64 ]; then
+mkdir -p /mnt/arquivos/Slackware/pkg64
 fi
 
-cd /mnt/sda3/Slackware/pkg64
+cd /mnt/arquivos/Slackware/pkg64
 
 #wine
 lftp -c "open http://www.slackware.com/~alien/slackbuilds/wine/pkg64/current/; mirror -n -i wine --delete-first -X *.md5 -X *.asc -X *.lst -X *.meta -X *.txt"

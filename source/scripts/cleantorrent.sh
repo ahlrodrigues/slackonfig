@@ -81,16 +81,32 @@ NC='\033[0m' # reset/no color
 permix="chmod +x"
 permi0="chmod 755"
 rcd=/etc/rc.d
-bash=`ls $rcd/rc.local_shutdown | awk '/bash/ { print $0 }'`
+shutdown=/etc/rc.d/rc.local_shutdown
+#bash=`ls $rcd/rc.local_shutdown | awk '/bash/ { print $0 }'`
 shelll=#!${shell}
 
 if [[ $(whoami) == "root" ]]; then
 
-    if [ "$bash" = "" ]; then
-        sed -i "1s/^/$shelll\n /" $rcd/rc.local_shutdown
-        echo "tem"
-        else
-        echo "ntem"
+    if [ ! -e $shutdown ]; then
+
+    echo "#" >> $rcd/rc.local_shutdown
+    echo "#" >> $rcd/rc.local_shutdown
+    echo "pasta_origem=/home/ahlr/Downloads/" >> $rcd/rc.local_shutdown
+    echo 'arquivos_torrent=`ls $pasta_origem | awk `'/.torrent/ { print '$0' }'``' >> $rcd/rc.local_shutdown
+    echo "#" >> $rcd/rc.local_shutdown
+    echo ""
+    echo 'if  [ $arquivos_torrent != "" ]; then' >> $rcd/rc.local_shutdown
+    echo    'rm $pasta_origem/$arquivos_torrent' >> $rcd/rc.local_shutdown
+    echo "fi" >> $rcd/rc.local_shutdown
+
+    $permix $rcd/rc.local_shutdown
+    $permi0 $rcd/rc.local_shutdown
+
+
+
+
+    #sed -i "1s/^/$shelll\n /" $shutdown
+        #echo "tem"
     fi
 
 #     echo "#" >> $rcd/rc.local_shutdown
@@ -102,9 +118,9 @@ if [[ $(whoami) == "root" ]]; then
 #     echo "if  [ "$arquivos_torrent" != "" ]; then" >> $rcd/rc.local_shutdown
 #     echo    "rm $pasta_origem/$arquivos_torrent" >> $rcd/rc.local_shutdown
 #     echo "fi" >> $rcd/rc.local_shutdown
-#
-#     $permix $rcd/rc.local_shutdown
-#     $permi0 $rcd/rc.local_shutdown
+
+    $permix $rcd/rc.local_shutdown
+    $permi0 $rcd/rc.local_shutdown
     
     
     sleep 3

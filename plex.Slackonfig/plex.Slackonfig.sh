@@ -133,7 +133,7 @@ echo
     case $install in
     Y|y)
 
-    upgradepkg --install-new "$oldpkg"%"$newpkg"
+    upgradepkg --install-new $pkgnew
 
     ;;
     N|n)
@@ -171,10 +171,14 @@ else
     echo "#" >> $rcd/rc.local
 fi
 
+#iniciando seviço
+chmod +x $rcd/rc.plexmediaserver
+$rcd/rc.plexmediaserver start
+
 # Remove source packages/ #
 rm -fr $downloads/$nomep*
 
 # Remove new package/ #
 if [ -e $pkgnew ]; then
-    rm /tmp/$pkgnew
+    rm $pkgnew
 fi
