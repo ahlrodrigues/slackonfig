@@ -39,7 +39,7 @@
 # within the terms of the GNU General Public License.                            #
 #                                                                                #
 # GNU General Public License:                                                    #
-# [GPL](https://pt.wikipedia.org/wiki/GNU_General_Public_License)                #
+# [GPL](https://www.gnu.org/licenses/#LicenseURLs)                #
 # Fundação do Software Livre (FSF) Inc. 51 Franklin St, Fifth Floor,             #
 # Boston, MA 02110-1301 USA                                                      #
 #                                                                                #

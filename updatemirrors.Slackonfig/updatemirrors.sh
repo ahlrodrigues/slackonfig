@@ -46,15 +46,15 @@ echo
 # echo
 # echo
 #
-echo
-echo
-echo -e "$BROWN Verificando mirror MULTILIB! $NC"
-echo
-echo
-multilib.sh
-echo
-echo
-echo
+# echo
+# echo
+# echo -e "$BROWN Verificando mirror MULTILIB! $NC"
+# echo
+# echo
+# multilib.sh
+# echo
+# echo
+# echo
 
 echo
 echo

@@ -67,6 +67,16 @@ WHITE='\e[1;37m'
 BWHITE='\e[5;37m'
 NC='\033[0m' # reset/no color
 
+if [[ $(whoami) == "root" ]]; then
+
+    echo
+    echo
+    echo -e "$BRED Logue-se como AHLR! $NC"
+    echo
+    echo
+
+    else
+
 echo
 echo -e "$WHITE Entrando no diretório... $NC"
 cd /home/ahlr/Dropbox/slackonfig/
@@ -87,3 +97,5 @@ echo
 git push master
 echo
 echo -e "$BGREEN Repositório Atualizado... $NC"
+
+fi
