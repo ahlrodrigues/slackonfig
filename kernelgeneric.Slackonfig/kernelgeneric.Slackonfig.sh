@@ -66,3 +66,21 @@ BCYAN='\e[5;36m'
 WHITE='\e[1;37m'
 BWHITE='\e[5;37m'
 NC='\033[0m' # reset/no color
+
+# --------- Checando permissão - INÍCIO --------- #
+if [[ $(whoami) == "root" ]]; then
+
+# --------- Criando script - CABEÇALHO --------- #
+/usr/share/mkinitrd/mkinitrd_command_generator.sh
+
+/usr/libexec/slackpkg/functions.d/zlookkernel.sh
+
+
+# --------- Aviso --------- #
+else
+    echo
+    echo
+    echo -e "$BRED Logue-se como ROOT! $NC"
+    echo
+    echo
+fi
