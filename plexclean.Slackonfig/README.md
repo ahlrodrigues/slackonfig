@@ -60,3 +60,7 @@ termos da Licença Pública Geral GNU:
 > [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License)
 >
 >Fundação do Software Livre (FSF) Inc. 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+
+<p align="center" width="100%">
+    <img src="https://bytebucket.org/ahlrodrigues/slackonfig/raw/adca69d05d4b9db0ee9cfa65f54cad4e87dabad7/imgs/poweredbyslack.gif">
+</p>

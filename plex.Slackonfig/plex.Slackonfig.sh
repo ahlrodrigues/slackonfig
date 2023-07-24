@@ -133,7 +133,7 @@ echo
     case $install in
     Y|y)
 
-    upgradepkg --install-new $pkgnew
+    upgradepkg --install-new $newpkg
 
     ;;
     N|n)
@@ -179,6 +179,6 @@ $rcd/rc.plexmediaserver start
 rm -fr $downloads/$nomep*
 
 # Remove new package/ #
-if [ -e $pkgnew ]; then
-    rm $pkgnew
+if [ -e $newpkg ]; then
+    rm $newpkg
 fi

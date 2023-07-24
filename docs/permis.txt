@@ -1,0 +1,5 @@
+# --------- Permis  --------- #
+permix="chmod +x"
+permi0="chmod 644"
+permi0="chmod 770"
+permi7="chmod 777"

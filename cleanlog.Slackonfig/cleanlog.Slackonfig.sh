@@ -5,7 +5,7 @@
 ##################################################################################
 #                                                                                #
 # Copyright 2018; Antonio Henrique (Fela); <ahlr_2000@yahoo.com>                 #
-# Todos os direitos reservados.                                                  #
+#                                                                                #
 #                                                                                #
 #                                                                                #
 # Redistribution and use of this script, with or without modification, is        #
@@ -40,41 +40,140 @@
 # within the terms of the GNU General Public License.                            #
 #                                                                                #
 # GNU General Public License:                                                    #
-# [GPL](https://pt.wikipedia.org/wiki/GNU_General_Public_License)                #
+# [GPL](https://en.wikipedia.org/wiki/GNU_General_Public_License)                #
 # Fundação do Software Livre (FSF) Inc. 51 Franklin St, Fifth Floor,             #
 # Boston, MA 02110-1301 USA                                                      #
 #                                                                                #
 ##################################################################################
 ###
 ##
-#
-echo "log=/var/log/plex.log" > /usr/local/bin/plexcheck.sh
-echo "num=\$(wc -l \$log | awk '{ print \$1 }')" > /usr/local/bin/plexcheck.sh
-echo "date=\$(date '+%Y-%m-%d %H:%M:%S')" >> /usr/local/bin/plexcheck.sh
-echo "codigo_http=\$(curl -m 25 -I -s -w "%{http_code}'\\n'" -o /dev/null http://127.0.0.1:32400)" >> /usr/local/bin/plexcheck.sh
-echo "code=401" >> /usr/local/bin/plexcheck.sh
-echo "" >> /usr/local/bin/plexcheck.sh
-echo "if [ "\$codigo_http" != "\$code" ]; then" >> /usr/local/bin/plexcheck.sh
-echo "    echo ""\$date - DELAY!"" >> \$log" >> /usr/local/bin/plexcheck.sh
-echo "        sleep 30" >> /usr/local/bin/plexcheck.sh
-echo "            if [ "\$codigo_http" != "\$code" ]; then" >> /usr/local/bin/plexcheck.sh
-echo "                echo ""\$date - RESTART!"" >> \$log" >> /usr/local/bin/plexcheck.sh
-echo "                    /etc/rc.d/rc.plexmediaserver restart" >> /usr/local/bin/plexcheck.sh
-echo "            fi" >> /usr/local/bin/plexcheck.sh
-echo "else" >> /usr/local/bin/plexcheck.sh
-echo "    echo ""\$date - CHECKED!"" >> \$log" >> /usr/local/bin/plexcheck.sh
-echo "fi" >> /usr/local/bin/plexcheck.sh
-echo ""
-echo "#Iniciando plexcheck no boot" >> /etc/rc.d/rc.local
-echo "if [ -x /usr/local/bin/plexcheck.sh ]; then" >> /etc/rc.d/rc.local
-echo "/usr/local/bin/plexcheck.sh" >> /etc/rc.d/rc.local
-echo "fi" >> /etc/rc.d/rc.local
-echo "#" >> /etc/rc.d/rc.local
-echo "if [ -e \$log ]; then" >> /etc/rc.d/rc.local
-echo "if [ \$num -ge 100 ]; then" >> /etc/rc.d/rc.local
-echo "sed -i '1d' \$log" >> /etc/rc.d/rc.local
-echo "fi" >> /etc/rc.d/rc.local
-echo "fi" >> /etc/rc.d/rc.local
-echo "#" >> /etc/rc.d/rc.local
-echo "#" >> /etc/rc.d/rc.local
+# 
+# --------- Efeito nas Cores  --------- #
+#0 Normal Characters
+#1 Bold Characters
+#4 Underlined Characters
+#5 Blinking Characters
+#7 Reverse video Characters
 
+# --------- Cores  --------- #
+BLACK='\e[1;30m'
+BBLACK='\e[5;30m'
+RED='\e[1;31m'
+BRED='\e[5;31m' # bink color
+GREEN='\e[1;32m'
+BGREEN='\e[1;32m'
+BROWN='\e[1;33m'
+BBROWN='\e[5;33m'
+BLUE='\e[1;34m'
+BBLUE='\e[5;34m'
+PINK='\e[1;35m'
+BPINK='\e[5;35m'
+CYAN='\e[1;36m'
+BCYAN='\e[5;36m'
+WHITE='\e[1;37m'
+BWHITE='\e[5;37m'
+NC='\033[0m' # reset/no color
+#
+##
+###
+# --------- Variáveis fixas --------- #
+rawdocs=https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/docs
+minilicense=/tmp/minilicense.txt
+colors=/tmp/colors.txt
+permix="chmod +x"
+permi0="chmod 644"
+rcd=/etc/rc.d
+
+# --------- Baixando arquivos auxiliares no diretório /tmp --------- #
+
+if [ ! -f "$minilicense" ]; then
+	wget -q  -nv -e robots=0 -r -nd -cP /tmp \
+	$rawdocs/minilicense.txt
+fi
+    
+if [ ! -f "$colors" ]; then
+	wget -q  -nv -e robots=0 -r -nd -cP /tmp \
+	$rawdocs/colors.txt
+
+fi
+
+# --------- Checando permissão - INÍCIO --------- #
+if [[ $(whoami) == "root" ]]; then
+
+# --------- Criando script - CABEÇALHO --------- #
+name=/usr/local/bin/cleanlog.sh
+echo "#!"$SHELL > $name
+cat $minilicense >> $name
+cat $colors >> $name
+
+echo "#" >> $name
+echo "##" >> $name
+echo "###" >> $name
+echo "#####" >> $name
+echo "" >> $name
+# --------- Criando script - INÍCIO --------- #
+
+#Criação do arquivo cleanlog.sh
+
+    echo "#!"$SHELL > $name
+    cat $minilicense >> $name
+    cat $colors >> $name
+    echo "clear" >> $name
+    echo "" >> $name
+    echo "if [[ \$(whoami) != "root" ]]; then" >> $name
+    echo "" >> $name
+    echo "   echo""" >> $name
+    echo "   echo""" >> $name
+    echo "   echo -e "'"$RED Logue-se como ROOT! $NC"'"" >> $name
+    echo "   echo""" >> $name
+    echo "   echo""" >> $name
+    echo "   exit 0" >> $name
+    echo "" >> $name
+    echo "   else" >> $name
+    echo "" >> $name
+    echo "   log=/var/log/plex.log" >> $name
+    echo "   num=\$(wc -l \$log | awk '{ print \$1 }')" >> $name
+    echo "" >> $name
+    echo "" >> $name
+    echo "   if [ -e \$log ]; then" >> $name
+    echo "" >> $name
+    echo "" >> $name
+    echo "      if [ \$num -ge 100 ]; then" >> $name
+    echo "          sed -i '1d' \$log" >> $name
+    echo "      fi" >> $name
+    echo "   fi" >> $name
+    echo "fi" >> $name
+    $permix $name
+    $permi0 $name
+
+echo "" >> $name
+echo "#####" >> $name
+echo "###" >> $name
+echo "##" >> $name
+echo "#" >> $name
+
+# Insert command in /etc/rc.d/rc.local_shutdown #
+# if grep -q "cleanlog.sh" $rcd/rc.local_shutdown; then
+#     echo ""
+# else
+#     echo "#" >> $rcd/rc.local_shutdown
+#     echo "#Inicializando o deamon rc.plexmediaserver" >> $rcd/rc.local_shutdown
+#     echo "if [ -x $rcd/rc.plexmediaserver ]; then" >> $rcd/rc.local_shutdown
+#     echo "$rcd/rc.plexmediaserver start" >> $rcd/rc.local_shutdown
+#     echo "fi" >> $rcd/rc.local_shutdown
+#     echo "#" >> $rcd/rc.local_shutdown
+# fi
+# --------- Criando script - FIM --------- #
+
+echo
+echo -e "$WHITE $name $GREEN criado com sucesso! $NC"
+echo
+
+# --------- Aviso --------- #
+else
+    echo
+    echo
+    echo -e "$BRED Logue-se como ROOT! $NC"
+    echo
+    echo
+fi

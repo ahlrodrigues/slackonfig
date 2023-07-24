@@ -41,6 +41,9 @@ echo -e "$GREEN Inseria as alterações para o arquivo ChangeLog.txt?"
 # --------- Contar o número de linhas --------- #
 wc -l plex.log | awk '{ print $1 }'
 
+# --------- Apagar a primeira linha do arquivo --------- #
+sed -i '1d' /home/ahlr/teste.txt
+
 # --------- Accrescenta linha no início do arquivo --------- #
 sed -i "1s/^/TEXTO\n/" $dropbox/TONICO/Projetos/slackonfig/ChangeLog.txt
 

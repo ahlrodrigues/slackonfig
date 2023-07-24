@@ -81,7 +81,7 @@ rawdocs=https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/docs
 minilicense=/tmp/minilicense.txt
 colors=/tmp/colors.txt
 permix="chmod +x"
-permi0="chmod 770"
+permi0="chmod 644"
 
 # --------- Baixando arquivos auxiliares no diretório /tmp --------- #
 
@@ -100,7 +100,7 @@ fi
 if [[ $(whoami) == "root" ]]; then
 
 # --------- Criando script - CABEÇALHO --------- #
-name=/etc/cron.daily/backblaze_TONICO.sh
+name=/usr/local/bin/cleanlog.sh
 echo "#!"$SHELL > $name
 cat $minilicense >> $name
 cat $colors >> $name
@@ -112,80 +112,35 @@ echo "#####" >> $name
 echo "" >> $name
 # --------- Criando script - INÍCIO --------- #
 
-#Criação do arquivo backblaze_TONICO.sh
-
-#name=/etc/cron.daily/backblaze_TONICO.sh
-B2_ACCOUNT=cd0c87d370b7
-B2_KEY=0010db1dde3b5edd54f9890392d42d089c782a4457
-B2_BUCKET=Dropbox
-ENC_KEY=A2133DA2
-SGN_KEY=A2133DA2
-PASSPHRASE='\&ntu\$1@\$m0'
-dropbox=/home/ahlr/Dropbox
-log=/var/log/backblaze
-
-
-if [ ! -d $log ]; then
-    mkdir $log
-fi
+#Criação do arquivo cleanlog.sh
 
     echo "#!"$SHELL > $name
     cat $minilicense >> $name
     cat $colors >> $name
     echo "clear" >> $name
     echo "" >> $name
-    echo "if [[ \$(whoami) == "ahlr" ]]; then" >> $name
+    echo "if [[ \$(whoami) != "root" ]]; then" >> $name
     echo "" >> $name
-    echo "   echo" >> $name
-    echo "   echo" >> $name
-    echo "   echo -e "'"$RED Troque de usuário, o ROOT não pode executar backups $NC"'"" >> $name
-    echo "   echo" >> $name
-    echo "   echo" >> $name
+    echo "   echo""" >> $name
+    echo "   echo""" >> $name
+    echo "   echo -e "'"$RED Logue-se como ROOT! $NC"'"" >> $name
+    echo "   echo""" >> $name
+    echo "   echo""" >> $name
     echo "   exit 0" >> $name
+    echo "" >> $name
     echo "   else" >> $name
     echo "" >> $name
-    echo "   #B2 configuration variables" >> $name
-    echo "   B2_ACCOUNT="$B2_ACCOUNT"" >> $name
-    echo "   B2_KEY="$B2_KEY"" >> $name
-    echo "   B2_BUCKET="$B2_BUCKET"" >> $name
-    echo "   B2_DIR=""" >> $name
-    echo "   log=/var/log/backblaze" >> $name
+    echo "   log=/var/log/plex.log" >> $name
+    echo "   num=\$(wc -l \$log | awk '{ print \$1 }')" >> $name
     echo "" >> $name
-    echo "   # Local directory to backup" >> $name
-    echo "   LOCAL_DIR="$dropbox"" >> $name
     echo "" >> $name
-    echo "   # GPG key (last 8 characters)" >> $name
-    echo "   ENC_KEY="$ENC_KEY"" >> $name
-    echo "   SGN_KEY="$SGN_KEY"" >> $name
-    echo "   export PASSPHRASE="$PASSPHRASE"" >> $name
-    echo "   export SIGN_PASSPHRASE="$PASSPHRASE"" >> $name
+    echo "   if [ -e \$log ]; then" >> $name
     echo "" >> $name
-    echo "   # Remove files older than 90 days" >> $name
-    echo "   duplicity \\" >> $name
-    echo "   --sign-key \$SGN_KEY --encrypt-key \$ENC_KEY \\" >> $name
-    echo "   remove-older-than 90D --force \\" >> $name
-    echo "   b2://\${B2_ACCOUNT}:\${B2_KEY}@\${B2_BUCKET} > \$log/backblaze_TONICO.log" >> $name
     echo "" >> $name
-    echo "   # Perform the backup, make a full backup if it's been over 30 days" >> $name
-    echo "   duplicity \\" >> $name
-    echo "   --sign-key \$SGN_KEY --encrypt-key \$ENC_KEY \\" >> $name
-    echo "   --full-if-older-than 30D \\" >> $name
-    echo "   \${LOCAL_DIR} b2://\${B2_ACCOUNT}:\${B2_KEY}@\${B2_BUCKET} >> \$log/backblaze_TONICO.log" >> $name
-    echo "" >> $name
-    echo "   # Cleanup failures" >> $name
-    echo "   duplicity \\" >> $name
-    echo "   cleanup --force \\" >> $name
-    echo "   --sign-key $SGN_KEY --encrypt-key $ENC_KEY \\" >> $name
-    echo "   b2://\${B2_ACCOUNT}:\${B2_KEY}@\${B2_BUCKET} >> \$log/backblaze_TONICO.log" >> $name
-    echo "" >> $name
-    echo "   # Show collection-status" >> $name
-    echo "   duplicity collection-status \\" >> $name
-    echo "   --sign-key \$SGN_KEY --encrypt-key \$ENC_KEY \\" >> $name
-    echo "   b2://\${B2_ACCOUNT}:\${B2_KEY}@\${B2_BUCKET} >> \$log/backblaze_TONICO.log" >> $name
-    echo "" >> $name
-    echo "   # Unset variables" >> $name
-    echo "   unset PASSPHRASE" >> $name
-    echo "   unset SIGN_PASSPHRASE" >> $name
+    echo "      if [ \$num -ge 100 ]; then" >> $name
+    echo "          sed -i '1d' \$log" >> $name
+    echo "      fi" >> $name
+    echo "   fi" >> $name
     echo "fi" >> $name
     $permix $name
     $permi0 $name

@@ -40,25 +40,14 @@ independente da nossa vontade.
 **Scripts e Funções:**
 ----------------------
 ```
-kde-l10n.Slackonfig
 
-Cria o ambiente necessário para colaborar com a tradução/internacionalização do kde-i18n-pt_br.
-
-Para maiores informações sobre como ajudar na tradução acesse os canais abaixo:
-
-[KDE Localization](https://l10n.kde.org/team-infos.php?teamcode=pt_BR)
-
-[Lista de discussão](https://mail.kde.org/mailman/listinfo/kde-i18n-doc)
-[Matrix: #kdebrasil-traducao:kde.org](https://matrix.to/#/#kdebrasil-traducao:kde.org)
-[Telegram: #kdel10nptbr](https://t.me/kdel10nptbr)
-[freenode: #kde-i18n](irc://irc.kde.org/kde-i18n)
 ```
 
 
 Usage:
 ------
 ```
-Baixe o kde-l10n.Slackonfig, altere a as variáveis e rode-o como root.
+
 ```
 
 
@@ -71,3 +60,7 @@ termos da Licença Pública Geral GNU:
 > [General Public License](https://pt.wikipedia.org/wiki/GNU_General_Public_License)
 >
 >Fundação do Software Livre (FSF) Inc. 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+
+<p align="center" width="100%">
+    <img src="https://bytebucket.org/ahlrodrigues/slackonfig/raw/adca69d05d4b9db0ee9cfa65f54cad4e87dabad7/imgs/poweredbyslack.gif">
+</p>
