@@ -5,7 +5,7 @@
 ##################################################################################
 #                                                                                #
 # Copyright 2018; Antonio Henrique (Fela); <ahlr_2000@yahoo.com>                 #
-# Todos os direitos reservados.                                                  #
+#                                                                                #
 #                                                                                #
 #                                                                                #
 # Redistribution and use of this script, with or without modification, is        #
@@ -40,7 +40,7 @@
 # within the terms of the GNU General Public License.                            #
 #                                                                                #
 # GNU General Public License:                                                    #
-# [GPL](https://pt.wikipedia.org/wiki/GNU_General_Public_License)                #
+# [GPL](https://en.wikipedia.org/wiki/GNU_General_Public_License)                #
 # Fundação do Software Livre (FSF) Inc. 51 Franklin St, Fifth Floor,             #
 # Boston, MA 02110-1301 USA                                                      #
 #                                                                                #
@@ -48,9 +48,6 @@
 ###
 ##
 # 
-#
-##
-###
 # --------- Efeito nas Cores  --------- #
 #0 Normal Characters
 #1 Bold Characters
@@ -76,26 +73,100 @@ BCYAN='\e[5;36m'
 WHITE='\e[1;37m'
 BWHITE='\e[5;37m'
 NC='\033[0m' # reset/no color
+#
+##
+###
+# --------- Variáveis fixas --------- #
+rawdocs=https://raw.githubusercontent.com/ahlrodrigues/slackonfig/master/docs
+minilicense=/tmp/minilicense.txt
+colors=/tmp/colors.txt
+permix="chmod +x"
+permi0="chmod 644"
+rcd=/etc/rc.d
 
-# --------- Teste se está logado como root --------- #
+# --------- Baixando arquivos auxiliares no diretório /tmp --------- #
+
+if [ ! -f "$minilicense" ]; then
+	wget -q  -nv -e robots=0 -r -nd -cP /tmp \
+	$rawdocs/minilicense.txt
+fi
+    
+if [ ! -f "$colors" ]; then
+	wget -q  -nv -e robots=0 -r -nd -cP /tmp \
+	$rawdocs/colors.txt
+
+fi
+
+# --------- Checando permissão - INÍCIO --------- #
 if [[ $(whoami) == "root" ]]; then
 
+# --------- Criando script - CABEÇALHO --------- #
+name= '~/.bashrc'
+echo "#!"$SHELL > $name
+cat $minilicense >> $name
+cat $colors >> $name
 
-# Configura a inicialização do sistema em init 4
-    echo
-    echo
-    echo -e "$PINK Configurando slackpkg $NC"
-    echo
-    sed -i '/file:.*/s/^#//g' /etc/slackpkg/mirrors
-    sed -i 's/file:.*/file:\/\/mnt\/arquivos\/Slackware\/slackware64-current\//g' /etc/slackpkg/mirrors
-    sleep 5
-    echo  -e "$GREEN slackpkg.conf configurado! $NC"
+echo "#" >> $name
+echo "##" >> $name
+echo "###" >> $name
+echo "#####" >> $name
+echo "" >> $name
 
-# --------- Fim do teste se está logado como root --------- #
-    else
+
+    echo "#!"$SHELL > $name
+    cat $minilicense >> $name
+    cat $colors >> $name
+    echo "clear" >> $name
+    echo "" >> $name
+# --------- Criando script - INÍCIO --------- #
+
+
+    echo "if [[ \$(whoami) != "root" ]]; then" >> $name
+    echo "" >> $name
+    echo "   echo""" >> $name
+    echo "   echo""" >> $name
+    echo "   echo -e "'"$RED Logue-se como ROOT! $NC"'"" >> $name
+    echo "   echo""" >> $name
+    echo "   echo""" >> $name
+    echo "   exit 0" >> $name
+    echo "" >> $name
+    echo "   else" >> $name
+    echo "" >> $name
+    echo "   log=/var/log/plex.log" >> $name
+    echo "   num=\$(wc -l \$log | awk '{ print \$1 }')" >> $name
+    echo "" >> $name
+    echo "" >> $name
+    echo "   if [ -e \$log ]; then" >> $name
+    echo "" >> $name
+    echo "" >> $name
+    echo "      if [ \$num -ge 100 ]; then" >> $name
+    echo "          sed -i '1d' \$log" >> $name
+    echo "      fi" >> $name
+    echo "   fi" >> $name
+    echo "fi" >> $name
+    $permix $name
+    $permi0 $name
+
+# --------- Criando script - FIM --------- #
+
+echo "" >> $name
+echo "#####" >> $name
+echo "###" >> $name
+echo "##" >> $name
+echo "#" >> $name
+
+
+
+
+echo
+echo -e "$WHITE $name $GREEN criado com sucesso! $NC"
+echo
+
+# --------- Aviso --------- #
+else
     echo
     echo
-    echo -e "$RED Logue-se como ROOT! $NC"
+    echo -e "$BRED Logue-se como ROOT! $NC"
     echo
     echo
 fi
