@@ -1,5 +1,7 @@
 
 [![License Badge](https://img.shields.io/github/license/leantime/leantime?style=flat-square)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/ahlrodrigues/slackonfig/master)
+
 
 <p align="center" width="100%">
     <img src="https://bytebucket.org/ahlrodrigues/slackonfig/raw/adca69d05d4b9db0ee9cfa65f54cad4e87dabad7/imgs/Slackware1.png">
