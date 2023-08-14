@@ -89,7 +89,8 @@ git add .
 sleep 5
 echo
 echo -e "$WHITE Comentando o commit... $NC"
-git commit -m "UPDATES AND UPGRADES"
+read -p "Qual mensagem desse commit?" msg
+git commit -m "$msg"
 sleep 5
 echo
 echo -e "$WHITE Atualizando repositório... $NC"
