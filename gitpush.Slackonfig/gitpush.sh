@@ -88,8 +88,9 @@ echo -e "$WHITE Verificando arquivos modificados... $NC"
 git add .
 sleep 5
 echo
-echo -e "$WHITE Comentando o commit... $NC"
-read -p "Qual mensagem desse commit?" msg
+#echo -e "$WHITE Comentando o commit... $NC"
+echo -e "$WHITE Qual mensagem desse commit? $NC"
+read
 git commit -m "$msg"
 sleep 5
 echo
