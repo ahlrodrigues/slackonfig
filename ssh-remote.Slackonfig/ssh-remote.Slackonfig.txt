@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SERVER_LIST=/path/to/servers.txt
+
+while read REMOTE_SERVER
+do
+        ssh $REMOTE_SERVER "do_something_cool"
+done < $SERVER_LIST
+

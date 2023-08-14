@@ -21,6 +21,14 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+if [ ! $UID = 0 ]; then
+  cat << EOF
+
+This script must be run as root.
+
+EOF
+  exit 1
+fi
 
 PKGNAM=google-chrome
 RELEASE=${RELEASE:-stable}    # stable, beta, or unstable
@@ -48,14 +56,6 @@ if [ -z "$VERSION" ]; then # try to use control.tar.gz instead:
 fi
 BUILD=${BUILD:-1}
 
-if [ ! $UID = 0 ]; then
-  cat << EOF
-
-This script must be run as root.
-
-EOF
-  exit 1
-fi
 
 if ! /bin/ls google-chrome-*.deb 1> /dev/null 2> /dev/null ; then
   cat << EOF
@@ -125,4 +125,5 @@ upgradepkg --install-new /tmp/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
 
 #Apaga arquivo deb do Dropbox
 rm /home/ahlr/Dropbox/slackonfig/google-chrome.Slackonfig/google-chrome-*.deb
-
+echo ""
+echo ""

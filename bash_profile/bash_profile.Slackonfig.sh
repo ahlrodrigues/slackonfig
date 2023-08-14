@@ -89,7 +89,7 @@ fi
 if [[ $(whoami) == "root" ]]; then
 
 # --------- Variáveis do scripr --------- #
-name='/home/ahlr/.bashrc'
+name='/home/ahlr/.bash_profile'
 
 # --------- Criando script - CABEÇALHO --------- #
 
