@@ -94,9 +94,9 @@ sleep 5
 echo
 #echo -e "$WHITE Comentando o commit... $NC"
 echo -e "$WHITE Qual mensagem desse commit? $NC"
+echo
 read msg
 git commit -m "$msg"
-echo "$msg"
 sleep 5
 echo
 echo -e "$WHITE Atualizando repositório... $NC"

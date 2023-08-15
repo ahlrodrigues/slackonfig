@@ -133,7 +133,8 @@ echo
     case $install in
     Y|y)
 
-    upgradepkg --install-new $newpkg
+#    upgradepkg --install-new $newpkg
+    uṕgradepkg $pkgnew%$pkgold
 
     ;;
     N|n)
