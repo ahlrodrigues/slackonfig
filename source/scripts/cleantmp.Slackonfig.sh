@@ -84,9 +84,10 @@ rcd=/etc/rc.d
 
 if [[ $(whoami) == "root" ]]; then
 
-    echo "#!"$SHELL > $rcd/rc.local_shutdown
+    echo "#!"$SHELL >> $rcd/rc.local_shutdown
     echo "#" >> $rcd/rc.local_shutdown
     echo "#" >> $rcd/rc.local_shutdown
+    echo "#Limpa os /tmps" >> $rcd/rc.local_shutdown
     echo "cd /tmp && rm -rf -- *[!"ahlr"]* 2>/dev/null" >> $rcd/rc.local_shutdown
     echo "cd /var/tmp && rm -rf * 2>/dev/null" >> $rcd/rc.local_shutdown
     echo "/usr/bin/find /tmp -mindepth 1 -maxdepth 1 -exec /bin/rm -rf {} +;" >> $rcd/rc.local_shutdown
